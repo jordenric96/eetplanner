@@ -3,362 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gezond Eetplan Lore & Jorden</title>
+    <title>Eetplanning Lore & Jorden - V5</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #D66D58; /* Terra */
-            --primary-light: #FF8E78;
-            --secondary: #4CAF50; /* Mint-achtig groen voor gezond */
+            --primary: #D66D58; --primary-light: #FF8E78; --secondary: #4CAF50;
+            --protein-blue: #4A90E2; --leftover-purple: #9b59b6;
             --bg-gradient: linear-gradient(135deg, #FFF5F2 0%, #E8F5E9 100%);
-            --card-bg: rgba(255, 255, 255, 0.9);
-            --text: #2D3436;
-            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --card-bg: rgba(255, 255, 255, 0.95); --text: #2D3436; --shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
-
         * { box-sizing: border-box; }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--bg-gradient);
-            background-attachment: fixed;
-            color: var(--text);
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-        }
-
+        body { font-family: 'Poppins', sans-serif; background: var(--bg-gradient); color: var(--text); margin: 0; padding: 20px; }
         .container { max-width: 1100px; margin: 0 auto; }
-
-        /* Header */
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            background: white;
-            border-radius: 30px;
-            box-shadow: var(--shadow);
-            margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 8px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-
-        h1 { margin: 0; color: var(--primary); font-size: 2.2rem; }
-        .subtitle { opacity: 0.7; font-size: 1.1rem; margin-top: 10px; }
-
-        /* Pantry & Shopping Grid */
-        .top-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .glass-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
-            padding: 25px;
-            box-shadow: var(--shadow);
-            border: 1px solid white;
-        }
-
-        h2 { color: var(--primary); font-size: 1.4rem; margin-top: 0; display: flex; align-items: center; gap: 10px; }
-
-        /* Pantry Styling */
-        .pantry-list { list-style: none; padding: 0; font-size: 0.9rem; }
-        .pantry-list li { padding: 5px 0; display: flex; align-items: center; gap: 8px; }
-        .pantry-list li::before { content: '✨'; font-size: 0.8rem; }
-
-        /* Shopping List */
-        .shopping-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
-        }
-
-        .category h3 { font-size: 0.95rem; border-bottom: 2px solid #eee; padding-bottom: 5px; color: var(--secondary); }
+        header { text-align: center; padding: 25px; background: white; border-radius: 30px; box-shadow: var(--shadow); margin-bottom: 20px; }
+        .price-tag { background: var(--primary); color: white; padding: 10px 20px; border-radius: 15px; display: inline-block; font-weight: 700; margin-bottom: 15px; }
+        .tab-menu { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .tab-btn { padding: 12px 25px; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; background: white; box-shadow: var(--shadow); transition: 0.3s; }
+        .tab-btn.active { background: var(--primary); color: white; }
+        .tab-content { display: none; } .tab-content.active { display: block; }
+        .glass-card { background: var(--card-bg); border-radius: 25px; padding: 25px; box-shadow: var(--shadow); margin-bottom: 20px; border: 1px solid white; }
+        .shopping-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+        h4 { color: var(--secondary); border-bottom: 2px solid #f0f0f0; padding-bottom: 5px; margin-bottom: 10px; }
         .item-list { list-style: none; padding: 0; margin: 0; }
-        .item-list li {
-            font-size: 0.85rem;
-            padding: 4px 8px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            justify-content: space-between;
-        }
-        .item-list li:hover { background: #f0f0f0; }
-        .item-list li.checked { text-decoration: line-through; opacity: 0.4; background: #e8f5e9; }
-        .price { font-weight: bold; color: var(--primary); }
-
-        /* Calendar Grid */
-        .calendar-title { text-align: center; margin-bottom: 20px; }
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 15px;
-        }
-
-        .day-card {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 2px solid transparent;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 160px;
-        }
-
-        .day-card:hover:not(.rest-day) {
-            transform: translateY(-8px);
-            border-color: var(--primary-light);
-            box-shadow: 0 15px 30px rgba(214, 109, 88, 0.2);
-            background: linear-gradient(to bottom, #ffffff, #fff5f2);
-        }
-
-        .day-date { font-weight: 700; font-size: 0.8rem; color: #b2bec3; text-transform: uppercase; letter-spacing: 1px; }
-        .day-meal { font-weight: 600; font-size: 1rem; margin: 10px 0; color: var(--text); }
-        .day-kcal { font-size: 0.75rem; background: #f1f2f6; padding: 4px 10px; border-radius: 12px; color: #636e72; }
-
-        .rest-day { background: rgba(0,0,0,0.03); border: 2px dashed #dfe6e9; cursor: default; }
-        .rest-day .day-meal { opacity: 0.5; font-style: italic; }
-
-        /* Modal Styling */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0; top: 0; width: 100%; height: 100%;
-            background: rgba(45, 52, 54, 0.6);
-            backdrop-filter: blur(8px);
-            padding: 20px;
-        }
-
-        .modal-content {
-            background: white;
-            max-width: 600px;
-            margin: 40px auto;
-            border-radius: 30px;
-            padding: 40px;
-            position: relative;
-            animation: slideUp 0.4s ease;
-        }
-
-        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 2rem; cursor: pointer; color: #b2bec3; }
-        .recipe-header { border-bottom: 2px solid #f1f2f6; margin-bottom: 20px; padding-bottom: 10px; }
-        .recipe-badge { background: var(--primary); color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.8rem; margin-right: 10px; }
-
-        .ing-list { background: #f9f9f9; padding: 20px; border-radius: 20px; margin: 20px 0; }
-        .ing-list ul { padding-left: 20px; }
-
-        @media (max-width: 768px) {
-            .top-grid { grid-template-columns: 1fr; }
-            h1 { font-size: 1.6rem; }
-            .calendar-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+        .item-list li { font-size: 0.85rem; padding: 8px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; cursor: pointer; }
+        .item-list li.checked { text-decoration: line-through; opacity: 0.4; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .day-card { background: white; border-radius: 20px; padding: 15px; text-align: center; box-shadow: var(--shadow); cursor: pointer; display: flex; flex-direction: column; min-height: 240px; transition: 0.3s; }
+        .day-card:hover { transform: translateY(-5px); border: 2px solid var(--primary-light); }
+        .leftover-label { font-size: 0.65rem; font-weight: 700; padding: 4px 10px; border-radius: 8px; margin-bottom: 10px; text-transform: uppercase; }
+        .label-save { background: #E8F5E9; color: var(--secondary); } 
+        .label-use { background: #F3E5F5; color: var(--leftover-purple); }
+        .stat-pill { font-size: 0.7rem; padding: 4px 10px; border-radius: 10px; font-weight: 700; margin-top: 5px; display: inline-block; }
+        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); }
+        .modal-content { background: white; max-width: 550px; margin: 5vh auto; border-radius: 25px; padding: 30px; position: relative; max-height: 90vh; overflow-y: auto; }
+        .swap-box { background: #EBF5FF; border-left: 5px solid var(--protein-blue); padding: 15px; border-radius: 10px; margin-top: 15px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
-
 <div class="container">
-    <header>
-        <h1>🍏 Gezond Eetplan Lore & Jorden</h1>
-        <div class="subtitle">Maandag 6 Jan t/m Vrijdag 17 Jan 2025 • 3 Personen</div>
-    </header>
+    <header><h1>🍽️ Eetplanning Lore & Jorden</h1></header>
+    <div class="tab-menu">
+        <button class="tab-btn active" onclick="openTab(event, 'p1')">Week 1 & 2</button>
+        <button class="tab-btn" onclick="openTab(event, 'p2')">Week 3 & 4</button>
+    </div>
 
-    <div class="top-grid">
+    <div id="p1" class="tab-content active">
         <div class="glass-card">
-            <h2>🧂 Basisvoorraad</h2>
-            <ul class="pantry-list">
-                <li>Olie, Peper & Zout</li>
-                <li>Bouillonblokjes</li>
-                <li>Sojasaus & Mosterd</li>
-                <li>Paprika / Kerrie / Oregano</li>
-                <li>Tomatenpuree</li>
-            </ul>
-        </div>
-
-        <div class="glass-card">
-            <h2>🛒 Boodschappenlijst (Delhaize)</h2>
+            <div class="price-tag">Totaal Week 1-2: +/- €55,00</div>
             <div class="shopping-grid">
-                <div class="category">
-                    <h3>Vers & Diepvries</h3>
-                    <ul class="item-list">
-                        <li><span>Kipgehakt (1kg)</span><span class="price">€9.98</span></li>
-                        <li><span>Chipolata (1kg)</span><span class="price">€9.50</span></li>
-                        <li><span>Spinazie (1kg DV)</span><span class="price">€1.29</span></li>
-                        <li><span>Erwten (1kg DV)</span><span class="price">€1.89</span></li>
-                    </ul>
-                </div>
-                <div class="category">
-                    <h3>Groenten (AGF)</h3>
-                    <ul class="item-list">
-                        <li><span>Aardappel (1.5kg)</span><span class="price">€2.50</span></li>
-                        <li><span>Wortel (2kg)</span><span class="price">€1.69</span></li>
-                        <li><span>Ui (2kg)</span><span class="price">€1.99</span></li>
-                        <li><span>Courgette (3st)</span><span class="price">€2.50</span></li>
-                    </ul>
-                </div>
-                <div class="category">
-                    <h3>Voorraadkast</h3>
-                    <ul class="item-list">
-                        <li><span>Pasta (1.5kg)</span><span class="price">€3.00</span></li>
-                        <li><span>Rijst (2kg)</span><span class="price">€2.99</span></li>
-                        <li><span>Tomaten (6 blikken)</span><span class="price">€3.90</span></li>
-                        <li><span>Kokosmelk (1st)</span><span class="price">€1.35</span></li>
-                    </ul>
-                </div>
+                <div><h4>🥩 Vlees & Vis</h4><ul class="item-list" id="vlees1"></ul></div>
+                <div><h4>🥦 Groenten</h4><ul class="item-list" id="groenten1"></ul></div>
+                <div><h4>🥫 Voorraadkast</h4><ul class="item-list" id="voorraad1"></ul></div>
             </div>
-            <div style="text-align:right; margin-top:15px; font-weight:bold; color:var(--secondary)">Totaal: +/- €60</div>
         </div>
+        <div class="calendar-grid" id="cal1"></div>
     </div>
 
-    <div class="calendar-title">
-        <h2>📅 Jouw Maaltijdplan</h2>
-        <p>Klik op een dag voor het recept</p>
+    <div id="p2" class="tab-content">
+        <div class="glass-card">
+            <div class="price-tag">Totaal Week 3-4: +/- €58,00</div>
+            <div class="shopping-grid">
+                <div><h4>🥩 Vlees & Vis</h4><ul class="item-list" id="vlees2"></ul></div>
+                <div><h4>🥦 Groenten</h4><ul class="item-list" id="groenten2"></ul></div>
+                <div><h4>🥫 Voorraadkast</h4><ul class="item-list" id="voorraad2"></ul></div>
+            </div>
+        </div>
+        <div class="calendar-grid" id="cal2"></div>
     </div>
-
-    <div class="calendar-grid" id="calendar"></div>
 </div>
 
 <div id="recipeModal" class="modal">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <div class="recipe-header">
-            <h2 id="modalTitle"></h2>
-            <span class="recipe-badge" id="modalKcal"></span>
-            <span class="recipe-badge" style="background:var(--secondary)">3 Personen</span>
-        </div>
-        <div class="ing-list">
-            <strong>Benodigdheden:</strong>
-            <ul id="modalIng"></ul>
-        </div>
-        <strong>Bereiding:</strong>
-        <div id="modalSteps" style="margin-top:10px"></div>
+        <span onclick="closeModal()" style="position:absolute;right:25px;top:15px;font-size:30px;cursor:pointer;">&times;</span>
+        <h2 id="mTitle" style="color:var(--primary);margin-top:0;"></h2>
+        <div id="mIng" style="background:#f9f9f9; padding:15px; border-radius:15px; margin-bottom:15px;"></div>
+        <strong>Bereiding:</strong><ol id="mSteps" style="margin-top:10px;"></ol>
+        <div id="mSwap" class="swap-box"></div>
     </div>
 </div>
 
 <script>
-    const plan = [
-        { date: "Zo 5 Jan", meal: "Vrije dag", isRest: true },
-        {
-            date: "Ma 6 Jan",
-            meal: "Pasta Bolognese",
-            kcal: "650 kcal p.p.",
-            ing: ["500g Kipgehakt", "2 blikken tomaten", "3 wortels & 3 uien", "375g Pasta"],
-            steps: "Kook de pasta. Bak het gehakt rul met gesnipperde groenten en voeg de tomaten toe. Laat 15 min. pruttelen."
-        },
-        {
-            date: "Di 7 Jan",
-            meal: "Aziatische Kip Wok",
-            kcal: "580 kcal p.p.",
-            ing: ["500g Kipgehakt (gaar)", "4 wortels", "1 courgette", "250g Rijst"],
-            steps: "Kook rijst. Wok de groenten in reepjes. Voeg het gare gehakt en een flinke scheut sojasaus toe."
-        },
-        {
-            date: "Wo 8 Jan",
-            meal: "Chili Sin Carne",
-            kcal: "520 kcal p.p.",
-            ing: ["2 blikken kidneybonen", "1 blik tomaten", "Maïs", "Rijst"],
-            steps: "Maak een grote pot chili met bonen, maïs en tomaat. Serveer met rijst. Bewaar de helft!"
-        },
-        {
-            date: "Do 9 Jan",
-            meal: "Chili Wraps",
-            kcal: "610 kcal p.p.",
-            ing: ["Restant Chili", "6-8 Wraps", "Rijst"],
-            steps: "Warm de chili van gisteren op en vul de wraps ermee. Eventueel even in de pan grillen."
-        },
-        {
-            date: "Vr 10 Jan",
-            meal: "Tonijn-Spinazie Pasta",
-            kcal: "690 kcal p.p.",
-            ing: ["3 blikken tonijn", "500g Spinazie (DV)", "250ml Room", "375g Pasta"],
-            steps: "Kook pasta. Verwarm spinazie met room. Meng op het laatst de tonijn erdoor zodat deze niet droog wordt."
-        },
-        { date: "Za 11 Jan", meal: "Vrije dag", isRest: true },
-        { date: "Zo 12 Jan", meal: "Vrije dag", isRest: true },
-        {
-            date: "Ma 13 Jan",
-            meal: "Worst & Wortel-Stamppot",
-            kcal: "720 kcal p.p.",
-            ing: ["6 Chipolata's", "1kg Aardappel", "Restant wortels"],
-            steps: "Kook aardappels en wortels samen gaar. Bak de worstjes. Stamp de groenten grof met wat kookvocht."
-        },
-        {
-            date: "Di 14 Jan",
-            meal: "Snelle Jambalaya",
-            kcal: "640 kcal p.p.",
-            ing: ["4 Chipolata's (schijfjes)", "250g Rijst", "1 blik tomaten", "1 courgette"],
-            steps: "Bak worstschijfjes en courgette. Voeg tomatenblokjes en gekookte rijst toe. Kruid stevig met paprika."
-        },
-        {
-            date: "Wo 15 Jan",
-            meal: "Romige Linzencurry",
-            kcal: "550 kcal p.p.",
-            ing: ["250g Linzen", "400ml Kokosmelk", "1 blik tomaten", "Rijst"],
-            steps: "Kook de linzen. Maak een saus van kokosmelk en tomaat. Voeg de linzen toe en serveer met rijst."
-        },
-        {
-            date: "Do 16 Jan",
-            meal: "Pasta Pesto & Courgette",
-            kcal: "630 kcal p.p.",
-            ing: ["375g Pasta", "Potje Pesto", "2 Courgettes"],
-            steps: "Bak courgetteblokjes goudbruin. Meng de gekookte pasta met een heel potje pesto en de courgette."
-        },
-        {
-            date: "Vr 17 Jan",
-            meal: "Nasi Goreng",
-            kcal: "540 kcal p.p.",
-            ing: ["300g Rijst", "400g Erwten (DV)", "4 Eieren", "Sojasaus"],
-            steps: "Bak een roerei. Bak de rijst op hoog vuur met de erwten en sojasaus. Meng het ei erdoor."
-        }
+    const s1 = {
+        v: ["Kipgehakt (1kg) - €9.98", "Chipolata (1kg) - €9.50", "Tonijn (3 blik) - €4.50", "Eieren (6st) - €1.79"],
+        g: ["Aardappelen (1.5kg) - €2.50", "Wortelen (2kg) - €1.69", "Uien (2kg) - €1.99", "Courgettes (3st) - €2.50", "Spinazie (DV) - €1.29", "Erwten (DV) - €1.89", "Look - €0.99"],
+        k: ["Pasta (1.5kg) - €3.00", "Rijst (2kg) - €2.99", "Tomatenblokjes (6x) - €3.90", "Kidneybonen (2x) - €1.80", "Linzen (500g) - €1.39", "Maïs blik - €0.79", "Pesto potje - €1.69", "Wraps (8st) - €1.59", "Kokosmelk - €1.35", "Room (2x) - €1.70"]
+    };
+    const s2 = {
+        v: ["Varkenshaas (600g) - €10.20", "Kabeljauw (450g) - €11.45", "Rundergehakt (500g) - €5.95", "Kipfilet (600g) - €7.80", "Eieren (6st) - €1.79"],
+        g: ["Broccoli (500g) - €1.49", "Champignons (500g) - €2.15", "Zoete Aardappel (1kg) - €2.49", "Paprika Mix (3st) - €2.25", "Sla mix - €1.50"],
+        k: ["Passata (500ml) - €0.95", "Quinoa (300g) - €2.19", "Extra rijst/pasta - €3.00", "Sojasaus/Mosterd - €3.00", "Bouillon/Kruiden - €2.00"]
+    };
+
+    const p1 = [
+        { d: "Ma 5 Jan", m: "Pasta Bolognese", k: "650", p: "32", t: "25", l: "save", lbl: "📦 Extra saus maken", ing: ["500g Kipgehakt", "375g Pasta", "800g Tomatenblokjes", "Wortel/Ui"], steps: ["Kook de pasta.", "Bak gehakt met ui en wortel.", "Voeg tomatenblokjes toe en sudder 15 min.", "Meng alles."], swap: "💡 Gebruik kookroom voor een zachtere saus." },
+        { d: "Di 6 Jan", m: "Aziatische Kip Wok", k: "580", p: "30", t: "20", ing: ["500g Kipgehakt", "250g Rijst", "1 Courgette", "2 Wortels"], steps: ["Kook de rijst.", "Wok groenten beetgaar.", "Voeg gehakt en sojasaus toe.", "Meng met rijst."], swap: "💡 Gebruik overschot pasta als noodles." },
+        { d: "Wo 7 Jan", m: "Gekruide Linzenstoof", k: "510", p: "26", t: "25", l: "save", lbl: "📦 Bewaar basis voor morgen", ing: ["Linzen (250g)", "Kokosmelk", "Tomatenblokjes", "Look/Ui"], steps: ["Fruit ui en look.", "Voeg linzen en tomaten toe.", "Laat 15 min sudderen met kokosmelk.", "Kruid stevig af."], swap: "💡 Serveer met een klein schepje rijst." },
+        { d: "Do 8 Jan", m: "Gevulde Wraps (Kip/Maïs)", k: "640", p: "29", t: "15", l: "use", lbl: "♻️ Gebruik Linzenbasis", ing: ["Wraps", "Restant linzenstoof", "Maïs", "Courgette"], steps: ["Bak courgetteblokjes.", "Meng de maïs door de linzenstoof.", "Warm de wraps op.", "Vul en rol de wraps."], swap: "💡 Voeg wat geraspte kaas toe indien aanwezig." },
+        { d: "Vr 9 Jan", m: "Tonijn-Spinazie Pasta", k: "690", p: "35", t: "15", ing: ["Tonijn", "Pasta", "Spinazie", "Room"], steps: ["Kook pasta.", "Warm spinazie met room.", "Voeg tonijn toe.", "Meng alles."], swap: "💡 Voeg mosterd toe voor pit." },
+        { d: "Ma 12 Jan", m: "Worst & Stamppot", k: "720", p: "26", t: "30", l: "save", lbl: "📦 Bewaar 2 worsten", ing: ["Chipolata", "Aardappel", "Wortel"], steps: ["Kook aardappel/wortel.", "Bak worsten.", "Stamp groenten met melk."], swap: "💡 Kerriepoeder is een aanrader." },
+        { d: "Di 13 Jan", m: "Snelle Jambalaya", k: "640", p: "25", t: "25", l: "use", lbl: "♻️ Gebruik Worst", ing: ["Worst", "Rijst", "Tomaat", "Courgette"], steps: ["Bak worstschijfjes.", "Voeg courgette en tomaat toe.", "Meng met rijst."], swap: "💡 Voeg extra maïs toe." },
+        { d: "Wo 14 Jan", m: "Linzencurry", k: "550", p: "22", t: "20", ing: ["Linzen", "Kokosmelk", "Tomaat", "Rijst"], steps: ["Kook rijst.", "Maak curry van kokos/tomaat/linzen.", "Sudder 10 min."], swap: "💡 Lekker met een wrap erbij." },
+        { d: "Do 15 Jan", m: "Pasta Pesto", k: "630", p: "18", t: "15", ing: ["Pasta", "Pesto", "Courgette"], steps: ["Kook pasta.", "Bak courgette.", "Meng met pesto."], swap: "💡 Voeg een gekookt ei toe." },
+        { d: "Vr 16 Jan", m: "Nasi Goreng", k: "540", p: "24", t: "20", ing: ["Rijst", "Erwten", "Eieren"], steps: ["Bak roerei.", "Wok koude rijst met erwten.", "Meng alles."], swap: "💡 Gebruik restgroenten." }
     ];
 
-    const container = document.getElementById('calendar');
-    const modal = document.getElementById('recipeModal');
+    const p2 = [
+        { d: "Ma 19 Jan", m: "Varkenshaas & Broccoli", k: "590", p: "38", t: "25", ing: ["Varkenshaas", "Broccoli", "Aardappel"], steps: ["Kook aardappel/broccoli.", "Bak varkenshaas 12 min.", "Serveer."], swap: "💡 Room-mosterd sausje maken." },
+        { d: "Di 20 Jan", m: "Pasta Rundergehakt", k: "610", p: "32", t: "20", l: "save", lbl: "📦 Bewaar voor vrijdag", ing: ["Gehakt", "Pasta", "Passata"], steps: ["Kook pasta.", "Bak gehakt.", "Voeg passata toe."], swap: "💡 Gebruik Italiaanse kruiden." },
+        { d: "Wo 21 Jan", m: "Kip & Paprika Quinoa", k: "540", p: "35", t: "20", l: "save", lbl: "📦 Bewaar voor maandag", ing: ["Kip", "Quinoa", "Paprika"], steps: ["Kook quinoa.", "Bak kip/paprika.", "Meng."], swap: "💡 Breng op smaak met sojasaus." },
+        { d: "Do 22 Jan", m: "Kabeljauw & Zoete Aard", k: "520", p: "28", t: "30", ing: ["Kabeljauw", "Zoete Aardappel", "Champignons"], steps: ["Rooster aardappel.", "Bak vis.", "Bak champignons."], swap: "💡 Paprikapoeder op de vis." },
+        { d: "Vr 23 Jan", m: "Gevulde Paprika", k: "560", p: "30", t: "35", l: "use", lbl: "♻️ Gebruik Gehakt", ing: ["Paprika", "Restant Gehakt", "Rijst"], steps: ["Vul paprika met gehakt/rijst.", "Bak 20 min in oven."], swap: "💡 Quinoa werkt ook." },
+        { d: "Ma 26 Jan", m: "Kip-Champignon Room", k: "620", p: "40", t: "25", l: "use", lbl: "♻️ Gebruik Kip", ing: ["Kip", "Champignons", "Room", "Rijst"], steps: ["Kook rijst.", "Bak champignons/kip.", "Voeg room toe."], swap: "💡 Gebruik een bouillonblokje." },
+        { d: "Di 27 Jan", m: "Pasta Broccoli-Tonijn", k: "580", p: "34", t: "15", ing: ["Pasta", "Broccoli", "Tonijn"], steps: ["Kook pasta/broccoli.", "Meng met tonijn."], swap: "💡 Drupje citroen toevoegen." },
+        { d: "Wo 28 Jan", m: "Zoete Aardappel Curry", k: "550", p: "20", t: "25", ing: ["Zoete Aardappel", "Kokosmelk", "Linzen"], steps: ["Bak aardappel.", "Sudder met kokos/linzen."], swap: "💡 Serveer met wraps." },
+        { d: "Do 29 Jan", m: "Gehakt-Paprika Schotel", k: "590", p: "31", t: "20", ing: ["Gehakt", "Paprika", "Aardappel"], steps: ["Bak alles in één pan goudbruin."], swap: "💡 Ei erbovenop." },
+        { d: "Vr 30 Jan", m: "Restjes-Wok Quinoa", k: "510", p: "25", t: "15", ing: ["Quinoa", "Restgroenten", "Eieren"], steps: ["Wok alles met ei."], swap: "💡 Gebruik kruidenmix." }
+    ];
 
-    plan.forEach((d, i) => {
-        const card = document.createElement('div');
-        card.className = `day-card ${d.isRest ? 'rest-day' : ''}`;
-        card.innerHTML = `
-            <div class="day-date">${d.date}</div>
-            <div class="day-meal">${d.meal}</div>
-            ${d.kcal ? `<div class="day-kcal">${d.kcal}</div>` : ''}
-        `;
-        if(!d.isRest) card.onclick = () => showRecipe(i);
-        container.appendChild(card);
-    });
-
-    function showRecipe(i) {
-        const d = plan[i];
-        document.getElementById('modalTitle').innerText = d.meal;
-        document.getElementById('modalKcal').innerText = d.kcal;
-        document.getElementById('modalIng').innerHTML = d.ing.map(item => `<li>${item}</li>`).join('');
-        document.getElementById('modalSteps').innerText = d.steps;
-        modal.style.display = 'block';
+    function openTab(e, n) {
+        document.querySelectorAll('.tab-content, .tab-btn').forEach(x => x.classList.remove('active'));
+        document.getElementById(n).classList.add('active'); e.currentTarget.classList.add('active');
     }
-
-    document.querySelector('.close-btn').onclick = () => modal.style.display = 'none';
-    window.onclick = (e) => { if(e.target == modal) modal.style.display = 'none'; }
-    document.querySelectorAll('.item-list li').forEach(li => {
-        li.onclick = () => li.classList.toggle('checked');
-    });
+    function renderS(data, v, g, k) {
+        const f = (l, d) => d.forEach(i => { 
+            const li = document.createElement('li'); 
+            li.innerHTML = `<span>${i.split(' - ')[0]}</span><b>${i.split(' - ')[1]}</b>`; 
+            li.onclick = () => li.classList.toggle('checked'); 
+            document.getElementById(l).appendChild(li); 
+        });
+        f(v, data.v); f(g, data.g); f(k, data.k);
+    }
+    function renderC(data, id) {
+        data.forEach(x => {
+            const c = document.createElement('div'); c.className = 'day-card';
+            c.innerHTML = `<div style="font-size:0.75rem;color:#999;font-weight:600">${x.d}</div>${x.lbl?`<div class="leftover-label ${x.l==='save'?'label-save':'label-use'}">${x.lbl}</div>`:''}<div style="font-weight:700;margin:10px 0;color:var(--primary);flex-grow:1">${x.m}</div><div><span class="stat-pill" style="background:#E3F2FD">💪 ${x.p}g</span> <span class="stat-pill" style="background:#F1F2F6">🕒 ${x.t}m</span></div>`;
+            c.onclick = () => { 
+                document.getElementById('mTitle').innerText = x.m; 
+                document.getElementById('mIng').innerHTML = `<strong>Nodig:</strong><br>${x.ing.join(', ')}`;
+                document.getElementById('mSteps').innerHTML = x.steps.map(s => `<li>${s}</li>`).join('');
+                document.getElementById('mSwap').innerText = x.swap;
+                document.getElementById('recipeModal').style.display='block'; 
+            };
+            document.getElementById(id).appendChild(c);
+        });
+    }
+    function closeModal() { document.getElementById('recipeModal').style.display='none'; }
+    window.onload = () => { renderS(s1, 'vlees1', 'groenten1', 'voorraad1'); renderS(s2, 'vlees2', 'groenten2', 'voorraad2'); renderC(p1, 'cal1'); renderC(p2, 'cal2'); };
 </script>
-
 </body>
 </html>
