@@ -3,193 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gezond & Goedkoop Eetplan</title>
+    <title>Gezond Eetplan Lore & Jorden</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --terra-dark: #A04030;
-            --terra-main: #D66D58;
-            --terra-light: #E8A898;
-            --terra-bg: #FFF5F2;
-            --text-color: #4A4A4A;
-            --white: #FFFFFF;
+            --primary: #D66D58; /* Terra */
+            --primary-light: #FF8E78;
+            --secondary: #4CAF50; /* Mint-achtig groen voor gezond */
+            --bg-gradient: linear-gradient(135deg, #FFF5F2 0%, #E8F5E9 100%);
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text: #2D3436;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
+        * { box-sizing: border-box; }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--terra-bg);
-            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text);
             margin: 0;
             padding: 20px;
             line-height: 1.6;
         }
 
-        h1, h2, h3 { color: var(--terra-dark); }
-        .container { max-width: 1000px; margin: 0 auto; }
+        .container { max-width: 1100px; margin: 0 auto; }
 
-        .shopping-section {
-            background-color: var(--white);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-bottom: 40px;
-            border-left: 10px solid var(--terra-main);
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
         }
 
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 8px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        h1 { margin: 0; color: var(--primary); font-size: 2.2rem; }
+        .subtitle { opacity: 0.7; font-size: 1.1rem; margin-top: 10px; }
+
+        /* Pantry & Shopping Grid */
+        .top-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid white;
+        }
+
+        h2 { color: var(--primary); font-size: 1.4rem; margin-top: 0; display: flex; align-items: center; gap: 10px; }
+
+        /* Pantry Styling */
+        .pantry-list { list-style: none; padding: 0; font-size: 0.9rem; }
+        .pantry-list li { padding: 5px 0; display: flex; align-items: center; gap: 8px; }
+        .pantry-list li::before { content: '✨'; font-size: 0.8rem; }
+
+        /* Shopping List */
         .shopping-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 20px;
         }
 
-        .category h3 {
-            border-bottom: 2px solid var(--terra-light);
-            padding-bottom: 5px;
-            margin-bottom: 10px;
-        }
-
-        .item-list { list-style: none; padding: 0; }
+        .category h3 { font-size: 0.95rem; border-bottom: 2px solid #eee; padding-bottom: 5px; color: var(--secondary); }
+        .item-list { list-style: none; padding: 0; margin: 0; }
         .item-list li {
+            font-size: 0.85rem;
+            padding: 4px 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
             display: flex;
             justify-content: space-between;
-            font-size: 0.9em;
-            margin-bottom: 5px;
-            cursor: pointer;
         }
-        .item-list li.checked { text-decoration: line-through; opacity: 0.5; }
+        .item-list li:hover { background: #f0f0f0; }
+        .item-list li.checked { text-decoration: line-through; opacity: 0.4; background: #e8f5e9; }
+        .price { font-weight: bold; color: var(--primary); }
 
-        .price { font-weight: bold; color: var(--terra-main); }
-        .total-price {
-            margin-top: 20px;
-            text-align: right;
-            font-size: 1.2em;
-            font-weight: bold;
-            color: var(--terra-dark);
-        }
-
+        /* Calendar Grid */
+        .calendar-title { text-align: center; margin-bottom: 20px; }
         .calendar-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 15px;
         }
 
         .day-card {
-            background-color: var(--white);
-            border-radius: 10px;
-            padding: 15px;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid var(--terra-light);
-            min-height: 140px;
+            border: 2px solid transparent;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            min-height: 160px;
         }
 
-        .day-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(214, 109, 88, 0.3);
-            background-color: var(--terra-main);
-            color: white;
+        .day-card:hover:not(.rest-day) {
+            transform: translateY(-8px);
+            border-color: var(--primary-light);
+            box-shadow: 0 15px 30px rgba(214, 109, 88, 0.2);
+            background: linear-gradient(to bottom, #ffffff, #fff5f2);
         }
 
-        .day-date { font-size: 0.8em; color: var(--terra-dark); font-weight: bold; }
-        .day-meal { font-weight: 600; font-size: 0.95em; margin: 10px 0; }
-        .day-cals { font-size: 0.75em; opacity: 0.8; font-style: italic; }
+        .day-date { font-weight: 700; font-size: 0.8rem; color: #b2bec3; text-transform: uppercase; letter-spacing: 1px; }
+        .day-meal { font-weight: 600; font-size: 1rem; margin: 10px 0; color: var(--text); }
+        .day-kcal { font-size: 0.75rem; background: #f1f2f6; padding: 4px 10px; border-radius: 12px; color: #636e72; }
 
-        .day-card:hover .day-date, .day-card:hover .day-meal, .day-card:hover .day-cals { color: white; }
+        .rest-day { background: rgba(0,0,0,0.03); border: 2px dashed #dfe6e9; cursor: default; }
+        .rest-day .day-meal { opacity: 0.5; font-style: italic; }
 
-        .day-card.rest-day { background-color: #f0f0f0; cursor: default; opacity: 0.7; border: 1px dashed #ccc; }
-
+        /* Modal Styling */
         .modal {
             display: none;
             position: fixed;
-            z-index: 1000;
+            z-index: 2000;
             left: 0; top: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            overflow-y: auto;
+            background: rgba(45, 52, 54, 0.6);
+            backdrop-filter: blur(8px);
+            padding: 20px;
         }
 
         .modal-content {
-            background-color: var(--white);
-            margin: 5% auto;
-            padding: 30px;
-            border-radius: 15px;
-            width: 90%;
+            background: white;
             max-width: 600px;
+            margin: 40px auto;
+            border-radius: 30px;
+            padding: 40px;
             position: relative;
-            border-top: 10px solid var(--terra-main);
+            animation: slideUp 0.4s ease;
         }
 
-        .close-btn { position: absolute; top: 10px; right: 20px; font-size: 28px; cursor: pointer; }
-        .recipe-ingredients { background-color: var(--terra-bg); padding: 15px; border-radius: 8px; margin-bottom: 20px; }
-        .cal-badge {
-            display: inline-block;
-            background: var(--terra-main);
-            color: white;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            margin-bottom: 15px;
-        }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        @media (max-width: 600px) { .calendar-grid { grid-template-columns: repeat(2, 1fr); } }
+        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 2rem; cursor: pointer; color: #b2bec3; }
+        .recipe-header { border-bottom: 2px solid #f1f2f6; margin-bottom: 20px; padding-bottom: 10px; }
+        .recipe-badge { background: var(--primary); color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.8rem; margin-right: 10px; }
+
+        .ing-list { background: #f9f9f9; padding: 20px; border-radius: 20px; margin: 20px 0; }
+        .ing-list ul { padding-left: 20px; }
+
+        @media (max-width: 768px) {
+            .top-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 1.6rem; }
+            .calendar-grid { grid-template-columns: repeat(2, 1fr); }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div style="text-align: center; margin-bottom: 40px;">
-        <h1>🍽️ Gezond & Goedkoop Eetplan</h1>
-        <p>Budgetvriendelijk 2-weken schema voor 3 personen.<br>
-        <small><i>Klik op een dag voor het recept en de kcal per portie.</i></small></p>
+    <header>
+        <h1>🍏 Goedkoop & Gezond</h1>
+        <div class="subtitle">Maandag 6 Jan t/m Vrijdag 17 Jan 2025 • 3 Personen</div>
+    </header>
+
+    <div class="top-grid">
+        <div class="glass-card">
+            <h2>🧂 Basisvoorraad</h2>
+            <ul class="pantry-list">
+                <li>Olie, Peper & Zout</li>
+                <li>Bouillonblokjes</li>
+                <li>Sojasaus & Mosterd</li>
+                <li>Paprika / Kerrie / Oregano</li>
+                <li>Tomatenpuree</li>
+            </ul>
+        </div>
+
+        <div class="glass-card">
+            <h2>🛒 Boodschappenlijst (Delhaize)</h2>
+            <div class="shopping-grid">
+                <div class="category">
+                    <h3>Vers & Diepvries</h3>
+                    <ul class="item-list">
+                        <li><span>Kipgehakt (1kg)</span><span class="price">€9.98</span></li>
+                        <li><span>Chipolata (1kg)</span><span class="price">€9.50</span></li>
+                        <li><span>Spinazie (1kg DV)</span><span class="price">€1.29</span></li>
+                        <li><span>Erwten (1kg DV)</span><span class="price">€1.89</span></li>
+                    </ul>
+                </div>
+                <div class="category">
+                    <h3>Groenten (AGF)</h3>
+                    <ul class="item-list">
+                        <li><span>Aardappel (1.5kg)</span><span class="price">€2.50</span></li>
+                        <li><span>Wortel (2kg)</span><span class="price">€1.69</span></li>
+                        <li><span>Ui (2kg)</span><span class="price">€1.99</span></li>
+                        <li><span>Courgette (3st)</span><span class="price">€2.50</span></li>
+                    </ul>
+                </div>
+                <div class="category">
+                    <h3>Voorraadkast</h3>
+                    <ul class="item-list">
+                        <li><span>Pasta (1.5kg)</span><span class="price">€3.00</span></li>
+                        <li><span>Rijst (2kg)</span><span class="price">€2.99</span></li>
+                        <li><span>Tomaten (6 blikken)</span><span class="price">€3.90</span></li>
+                        <li><span>Kokosmelk (1st)</span><span class="price">€1.35</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align:right; margin-top:15px; font-weight:bold; color:var(--secondary)">Totaal: +/- €60</div>
+        </div>
     </div>
 
-    <div class="shopping-section">
-        <h2>🛒 Boodschappenlijst Delhaize</h2>
-        <div class="shopping-grid">
-            <div class="category">
-                <h3>Vlees & Vis</h3>
-                <ul class="item-list">
-                    <li><span>Kipgehakt (1kg)</span> <span class="price">€ 9,98</span></li>
-                    <li><span>Chipolata (1kg - 10 stuks)</span> <span class="price">€ 9,50</span></li>
-                    <li><span>Tonijn (3 blikken à 160g)</span> <span class="price">€ 4,50</span></li>
-                </ul>
-            </div>
-            <div class="category">
-                <h3>AGF (Groente & Fruit)</h3>
-                <ul class="item-list">
-                    <li><span>Aardappelen (1.5kg)</span> <span class="price">€ 2,50</span></li>
-                    <li><span>Wortelen (2kg)</span> <span class="price">€ 1,69</span></li>
-                    <li><span>Uien (2kg)</span> <span class="price">€ 1,99</span></li>
-                    <li><span>Courgettes (3 stuks)</span> <span class="price">€ 2,50</span></li>
-                    <li><span>Look (1 netje)</span> <span class="price">€ 0,99</span></li>
-                </ul>
-            </div>
-            <div class="category">
-                <h3>Koeling & Diepvries</h3>
-                <ul class="item-list">
-                    <li><span>Eieren (6 stuks)</span> <span class="price">€ 1,79</span></li>
-                    <li><span>Kookroom (2x 250ml)</span> <span class="price">€ 1,70</span></li>
-                    <li><span>Spinazie (Diepvries 1kg)</span> <span class="price">€ 1,29</span></li>
-                    <li><span>Erwten (Diepvries 1kg)</span> <span class="price">€ 1,89</span></li>
-                </ul>
-            </div>
-            <div class="category">
-                <h3>Voorraadkast</h3>
-                <ul class="item-list">
-                    <li><span>Pasta (3x 500g)</span> <span class="price">€ 3,00</span></li>
-                    <li><span>Rijst (2kg)</span> <span class="price">€ 2,99</span></li>
-                    <li><span>Tomatenblokjes (6x 400g)</span> <span class="price">€ 3,90</span></li>
-                    <li><span>Kidneybonen (2x 400g)</span> <span class="price">€ 1,80</span></li>
-                    <li><span>Linzen (500g droog)</span> <span class="price">€ 1,39</span></li>
-                    <li><span>Maïs (1 blik 300g)</span> <span class="price">€ 0,79</span></li>
-                    <li><span>Pesto (1 potje 190g)</span> <span class="price">€ 1,69</span></li>
-                    <li><span>Wraps (1 pak à 8st)</span> <span class="price">€ 1,59</span></li>
-                    <li><span>Kokosmelk (1x 400ml)</span> <span class="price">€ 1,35</span></li>
-                </ul>
-            </div>
-        </div>
-        <div class="total-price">Geschat Totaal: +/- € 60,00</div>
+    <div class="calendar-title">
+        <h2>📅 Jouw Maaltijdplan</h2>
+        <p>Klik op een dag voor het recept</p>
     </div>
 
     <div class="calendar-grid" id="calendar"></div>
@@ -198,133 +238,125 @@
 <div id="recipeModal" class="modal">
     <div class="modal-content">
         <span class="close-btn">&times;</span>
-        <h2 id="modalTitle"></h2>
-        <div id="modalCals" class="cal-badge"></div>
-        <div class="recipe-ingredients">
-            <h3>Ingrediënten (voor 3 pers.):</h3>
-            <ul id="modalIngredients"></ul>
+        <div class="recipe-header">
+            <h2 id="modalTitle"></h2>
+            <span class="recipe-badge" id="modalKcal"></span>
+            <span class="recipe-badge" style="background:var(--secondary)">3 Personen</span>
         </div>
-        <div class="recipe-steps">
-            <h3>Bereiding:</h3>
-            <div id="modalSteps"></div>
+        <div class="ing-list">
+            <strong>Benodigdheden:</strong>
+            <ul id="modalIng"></ul>
         </div>
+        <strong>Bereiding:</strong>
+        <div id="modalSteps" style="margin-top:10px"></div>
     </div>
 </div>
 
 <script>
-    const mealPlan = [
-        { date: "Zondag 5 Jan", meal: "Geen avondeten gepland", isRest: true },
+    const plan = [
+        { date: "Zo 5 Jan", meal: "Vrije dag", isRest: true },
         {
-            date: "Maandag 6 Jan",
-            meal: "Pasta Bolognese (Kip)",
+            date: "Ma 6 Jan",
+            meal: "Pasta Bolognese",
             kcal: "650 kcal p.p.",
-            ingredients: ["500g Kipgehakt", "2 blikken tomatenblokjes (800g)", "3 uien & 3 wortelen", "375g Pasta (droog gewicht)", "2 teentjes look"],
-            steps: "<ol><li>Kook pasta.</li><li>Bak ui, look en wortel.</li><li>Voeg gehakt toe en bak rul.</li><li>Voeg tomaten toe en laat 15 min. pruttelen.</li></ol>"
+            ing: ["500g Kipgehakt", "2 blikken tomaten", "3 wortels & 3 uien", "375g Pasta"],
+            steps: "Kook de pasta. Bak het gehakt rul met gesnipperde groenten en voeg de tomaten toe. Laat 15 min. pruttelen."
         },
         {
-            date: "Dinsdag 7 Jan",
+            date: "Di 7 Jan",
             meal: "Aziatische Kip Wok",
             kcal: "580 kcal p.p.",
-            ingredients: ["500g Kipgehakt (reeds gebakken)", "4 wortelen & 1 courgette", "1 ui & 1 teentje look", "250g Rijst (droog gewicht)", "Sojasaus naar smaak"],
-            steps: "<ol><li>Kook rijst.</li><li>Wok de groenten beetgaar.</li><li>Voeg het gare gehakt en sojasaus toe.</li><li>Meng met rijst.</li></ol>"
+            ing: ["500g Kipgehakt (gaar)", "4 wortels", "1 courgette", "250g Rijst"],
+            steps: "Kook rijst. Wok de groenten in reepjes. Voeg het gare gehakt en een flinke scheut sojasaus toe."
         },
         {
-            date: "Woensdag 8 Jan",
+            date: "Wo 8 Jan",
             meal: "Chili Sin Carne",
             kcal: "520 kcal p.p.",
-            ingredients: ["2 blikken Kidneybonen (800g)", "1 blik tomatenblokjes", "1 blik maïs", "1 ui & 2 wortelen", "250g Rijst"],
-            steps: "<p>Maak een grote portie! De helft is voor morgen.</p><ol><li>Stoof ui en wortel.</li><li>Voeg tomaten en bonen/maïs toe.</li><li>Serveer de helft met rijst.</li></ol>"
+            ing: ["2 blikken kidneybonen", "1 blik tomaten", "Maïs", "Rijst"],
+            steps: "Maak een grote pot chili met bonen, maïs en tomaat. Serveer met rijst. Bewaar de helft!"
         },
         {
-            date: "Donderdag 9 Jan",
+            date: "Do 9 Jan",
             meal: "Chili Wraps",
             kcal: "610 kcal p.p.",
-            ingredients: ["Restant Chili (ca. 600-700ml)", "6-8 Tarwe-wraps", "Restje rijst (indien over)"],
-            steps: "<ol><li>Warm de chili op.</li><li>Vul de wraps en rol ze strak op.</li><li>Eventueel kort grillen in een pan.</li></ol>"
+            ing: ["Restant Chili", "6-8 Wraps", "Rijst"],
+            steps: "Warm de chili van gisteren op en vul de wraps ermee. Eventueel even in de pan grillen."
         },
         {
-            date: "Vrijdag 10 Jan",
-            meal: "Pasta Tonijn & Spinazie",
+            date: "Vr 10 Jan",
+            meal: "Tonijn-Spinazie Pasta",
             kcal: "690 kcal p.p.",
-            ingredients: ["3 blikken Tonijn", "500g Diepvriesspinazie", "250ml Kookroom", "375g Pasta", "1 ui"],
-            steps: "<ol><li>Kook pasta.</li><li>Fruit ui, voeg spinazie en room toe.</li><li>Meng de tonijn er op het laatste door.</li></ol>"
+            ing: ["3 blikken tonijn", "500g Spinazie (DV)", "250ml Room", "375g Pasta"],
+            steps: "Kook pasta. Verwarm spinazie met room. Meng op het laatst de tonijn erdoor zodat deze niet droog wordt."
         },
-        { date: "Zaterdag 11 Jan", meal: "Geen avondeten gepland", isRest: true },
-        { date: "Zondag 12 Jan", meal: "Geen avondeten gepland", isRest: true },
+        { date: "Za 11 Jan", meal: "Vrije dag", isRest: true },
+        { date: "Zo 12 Jan", meal: "Vrije dag", isRest: true },
         {
-            date: "Maandag 13 Jan",
-            meal: "Chipolata met Aardappelen",
+            date: "Ma 13 Jan",
+            meal: "Worst & Wortel-Stamppot",
             kcal: "720 kcal p.p.",
-            ingredients: ["6 Chipolata's (ca. 600g)", "1kg Aardappelen", "Restant wortelen (ca. 500g)", "1 ui"],
-            steps: "<ol><li>Kook aardappelen en wortelen.</li><li>Bak de worstjes goudbruin.</li><li>Stamp de groenten of serveer los.</li></ol>"
+            ing: ["6 Chipolata's", "1kg Aardappel", "Restant wortels"],
+            steps: "Kook aardappels en wortels samen gaar. Bak de worstjes. Stamp de groenten grof met wat kookvocht."
         },
         {
-            date: "Dinsdag 14 Jan",
-            meal: "Jambalaya (Rijst)",
+            date: "Di 14 Jan",
+            meal: "Snelle Jambalaya",
             kcal: "640 kcal p.p.",
-            ingredients: ["4 Chipolata's (400g, in schijfjes)", "250g Rijst", "1 blik tomatenblokjes", "1 courgette & 1 ui"],
-            steps: "<ol><li>Bak worstschijfjes en groenten.</li><li>Voeg tomaten en gekookte rijst toe.</li><li>Kruid stevig.</li></ol>"
+            ing: ["4 Chipolata's (schijfjes)", "250g Rijst", "1 blik tomaten", "1 courgette"],
+            steps: "Bak worstschijfjes en courgette. Voeg tomatenblokjes en gekookte rijst toe. Kruid stevig met paprika."
         },
         {
-            date: "Woensdag 15 Jan",
+            date: "Wo 15 Jan",
             meal: "Romige Linzencurry",
             kcal: "550 kcal p.p.",
-            ingredients: ["250g Gedroogde linzen", "400ml Kokosmelk", "1 blik tomatenblokjes", "2 wortelen & 1 ui", "250g Rijst"],
-            steps: "<ol><li>Kook linzen gaar.</li><li>Maak saus van ui, wortel, tomaat en kokosmelk.</li><li>Voeg linzen toe en serveer met rijst.</li></ol>"
+            ing: ["250g Linzen", "400ml Kokosmelk", "1 blik tomaten", "Rijst"],
+            steps: "Kook de linzen. Maak een saus van kokosmelk en tomaat. Voeg de linzen toe en serveer met rijst."
         },
         {
-            date: "Donderdag 16 Jan",
-            meal: "Pasta Pesto",
+            date: "Do 16 Jan",
+            meal: "Pasta Pesto & Courgette",
             kcal: "630 kcal p.p.",
-            ingredients: ["375g Pasta", "1 potje Pesto (190g)", "2 Courgettes", "Optioneel: restje room"],
-            steps: "<ol><li>Kook pasta.</li><li>Bak courgetteblokjes bruin.</li><li>Meng alles met de pesto.</li></ol>"
+            ing: ["375g Pasta", "Potje Pesto", "2 Courgettes"],
+            steps: "Bak courgetteblokjes goudbruin. Meng de gekookte pasta met een heel potje pesto en de courgette."
         },
         {
-            date: "Vrijdag 17 Jan",
-            meal: "Nasi Goreng met Ei",
+            date: "Vr 17 Jan",
+            meal: "Nasi Goreng",
             kcal: "540 kcal p.p.",
-            ingredients: ["300g Rijst (gekoeld)", "400g Diepvrieserwten", "4 Eieren", "1 ui & Sojasaus"],
-            steps: "<ol><li>Bak roerei van de eieren.</li><li>Bak ui en erwten.</li><li>Voeg rijst toe en bak op hoog vuur met sojasaus.</li></ol>"
+            ing: ["300g Rijst", "400g Erwten (DV)", "4 Eieren", "Sojasaus"],
+            steps: "Bak een roerei. Bak de rijst op hoog vuur met de erwten en sojasaus. Meng het ei erdoor."
         }
     ];
 
-    const calendarContainer = document.getElementById('calendar');
+    const container = document.getElementById('calendar');
     const modal = document.getElementById('recipeModal');
-    const closeBtn = document.querySelector('.close-btn');
 
-    mealPlan.forEach((day, index) => {
+    plan.forEach((d, i) => {
         const card = document.createElement('div');
-        card.className = `day-card ${day.isRest ? 'rest-day' : ''}`;
+        card.className = `day-card ${d.isRest ? 'rest-day' : ''}`;
         card.innerHTML = `
-            <div class="day-date">${day.date}</div>
-            <div class="day-meal">${day.meal}</div>
-            <div class="day-cals">${day.kcal || ''}</div>
+            <div class="day-date">${d.date}</div>
+            <div class="day-meal">${d.meal}</div>
+            ${d.kcal ? `<div class="day-kcal">${d.kcal}</div>` : ''}
         `;
-        if (!day.isRest) card.onclick = () => openModal(index);
-        calendarContainer.appendChild(card);
+        if(!d.isRest) card.onclick = () => showRecipe(i);
+        container.appendChild(card);
     });
 
-    function openModal(index) {
-        const data = mealPlan[index];
-        document.getElementById('modalTitle').innerText = data.meal;
-        document.getElementById('modalCals').innerText = data.kcal;
-        const ingList = document.getElementById('modalIngredients');
-        ingList.innerHTML = '';
-        data.ingredients.forEach(ing => {
-            const li = document.createElement('li');
-            li.innerText = ing;
-            ingList.appendChild(li);
-        });
-        document.getElementById('modalSteps').innerHTML = data.steps;
-        modal.style.display = "block";
+    function showRecipe(i) {
+        const d = plan[i];
+        document.getElementById('modalTitle').innerText = d.meal;
+        document.getElementById('modalKcal').innerText = d.kcal;
+        document.getElementById('modalIng').innerHTML = d.ing.map(item => `<li>${item}</li>`).join('');
+        document.getElementById('modalSteps').innerText = d.steps;
+        modal.style.display = 'block';
     }
 
-    closeBtn.onclick = () => modal.style.display = "none";
-    window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; };
-
-    // Checkbox functionaliteit voor boodschappenlijst
-    document.querySelectorAll('.item-list li').forEach(item => {
-        item.onclick = () => item.classList.toggle('checked');
+    document.querySelector('.close-btn').onclick = () => modal.style.display = 'none';
+    window.onclick = (e) => { if(e.target == modal) modal.style.display = 'none'; }
+    document.querySelectorAll('.item-list li').forEach(li => {
+        li.onclick = () => li.classList.toggle('checked');
     });
 </script>
 
