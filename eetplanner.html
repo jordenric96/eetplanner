@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eetplanning Hub Pro V53</title>
+    <title>Eetplanning Hub Pro V54</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #D66D58; --secondary: #4CAF50; --bg: #FFF5F2; --card: #ffffff; --text: #2D3436; --gray: #b2b2b2; }
@@ -61,11 +61,9 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; flex-direction: column;
         }
         
-        /* VISUELE STATUS: COMPLETED */
         .day-card.completed { opacity: 0.6; filter: grayscale(0.8); background: rgba(255,255,255,0.4); border-color: #ddd; }
         .day-card.completed h3 { text-decoration: line-through; }
         
-        /* CHECK BUTTON STYLING */
         .check-btn { 
             position: absolute; top: 15px; right: 15px; width: 32px; height: 32px; 
             border-radius: 50%; background: #eee; border: none; cursor: pointer;
@@ -79,7 +77,6 @@
         .stat-bar { display: flex; gap: 10px; font-size: 0.8rem; color: #777; margin-bottom: 15px; font-weight: 600; }
         .mini-ing-box { background: rgba(0,0,0,0.03); padding: 12px; border-radius: 15px; font-size: 0.85rem; color: #555; flex-grow: 1; line-height: 1.5; }
 
-        /* MODAL */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); }
         .modal-content { background: var(--card); margin: 5% auto; padding: 40px; width: 90%; max-width: 600px; border-radius: 30px; position: relative; max-height: 90vh; overflow-y: auto; }
         .close { position: absolute; right: 25px; top: 20px; font-size: 28px; cursor: pointer; color: var(--primary); }
@@ -142,21 +139,42 @@
 
 <script>
     let currentPeriode = 'w1&2';
-    // Slaat op welke recepten voltooid zijn (id)
     let completedRecipes = JSON.parse(localStorage.getItem('completedRecipes')) || [];
-    // Slaat op welke boodschappen "in huis" zijn (naam)
     let stockedItems = JSON.parse(localStorage.getItem('stockedItems')) || [];
 
     function loadNewData() {
         const maand = document.getElementById('monthSelect').value;
+        const banner = document.getElementById('priceBanner');
+        
+        // Reset UI voor laden
+        banner.innerText = "Bezig met laden...";
+        
         const oldScript = document.getElementById('data-script');
         if (oldScript) oldScript.remove();
 
         const script = document.createElement('script');
         script.id = 'data-script';
+        
+        // Voeg tijd toe om caching te voorkomen
         script.src = `${maand}/recepten_${currentPeriode}.js?t=${new Date().getTime()}`;
-        script.onload = () => updateUI();
-        script.onerror = () => { document.getElementById('calendar').innerHTML = "<p>Geen data.</p>"; };
+        
+        script.onload = () => {
+            console.log("Script geladen.");
+            // Veiligheidscheck
+            if (typeof shoppingData === 'undefined' || typeof recipeData === 'undefined') {
+                banner.innerText = "FOUT: Data variabele ontbreekt in JS bestand!";
+                banner.style.background = "red";
+            } else {
+                updateUI();
+            }
+        };
+        
+        script.onerror = () => {
+            banner.innerText = `FOUT: Kan bestand '${maand}/recepten_${currentPeriode}.js' niet vinden.`;
+            banner.style.background = "red";
+            document.getElementById('calendar').innerHTML = "<p style='text-align:center; padding:20px;'>Controleer of de map 'januari' bestaat en de bestandsnamen kloppen (kleine letters!).</p>";
+        };
+        
         document.head.appendChild(script);
     }
 
@@ -167,7 +185,6 @@
         loadNewData();
     }
 
-    // Toggle status van een recept (Klaar / Niet klaar)
     function toggleRecipe(id, event) {
         event.stopPropagation();
         if (completedRecipes.includes(id)) {
@@ -179,7 +196,6 @@
         updateUI();
     }
 
-    // Toggle status van een ingrediënt (In huis / Kopen) - FEATURE 5
     function toggleStock(itemName) {
         if (stockedItems.includes(itemName)) {
             stockedItems = stockedItems.filter(i => i !== itemName);
@@ -191,7 +207,7 @@
     }
 
     function clearProgress() {
-        if(confirm("Wil je alle vinkjes en voorraadstatus wissen?")) {
+        if(confirm("Alles resetten?")) {
             completedRecipes = [];
             stockedItems = [];
             localStorage.removeItem('completedRecipes');
@@ -201,108 +217,97 @@
     }
 
     function updateUI() {
-        const isH = document.getElementById('famToggle').checked;
-        // Animatie voor de toggle knop
-        document.getElementById('slider-knob').style.transform = isH ? 'translateX(24px)' : 'translateX(0)';
-        document.body.className = isH ? 'gothic-mode' : '';
-        
-        const familyKey = isH ? 'hemmeryckx' : 'ricour';
-        const factor = isH ? 0.67 : 1.0;
-
-        if (typeof shoppingData === 'undefined' || typeof recipeData === 'undefined') return;
-
-        // 1. Bereken welke ingrediënten nog nodig zijn (LOGICA UPDATE)
-        // We kijken naar alle gerechten die NIET voltooid zijn.
-        const activeRecipes = recipeData.recipes.filter(r => !completedRecipes.includes(r.id));
-        
-        // Maak een lijst van alle ingrediënten die in de actieve recepten voorkomen (lowercase voor vergelijking)
-        // We splitsen op hoeveelheden (bv "450g Pompoen" -> we zoeken op "pompoen")
-        const neededIngredientsRaw = activeRecipes.flatMap(r => r.ing.map(i => {
-            // Verwijder getallen en g/ml om de kern naam te vinden (simpele benadering)
-            return i.replace(/[\d.,]+(g|ml|kg|l)?\s*/gi, '').trim().toLowerCase();
-        }));
-
-        let totalCost = 0;
-
-        const renderShopList = (id, list) => {
-            const el = document.getElementById(id); el.innerHTML = '';
+        try {
+            const isH = document.getElementById('famToggle').checked;
+            document.getElementById('slider-knob').style.transform = isH ? 'translateX(24px)' : 'translateX(0)';
+            document.body.className = isH ? 'gothic-mode' : '';
             
-            list.forEach(itemStr => {
-                const parts = itemStr.split(' - €');
-                const name = parts[0];
-                const price = parts[1] ? parseFloat(parts[1]) : 0;
-                
-                // Simpele logica: Kijk of de naam van het boodschappenitem (deels) voorkomt in de benodigde ingrediënten
-                // OF als er helemaal geen recepten meer open staan (dan is alles klaar)
-                // We tonen ALLES, tenzij alle recepten klaar zijn, dan is de lijst leeg.
-                // MAAR: De oude logica was te streng. Nieuwe aanpak:
-                // We tonen de items ALTIJD, tenzij ze 'gestocked' zijn.
-                // Als het recept afgevinkt is, blijft het item op de lijst staan (want misschien heb je voorraad nodig voor later),
-                // Tenzij we dynamisch willen filteren. De gebruiker vroeg: "Hij doet te veel weg".
-                // DUS: We tonen de volledige weeklijst, maar strepen door wat "stocked" is.
-                
-                const isStocked = stockedItems.includes(name);
-                
-                // Tel alleen op als het NIET in voorraad is
-                if (!isStocked) totalCost += price;
+            const familyKey = isH ? 'hemmeryckx' : 'ricour';
+            const factor = isH ? 0.67 : 1.0;
 
-                const li = document.createElement('li');
-                li.className = isStocked ? 'stocked' : '';
-                li.onclick = () => toggleStock(name);
-                li.innerHTML = `
-                    <div style="display:flex; align-items:center;">
-                        <span class="stock-check"></span>
-                        ${name}
-                    </div>
-                    <b>${price > 0 ? '€'+price.toFixed(2) : ''}</b>
+            if (typeof shoppingData === 'undefined' || typeof recipeData === 'undefined') return;
+
+            // Health Tracker
+            const totalR = recipeData.recipes.length;
+            const doneR = completedRecipes.length;
+            const perc = totalR === 0 ? 0 : Math.round((doneR / totalR) * 100);
+            document.getElementById('healthBar').style.width = `${perc}%`;
+            document.getElementById('healthText').innerText = `${perc}% Voltooid`;
+
+            // Boodschappenlijst
+            let totalCost = 0;
+            const renderShopList = (id, list) => {
+                const el = document.getElementById(id); el.innerHTML = '';
+                list.forEach(itemStr => {
+                    const parts = itemStr.split(' - €');
+                    const name = parts[0];
+                    const price = parts[1] ? parseFloat(parts[1]) : 0;
+                    const isStocked = stockedItems.includes(name);
+                    
+                    if (!isStocked) totalCost += price;
+
+                    const li = document.createElement('li');
+                    li.className = isStocked ? 'stocked' : '';
+                    li.onclick = () => toggleStock(name);
+                    li.innerHTML = `<div style="display:flex; align-items:center;"><span class="stock-check"></span>${name}</div><b>${price > 0 ? '€'+price.toFixed(2) : ''}</b>`;
+                    el.appendChild(li);
+                });
+            };
+
+            renderShopList('vList', shoppingData[familyKey].v);
+            renderShopList('gList', shoppingData[familyKey].g);
+            renderShopList('kList', shoppingData[familyKey].k);
+            
+            const banner = document.getElementById('priceBanner');
+            banner.innerText = `Te Betalen: €${totalCost.toFixed(2)}`;
+            banner.style.background = isH ? "#8e44ad" : "#D66D58";
+
+            // Kalender
+            const grid = document.getElementById('calendar'); grid.innerHTML = '';
+            recipeData.recipes.forEach(x => {
+                // Fallback ID als het ontbreekt
+                const safeId = x.id || Math.random().toString(36).substr(2, 9);
+                const isDone = completedRecipes.includes(safeId);
+                
+                const card = document.createElement('div');
+                card.className = `day-card ${isDone ? 'completed' : ''}`;
+                
+                const ingPreview = x.ing ? x.ing.slice(0, 3).map(i => i.split(' ').slice(1).join(' ')).join(', ') : '';
+
+                card.innerHTML = `
+                    <button class="check-btn" onclick="toggleRecipe('${safeId}', event)">✓</button>
+                    <h3>${x.m}</h3>
+                    <div class="stat-bar"><span>🔥 ${x.kcal}</span><span>💪 ${x.p}g</span><span>🕒 ${x.t}m</span></div>
+                    <div class="mini-ing-box">🛒 ${ingPreview}...</div>
                 `;
-                el.appendChild(li);
+                card.onclick = () => showModal(x, factor);
+                grid.appendChild(card);
             });
-        };
 
-        renderShopList('vList', shoppingData[familyKey].v);
-        renderShopList('gList', shoppingData[familyKey].g);
-        renderShopList('kList', shoppingData[familyKey].k);
-        
-        document.getElementById('priceBanner').innerText = `Te Betalen: €${totalCost.toFixed(2)}`;
-
-        // 2. Health Tracker Update
-        const totalR = recipeData.recipes.length;
-        const doneR = completedRecipes.length;
-        const perc = totalR === 0 ? 0 : Math.round((doneR / totalR) * 100);
-        document.getElementById('healthBar').style.width = `${perc}%`;
-        document.getElementById('healthText').innerText = `${perc}% Voltooid`;
-
-        // 3. Kalender Grid Renderen
-        const grid = document.getElementById('calendar'); grid.innerHTML = '';
-        recipeData.recipes.forEach(x => {
-            const isDone = completedRecipes.includes(x.id);
-            const card = document.createElement('div');
-            card.className = `day-card ${isDone ? 'completed' : ''}`;
-            
-            // Ingrediënten preview (eerste 3)
-            const ingPreview = x.ing.slice(0, 3).map(i => i.split(' ').slice(1).join(' ')).join(', ') + (x.ing.length > 3 ? '...' : '');
-
-            card.innerHTML = `
-                <button class="check-btn" onclick="toggleRecipe('${x.id}', event)">✓</button>
-                <h3>${x.m}</h3>
-                <div class="stat-bar">
-                    <span>🔥 ${x.kcal}</span><span>💪 ${x.p}g</span><span>🕒 ${x.t}m</span>
-                </div>
-                <div class="mini-ing-box">
-                    🛒 ${ingPreview}
-                </div>
-            `;
-            card.onclick = () => showModal(x, factor);
-            grid.appendChild(card);
-        });
+        } catch (error) {
+            console.error(error);
+            document.getElementById('priceBanner').innerText = "Script Error";
+        }
     }
 
     function showModal(x, f) {
         document.getElementById('mTitle').innerText = x.m;
-        document.getElementById('mStats').innerHTML = `<span>🔥 ${x.kcal} kcal</span> <span>💪 ${x.p}g eiwit</span> <span>🕒 ${x.t} min</span>`;
-        // Ingrediënten scalen op basis van gezin
-        document.getElementById('mIng').innerHTML = x.ing.map(i => {
-            return `<li>${i.replace(/(\d+)/g, n => Math.round(n * f))}</li>`;
-        }).join('');
-        document.getElementById('mSteps').innerHTML
+        document.getElementById('mStats').innerHTML = `<span>🔥 ${x.kcal}</span> <span>💪 ${x.p}g</span> <span>🕒 ${x.t}m</span>`;
+        if(x.ing) {
+            document.getElementById('mIng').innerHTML = x.ing.map(i => `<li>${i.replace(/(\d+)/g, n => Math.round(n * f))}</li>`).join('');
+        }
+        if(x.steps) {
+            document.getElementById('mSteps').innerHTML = x.steps.map(s => `<p>${s}</p>`).join('');
+        }
+        const kidEl = document.getElementById('mKid');
+        kidEl.style.display = x.kid ? 'block' : 'none';
+        kidEl.innerHTML = x.kid ? `<b>👶 Kind-Tip:</b> ${x.kid}` : '';
+        document.getElementById('receptModal').style.display = 'block';
+    }
+
+    function closeModal() { document.getElementById('receptModal').style.display = 'none'; }
+    window.onclick = (e) => { if(e.target.className === 'modal') closeModal(); }
+    window.onload = loadNewData;
+</script>
+</body>
+</html>
