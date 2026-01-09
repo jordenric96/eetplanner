@@ -1,4 +1,4 @@
-/* DATA VOOR JANUARI WEEK 1 & 2 - ORIGINEEL */
+/* DATA VOOR JANUARI WEEK 1 & 2 - MET ID'S VOOR AFVINKEN */
 
 var shoppingData = {
     ricour: {
@@ -15,7 +15,9 @@ var shoppingData = {
 
 var recipeData = {
     recipes: [
+        /* WEEK 1 */
         { 
+            id: "j_w1_1", // Toegevoegd ID
             m: "Klassieke Pasta Bolognese", kcal: 650, p: 32, t: 25, 
             ing: ["500g Kipgehakt", "375g Pasta", "800g Tomatenblokjes", "100g Ui"], 
             steps: [
@@ -28,6 +30,7 @@ var recipeData = {
             kid: "Mix de saus met een staafmixer voor een gladde textuur zonder stukjes ui." 
         },
         { 
+            id: "j_w1_2", // Toegevoegd ID
             m: "Kleurrijke Kip & Wortel Wok", kcal: 580, p: 30, t: 20, 
             ing: ["500g Kipgehakt", "250g Rijst", "1 Courgette", "150g Wortel"], 
             steps: [
@@ -40,6 +43,7 @@ var recipeData = {
             kid: "Serveer de rijst, de kip en de groenten in aparte hoopjes op het bord." 
         },
         { 
+            id: "j_w1_3", // Toegevoegd ID
             m: "Milde Linzenstoofschotel", kcal: 510, p: 26, t: 25, 
             ing: ["250g Linzen", "400ml Kokosmelk", "400g Tomatenblokjes", "100g Ui"], 
             steps: [
@@ -52,6 +56,7 @@ var recipeData = {
             kid: "Voeg een extra lepel milde Griekse yoghurt toe aan het bord om het romiger te maken." 
         },
         { 
+            id: "j_w1_4", // Toegevoegd ID
             m: "Mexicaanse Wraps", kcal: 640, p: 29, t: 15, 
             ing: ["8 Wraps", "1 Courgette", "150g Maïs"], 
             steps: [
@@ -64,6 +69,7 @@ var recipeData = {
             kid: "Laat de kinderen hun eigen wrap 'bouwen' aan tafel." 
         },
         { 
+            id: "j_w1_5", // Toegevoegd ID
             m: "Tonijn-Spinazie Pasta", kcal: 690, p: 35, t: 15, 
             ing: ["320g Tonijn", "375g Pasta", "500g Spinazie"], 
             steps: [
@@ -75,7 +81,10 @@ var recipeData = {
             ], 
             kid: "Gebruik extra veel geraspte kaas als topping voor extra smaak." 
         },
+
+        /* WEEK 2 */
         { 
+            id: "j_w2_1", // Toegevoegd ID
             m: "Worst & Wortelstoemp", kcal: 720, p: 26, t: 30, 
             ing: ["500g Chipolata", "750g Aardappel", "500g Wortel"], 
             steps: [
@@ -88,6 +97,7 @@ var recipeData = {
             kid: "Maak een 'vulkaantje' van de puree met een kuiltje voor de vleesjus." 
         },
         { 
+            id: "j_w2_2", // Toegevoegd ID
             m: "Snelle Jambalaya", kcal: 640, p: 25, t: 25, 
             ing: ["250g Chipolata", "250g Rijst", "400g Tomaat"], 
             steps: [
@@ -100,6 +110,7 @@ var recipeData = {
             kid: "De kleine worstmuntjes zijn altijd een groot succes bij kinderen." 
         },
         { 
+            id: "j_w2_3", // Toegevoegd ID
             m: "Linzencurry met Rijst", kcal: 550, p: 22, t: 20, 
             ing: ["250g Linzen", "400ml Kokosmelk", "250g Rijst"], 
             steps: [
@@ -112,6 +123,7 @@ var recipeData = {
             kid: "Serveer met een stukje naanbrood of een wrap om te dippen." 
         },
         { 
+            id: "j_w2_4", // Toegevoegd ID
             m: "Pasta Pesto Courgette", kcal: 630, p: 18, t: 15, 
             ing: ["375g Pasta", "190g Pesto", "1 Courgette"], 
             steps: [
@@ -124,6 +136,7 @@ var recipeData = {
             kid: "Noem de courgettelinten 'groene reuzenslierten'." 
         },
         { 
+            id: "j_w2_5", // Toegevoegd ID
             m: "Nasi met Gebakken Ei", kcal: 540, p: 24, t: 20, 
             ing: ["250g Rijst", "3 Eieren", "200g Erwten"], 
             steps: [
