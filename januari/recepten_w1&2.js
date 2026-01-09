@@ -1,4 +1,4 @@
-/* DATA VOOR JANUARI WEEK 1 & 2 - MET ID'S VOOR AFVINKEN */
+/* DATA VOOR JANUARI WEEK 1 & 2 - INCLUSIEF LOGICA */
 
 var shoppingData = {
     ricour: {
@@ -17,7 +17,7 @@ var recipeData = {
     recipes: [
         /* WEEK 1 */
         { 
-            id: "j_w1_1", // Toegevoegd ID
+            id: "j_w1_1", 
             m: "Klassieke Pasta Bolognese", kcal: 650, p: 32, t: 25, 
             ing: ["500g Kipgehakt", "375g Pasta", "800g Tomatenblokjes", "100g Ui"], 
             steps: [
@@ -30,7 +30,7 @@ var recipeData = {
             kid: "Mix de saus met een staafmixer voor een gladde textuur zonder stukjes ui." 
         },
         { 
-            id: "j_w1_2", // Toegevoegd ID
+            id: "j_w1_2", 
             m: "Kleurrijke Kip & Wortel Wok", kcal: 580, p: 30, t: 20, 
             ing: ["500g Kipgehakt", "250g Rijst", "1 Courgette", "150g Wortel"], 
             steps: [
@@ -43,7 +43,7 @@ var recipeData = {
             kid: "Serveer de rijst, de kip en de groenten in aparte hoopjes op het bord." 
         },
         { 
-            id: "j_w1_3", // Toegevoegd ID
+            id: "j_w1_3", 
             m: "Milde Linzenstoofschotel", kcal: 510, p: 26, t: 25, 
             ing: ["250g Linzen", "400ml Kokosmelk", "400g Tomatenblokjes", "100g Ui"], 
             steps: [
@@ -56,7 +56,7 @@ var recipeData = {
             kid: "Voeg een extra lepel milde Griekse yoghurt toe aan het bord om het romiger te maken." 
         },
         { 
-            id: "j_w1_4", // Toegevoegd ID
+            id: "j_w1_4", 
             m: "Mexicaanse Wraps", kcal: 640, p: 29, t: 15, 
             ing: ["8 Wraps", "1 Courgette", "150g Maïs"], 
             steps: [
@@ -69,7 +69,7 @@ var recipeData = {
             kid: "Laat de kinderen hun eigen wrap 'bouwen' aan tafel." 
         },
         { 
-            id: "j_w1_5", // Toegevoegd ID
+            id: "j_w1_5", 
             m: "Tonijn-Spinazie Pasta", kcal: 690, p: 35, t: 15, 
             ing: ["320g Tonijn", "375g Pasta", "500g Spinazie"], 
             steps: [
@@ -84,7 +84,7 @@ var recipeData = {
 
         /* WEEK 2 */
         { 
-            id: "j_w2_1", // Toegevoegd ID
+            id: "j_w2_1", 
             m: "Worst & Wortelstoemp", kcal: 720, p: 26, t: 30, 
             ing: ["500g Chipolata", "750g Aardappel", "500g Wortel"], 
             steps: [
@@ -97,7 +97,7 @@ var recipeData = {
             kid: "Maak een 'vulkaantje' van de puree met een kuiltje voor de vleesjus." 
         },
         { 
-            id: "j_w2_2", // Toegevoegd ID
+            id: "j_w2_2", 
             m: "Snelle Jambalaya", kcal: 640, p: 25, t: 25, 
             ing: ["250g Chipolata", "250g Rijst", "400g Tomaat"], 
             steps: [
@@ -110,7 +110,7 @@ var recipeData = {
             kid: "De kleine worstmuntjes zijn altijd een groot succes bij kinderen." 
         },
         { 
-            id: "j_w2_3", // Toegevoegd ID
+            id: "j_w2_3", 
             m: "Linzencurry met Rijst", kcal: 550, p: 22, t: 20, 
             ing: ["250g Linzen", "400ml Kokosmelk", "250g Rijst"], 
             steps: [
@@ -123,7 +123,7 @@ var recipeData = {
             kid: "Serveer met een stukje naanbrood of een wrap om te dippen." 
         },
         { 
-            id: "j_w2_4", // Toegevoegd ID
+            id: "j_w2_4", 
             m: "Pasta Pesto Courgette", kcal: 630, p: 18, t: 15, 
             ing: ["375g Pasta", "190g Pesto", "1 Courgette"], 
             steps: [
@@ -136,7 +136,7 @@ var recipeData = {
             kid: "Noem de courgettelinten 'groene reuzenslierten'." 
         },
         { 
-            id: "j_w2_5", // Toegevoegd ID
+            id: "j_w2_5", 
             m: "Nasi met Gebakken Ei", kcal: 540, p: 24, t: 20, 
             ing: ["250g Rijst", "3 Eieren", "200g Erwten"], 
             steps: [
@@ -150,3 +150,71 @@ var recipeData = {
         }
     ]
 };
+
+/* --- LOGICA VOOR WEERGAVE & INTERACTIE --- */
+
+// Functie om de recepten te tonen (Renderen)
+function renderRecipes(data, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return; // Stop als container niet bestaat
+
+    container.innerHTML = ""; // Maak container eerst leeg
+
+    data.recipes.forEach(recipe => {
+        // Maak het HTML element voor het recept
+        const card = document.createElement("div");
+        card.className = "recipe-card";
+        card.id = recipe.id; // Gebruik het unieke ID
+        
+        // Klik event: Toggle de 'completed' status
+        card.onclick = function() {
+            toggleRecipeStatus(recipe.id);
+        };
+
+        // Vul de inhoud van de kaart
+        // Let op: 'ing' en 'steps' moeten bestaan in de data
+        let ingredientsList = (recipe.ing || []).map(ing => `<li>${ing}</li>`).join("");
+        let stepsList = (recipe.steps || []).map(step => `<p>${step}</p>`).join("");
+
+        card.innerHTML = `
+            <h3>${recipe.m}</h3>
+            <div class="recipe-details">
+                <p><strong>Kcal:</strong> ${recipe.kcal} | <strong>P:</strong> ${recipe.p}g | <strong>T:</strong> ${recipe.t} min</p>
+            </div>
+            <div class="recipe-content">
+                <ul class="ingredients">${ingredientsList}</ul>
+                <div class="steps">${stepsList}</div>
+                <p class="kid-tip"><em>Tip: ${recipe.kid}</em></p>
+            </div>
+        `;
+
+        // Check of dit recept al eerder was afgevinkt (in LocalStorage)
+        if (localStorage.getItem(recipe.id) === "done") {
+            card.classList.add("completed");
+        }
+
+        container.appendChild(card);
+    });
+}
+
+// Functie die wordt aangeroepen als je klikt
+function toggleRecipeStatus(id) {
+    const card = document.getElementById(id);
+    if (!card) return;
+
+    // Voeg de class toe of verwijder hem
+    card.classList.toggle("completed");
+
+    // Sla de status op in het geheugen
+    if (card.classList.contains("completed")) {
+        localStorage.setItem(id, "done");
+    } else {
+        localStorage.removeItem(id);
+    }
+}
+
+// Start het script zodra de pagina geladen is
+document.addEventListener("DOMContentLoaded", function() {
+    // Zorg dat je in HTML een <div id="recipe-list-container"></div> hebt
+    renderRecipes(recipeData, "recipe-list-container");
+});
