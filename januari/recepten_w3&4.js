@@ -1,36 +1,21 @@
-/* DATA VOOR JANUARI WEEK 3 & 4 + EXTRA SOEPEN */
+/* DATA VOOR JANUARI WEEK 3 & 4 */
 
-var soupData = {
-    recipes: [
-        {
-            m: "Wortel-Pompoen 'Zonneschijn' Soep (Week 1)", kcal: 110, p: 2, t: 25,
-            ing: ["450g Pompoenblokjes (diepvries)", "400g Wortelschijfjes (diepvries)", "1 Ui", "1.2L Bouillon"],
-            steps: [
-                "1. Snipper de ui en fruit deze glazig in een grote pot met wat olie.",
-                "2. Voeg de bevroren pompoen en wortels toe. Bak 5 minuten mee om de natuurlijke suikers te karamelliseren (geeft veel smaak!).",
-                "3. Giet de bouillon erbij en breng aan de kook.",
-                "4. Laat 15-20 minuten pruttelen tot de groenten zacht zijn.",
-                "5. Mix de soep glad. Voeg een snufje kaneel en een scheutje melk toe voor een milde, kindvriendelijke smaak."
-            ],
-            kid: "Serveer met wat broodkorstjes die ze zelf in de soep mogen gooien."
-        },
-        {
-            m: "Groene Kracht Erwtjes-Prei Soep (Week 2)", kcal: 145, p: 6, t: 20,
-            ing: ["400g Doperwtjes (diepvries)", "300g Preiringen (diepvries)", "2 Aardappelen", "1.2L Bouillon"],
-            steps: [
-                "1. Schil de aardappelen, snij ze in kleine blokjes en kook ze 10 minuten in de bouillon.",
-                "2. Voeg de bevroren prei en doperwtjes toe aan de kokende bouillon.",
-                "3. Laat nog 10 minuten doorkoken (niet langer, anders verliest de soep zijn frisse groene kleur).",
-                "4. Mix de soep zeer fijn met een staafmixer voor een romige textuur.",
-                "5. Breng op smaak met peper, zout en eventueel een beetje geraspte kaas."
-            ],
-            kid: "Noem dit 'Monster-soep' om het eten van groene groenten leuk te maken."
-        }
-    ]
+var shoppingData = {
+    ricour: {
+        v: ["Varkenshaas (450g) - €6.50", "Rundergehakt (600g) - €7.20", "Kipblokjes (900g) - €9.80", "Kabeljauw (3st) - €8.50", "Tonijn (2 blikken) - €3.00", "Eieren (6st) - €1.80"],
+        g: ["Broccoli DV (500g) - €1.50", "Wortelschijfjes DV (1000g) - €1.20", "Paprikamix DV (800g) - €2.40", "Zoete aardappel (1200g) - €2.80", "Courgette (2st) - €1.60"],
+        k: ["Pasta (1000g) - €1.50", "Quinoa (300g) - €2.10", "Rijst (500g) - €0.80", "Passata (500ml) - €0.85", "Kokosmelk (400ml) - €1.35", "Linzen (1 blik) - €0.90"]
+    },
+    hemmeryckx: {
+        v: ["Varkenshaas (300g) - €4.35", "Rundergehakt (400g) - €4.80", "Kipblokjes (600g) - €6.50", "Kabeljauw (2st) - €5.70", "Tonijn (1 blik) - €1.50"],
+        g: ["Broccoli DV - €1.05", "Wortels - €0.80", "Paprika DV - €1.60", "Zoete aardappel - €1.90", "Courgette - €1.10"],
+        k: ["Pasta - €1.00", "Quinoa - €1.40", "Rijst - €0.55", "Kokosmelk - €0.90"]
+    }
 };
 
-var recipeDataJanuariDeel2 = {
-    week3: [
+var recipeData = {
+    recipes: [
+        /* WEEK 3 */
         { 
             m: "Varkenshaas met 'Miniboompjes' & Aardappelen", kcal: 420, p: 32, t: 25, prijs: 2.10,
             ing: ["450g Varkenshaasreepjes", "500g Broccoli (diepvries)", "600g Aardappelen"], 
@@ -89,9 +74,8 @@ var recipeDataJanuariDeel2 = {
                 "5. Bak 25-30 minuten in een voorverwarmde oven op 180°C."
             ], 
             kid: "De courgette zit 'verstopt' in de vulling, ideaal voor moeilijke eters." 
-        }
-    ],
-    week4: [
+        },
+        /* WEEK 4 */
         { 
             m: "Kip in Romige Wortelsaus & Rijst", kcal: 520, p: 33, t: 25, prijs: 1.75,
             ing: ["450g Kipblokjes", "400g Wortelschijfjes (diepvries)", "250g Rijst", "100ml Room"], 
