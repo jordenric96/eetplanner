@@ -1,96 +1,133 @@
 /* DATA VOOR JANUARI WEEK 3 & 4 - DELHAIZE VERS EDITIE */
-
 var shoppingData = {
     ricour: {
-        v: ["Varkenshaasje (ca. 500g) - €8.50", "Rundergehakt (500g voordeel) - €5.99", "Kipfilet blokjes (600g) - €8.95", "Kabeljauwfilets (3 stuks) - €9.75", "Tonijn in eigen nat (2 blikjes) - €3.10", "Eieren (6st) - €1.95"],
-        g: ["Broccoli (500g vers) - €1.29", "Wortelen (zak 1kg vers) - €1.15", "Paprika mix (3 stuks vers) - €1.99", "Zoete aardappel (per stuk ca. 800g) - €2.20", "Courgette (2 stuks vers) - €1.70", "Ui (net 1kg) - €1.25", "Diepvries Pompoen (450g Delhaize) - €1.39", "Diepvries Erwten (400g Delhaize) - €0.95", "Diepvries Preiringen (600g Delhaize) - €1.45"],
-        k: ["Pasta Penne (500g) - €0.95", "Quinoa (400g) - €2.45", "Rijst (500g) - €0.85", "Passata (500ml) - €0.99", "Kokosmelk (400ml) - €1.45", "Linzen (blik 400g) - €0.90"]
+        v: ["Varkenshaasje (ca. 500g) - €8.50", "Rundergehakt (500g) - €5.99", "Kipfilet blokjes (600g) - €8.95", "Kabeljauwfilets (3 stuks) - €9.75", "Tonijn (2 blikjes) - €3.10", "Eieren (6st) - €1.95"],
+        g: ["Broccoli (vers) - €1.29", "Wortelen (1kg) - €1.15", "Paprika mix (3st) - €1.99", "Zoete aardappel - €2.20", "Courgette (2st) - €1.70", "Ui (1kg) - €1.25", "DV Pompoen (450g) - €1.39", "DV Erwten (400g) - €0.95", "DV Prei (600g) - €1.45"],
+        k: ["Pasta (500g) - €0.95", "Quinoa (400g) - €2.45", "Rijst (500g) - €0.85", "Passata (500ml) - €0.99", "Kokosmelk (400ml) - €1.45", "Linzen (400g) - €0.90"]
     },
     hemmeryckx: {
-        v: ["Varkenshaas (350g) - €5.70", "Rundergehakt (350g) - €4.20", "Kipblokjes (400g) - €5.95", "Kabeljauw (2 stuks) - €6.50"],
-        g: ["Broccoli (vers) - €0.95", "Wortelen (vers) - €0.75", "Paprika (2 stuks) - €1.35", "Zoete aardappel - €1.50"],
+        v: ["Varkenshaas (350g) - €5.70", "Rundergehakt (350g) - €4.20", "Kipblokjes (400g) - €5.95", "Kabeljauw (2st) - €6.50", "Tonijn (1 blik) - €1.50"],
+        g: ["Broccoli - €0.95", "Wortelen - €0.75", "Paprika (2st) - €1.35", "Zoete aardappel - €1.50", "Courgette - €1.10"],
         k: ["Pasta - €0.70", "Quinoa - €1.50", "Rijst - €0.60"]
     }
 };
 
 var recipeData = {
     recipes: [
-        /* --- SOEPEN (DIEPVRIES) --- */
+        /* WEEK 3 */
         { 
-            m: "SOEP: Wortel-Pompoen 'Zonneschijn'", kcal: 115, p: 2, t: 25,
-            ing: ["450g Diepvries Pompoenblokjes", "300g Verse Wortel (schijfjes)", "1.2L Bouillon", "1 Ui"],
-            steps: ["1. Snipper de ui en fruit in olie.", "2. Voeg de bevroren pompoen en vers gesneden wortel toe.", "3. Bouillon erbij, 20 min koken.", "4. Mix glad met een snufje kaneel."],
-            kid: "Lekker zoet en zacht."
+            id: "jan_w3_1", m: "Ma 19/01: Varkenshaas & Broccoli", kcal: 430, p: 33, t: 25,
+            ing: ["500g Varkenshaas", "1 Verse Broccoli", "600g Aardappelen"], 
+            steps: [
+                "1. Schil de aardappelen en kook ze gaar in gezouten water.",
+                "2. Snij de varkenshaas in dikke medaillons en bak ze goudbruin in boter (ca. 3-4 min per kant).",
+                "3. Snij de broccoli in kleine roosjes en stoom of kook ze in 5-7 minuten beetgaar.",
+                "4. Maak een simpel sausje door wat water bij het bakvet van het vlees te voegen en even in te koken.",
+                "5. Serveer het vlees met de aardappelen en de broccoli."
+            ], 
+            kid: "Laat kinderen de broccoli 'boompjes' in de puree planten." 
         },
         { 
-            m: "SOEP: Groene Monster (Erwtjes-Prei)", kcal: 140, p: 6, t: 20,
-            ing: ["400g Diepvries Doperwtjes", "250g Diepvries Preiringen", "2 Aardappelen", "1.2L Bouillon"],
-            steps: ["1. Kook aardappelblokjes 10 min.", "2. Voeg bevroren prei en erwtjes toe.", "3. Kook nog 10 min en mix zeer lang."],
-            kid: "De erwtjes maken het 'monsterlijk' lekker."
-        },
-
-        /* --- WEEK 3 (VERS) --- */
-        { 
-            m: "Varkenshaas, Verse Broccoli & Aardappelen", kcal: 430, p: 33, t: 25,
-            ing: ["500g Varkenshaas", "1 Verse Broccoli", "Aardappelen"], 
-            steps: ["1. Kook aardappelen.", "2. Snij de broccoli in roosjes en stoom of kook ze 5-7 min.", "3. Bak het varkenshaasje in boter. Serveer met het braadvocht."], 
-            kid: "Miniboompjes dopen in de saus." 
+            id: "jan_w3_2", m: "Di 20/01: Pasta Gehakt & Wortel", kcal: 560, p: 29, t: 25,
+            ing: ["500g Gehakt", "300g Pasta", "3 Wortelen", "Passata"], 
+            steps: [
+                "1. Kook de pasta volgens de instructies.",
+                "2. Rasp de verse wortelen heel fijn of snij ze in mini blokjes.",
+                "3. Bak het gehakt rul in een pan en voeg de wortelen toe. Bak 5 min mee.",
+                "4. Giet de passata erbij en kruid met uienpoeder en Italiaanse kruiden. Laat 10 min pruttelen.",
+                "5. Meng de saus door de pasta."
+            ], 
+            kid: "Door de wortels te raspen worden ze 'onzichtbaar' en maken ze de saus lekker zoet." 
         },
         { 
-            m: "Pasta Rundergehakt & Verse Wortel-Passata", kcal: 560, p: 29, t: 25,
-            ing: ["500g Gehakt", "300g Pasta", "3 Grote wortelen (vers)", "Passata"], 
-            steps: ["1. Rasp de wortelen fijn (vers kookt sneller).", "2. Bak gehakt met geraspte wortel.", "3. Voeg passata toe en meng met de gekookte pasta."], 
-            kid: "Door het raspen zijn de wortels bijna onzichtbaar in de saus." 
+            id: "jan_w3_3", m: "Wo 21/01: Kip Paprika Quinoa", kcal: 475, p: 34, t: 25,
+            ing: ["600g Kipblokjes", "150g Quinoa", "2 Paprika's"], 
+            steps: [
+                "1. Kook de quinoa in kippenbouillon voor extra smaak.",
+                "2. Snij de verse paprika in kleine blokjes.",
+                "3. Bak de kipblokjes goudbruin met wat mild paprikapoeder.",
+                "4. Voeg de paprikablokjes toe en bak ze 5 min mee tot ze zacht zijn.",
+                "5. Meng de kip en paprika onder de gekookte quinoa."
+            ], 
+            kid: "Quinoa met 'magische witte staartjes' is leuk om te laten zien aan tafel." 
         },
         { 
-            m: "Kip & Verse Paprika 'Tover-Quinoa'", kcal: 475, p: 34, t: 25,
-            ing: ["600g Kipblokjes", "150g Quinoa", "2 Verse Paprika's"], 
-            steps: ["1. Kook quinoa in bouillon.", "2. Snij paprika in kleine blokjes en bak samen met de kipblokjes goudbruin.", "3. Meng alles door elkaar."], 
-            kid: "De rode en gele paprika maken het bord feestelijk." 
+            id: "jan_w3_4", m: "Do 22/01: Kabeljauw & Zoete Friet", kcal: 415, p: 27, t: 30,
+            ing: ["3 Kabeljauwfilets", "800g Zoete aardappel", "1 Courgette"], 
+            steps: [
+                "1. Snij de zoete aardappel in frietjes, meng met olie en bak 25 min op 200°C in de oven.",
+                "2. Bak de kabeljauwfilets in een pan met boter (3-4 min per kant).",
+                "3. Snij de courgette in dunne schijfjes en bak deze op hoog vuur in dezelfde pan als de vis.",
+                "4. Serveer de vis bovenop de courgette met de frietjes ernaast."
+            ], 
+            kid: "Dit zijn gezonde 'fish and chips'!" 
         },
         { 
-            m: "Kabeljauw & Zoete Aardappelfrietjes", kcal: 415, p: 27, t: 30,
-            ing: ["3 Kabeljauwfilets", "800g Zoete aardappel", "1 Courgette (vers)"], 
-            steps: ["1. Snij zoete aardappel in frieten, besprenkel met olie en bak 25 min in de oven (200C).", "2. Bak de vis in de pan.", "3. Bak verse courgetteschijfjes kort mee."], 
-            kid: "Zelfgemaakte gezonde frietjes!" 
+            id: "jan_w3_5", m: "Vr 23/01: Gevulde Paprika", kcal: 505, p: 31, t: 35,
+            ing: ["3 Paprika's", "Rundergehakt", "Rijst", "Halve Courgette"], 
+            steps: [
+                "1. Kook de rijst gaar. Snij de kapjes van de paprika's en verwijder de zaden.",
+                "2. Meng het gehakt met de rijst en heel fijn gesneden courgette.",
+                "3. Vul de paprika's en zet ze in een ovenschaal.",
+                "4. Bak de paprika's 30 minuten in een oven op 180°C.",
+                "5. Serveer eventueel met wat tomatensaus."
+            ], 
+            kid: "Een paprika als 'eetbaar kommetje' spreekt tot de verbeelding." 
         },
+        /* WEEK 4 */
         { 
-            m: "Gevulde Paprika (Gehakt/Rijst/Courgette)", kcal: 505, p: 31, t: 35,
-            ing: ["3 Grote Paprika's (vers)", "Gehakt restje", "Rijst", "Halve Courgette"], 
-            steps: ["1. Hol de paprika's uit.", "2. Meng gehakt met rijst en blokjes courgette.", "3. Vul de paprika's en zet 30 min in de oven."], 
-            kid: "Een 'eetbaar potje' gevuld met lekkers." 
-        },
-
-        /* --- WEEK 4 (VERS) --- */
-        { 
-            m: "Kip in Romige Wortelsaus & Rijst", kcal: 525, p: 32, t: 25,
+            id: "jan_w4_1", m: "Ma 26/01: Kip Wortelsaus & Rijst", kcal: 525, p: 32, t: 25,
             ing: ["Kipblokjes", "4 Verse wortelen", "Rijst", "100ml Room"], 
-            steps: ["1. Kook wortelen gaar en mix ze met room tot een gladde saus.", "2. Bak kip en overgiet met de saus. Serveer met rijst."], 
-            kid: "Oranje saus is altijd een hit." 
+            steps: [
+                "1. Kook de rijst. Kook de wortelen in bouillon tot ze heel zacht zijn.",
+                "2. Giet de wortelen af maar bewaar wat vocht. Mix de wortelen met de room tot een gladde saus.",
+                "3. Bak de kipblokjes goudbruin in de pan.",
+                "4. Meng de kip met de wortelsaus en laat nog even doorwarmen.",
+                "5. Serveer over de rijst."
+            ], 
+            kid: "De saus is prachtig oranje en heel mild van smaak." 
         },
         { 
-            m: "Pasta Broccoli-Tonijn Romig", kcal: 485, p: 28, t: 15,
-            ing: ["Pasta", "Verse Broccoli", "Tonijn", "Roomkaas"], 
-            steps: ["1. Kook pasta en kleine broccoliroosjes samen.", "2. Meng tonijn en roomkaas erdoor voor een snelle saus."], 
-            kid: "Zachte smaak, geen sterke visgeur." 
+            id: "jan_w4_2", m: "Di 27/01: Pasta Broccoli-Tonijn", kcal: 485, p: 28, t: 15,
+            ing: ["Pasta", "1 Broccoli", "Tonijn in blik", "Roomkaas"], 
+            steps: [
+                "1. Kook de pasta en kleine roosjes broccoli samen in één pot.",
+                "2. Giet af en meng direct een flinke lepel roomkaas erdoor.",
+                "3. Voeg de uitgelekte tonijn toe en roer voorzichtig om.",
+                "4. Kruid met uienpoeder en een beetje peper."
+            ], 
+            kid: "De roomkaas maakt de tonijn en broccoli heerlijk romig." 
         },
         { 
-            m: "Milde Zoete Aardappel Curry", kcal: 445, p: 17, t: 30,
-            ing: ["Zoete aardappel", "Linzen", "Kokosmelk"], 
-            steps: ["1. Stoof blokjes zoete aardappel in kokosmelk met milde currypasta.", "2. Voeg linzen toe aan het einde."], 
-            kid: "Lekker zoetig en vullend." 
+            id: "jan_w4_3", m: "Wo 28/01: Zoete Aardappel Curry", kcal: 445, p: 17, t: 30,
+            ing: ["Zoete aardappel", "Linzen", "Kokosmelk", "Milde Curry"], 
+            steps: [
+                "1. Snij de zoete aardappel in kleine blokjes.",
+                "2. Bak een lepel milde currypasta kort aan en voeg de aardappel toe.",
+                "3. Giet de kokosmelk erbij en laat 15-20 min pruttelen.",
+                "4. Voeg de linzen (uitgelekt) toe en warm nog 5 minuten mee."
+            ], 
+            kid: "Deze curry is niet pikant maar wel heel vullend en gezond." 
         },
         { 
-            m: "Verse Gehakt-Paprika Schotel", kcal: 535, p: 28, t: 25,
-            ing: ["Gehakt", "1 Verse Paprika", "Aardappelen"], 
-            steps: ["1. Bak aardappelblokjes krokant.", "2. Bak gehakt met verse paprikablokjes.", "3. Meng alles samen."], 
-            kid: "Lekker met een beetje ketchup." 
+            id: "jan_w4_4", m: "Do 29/01: Gehakt-Paprika Schotel", kcal: 535, p: 28, t: 25,
+            ing: ["Gehakt", "1 Paprika", "600g Aardappelen"], 
+            steps: [
+                "1. Snij de aardappelen in kleine blokjes en bak ze goudbruin in de pan.",
+                "2. Bak in een andere pan het gehakt met kleine blokjes paprika.",
+                "3. Meng de krokante aardappeltjes door het gehaktmengsel vlak voor het serveren."
+            ], 
+            kid: "De krokante aardappeltjes zijn favoriet bij kinderen." 
         },
         { 
-            m: "Wok Quinoa met Verse Groenten & Ei", kcal: 435, p: 21, t: 20,
+            id: "jan_w4_5", m: "Vr 30/01: Wok Quinoa & Ei", kcal: 435, p: 21, t: 20,
             ing: ["Quinoa", "Restjes verse groenten", "3 Eieren"], 
-            steps: ["1. Wok fijngesneden verse groenten.", "2. Voeg gekookte quinoa toe.", "3. Roerbak de eieren erdoor."], 
-            kid: "Het 'alles-is-op' gerechtje dat toch lekker is." 
+            steps: [
+                "1. Kook de quinoa. Snij alle restjes groenten heel fijn.",
+                "2. Wok de groenten op hoog vuur. Voeg de quinoa toe.",
+                "3. Maak een kuiltje, breek de eieren erin en roer tot ze gestold zijn door de quinoa."
+            ], 
+            kid: "Een 'confetti-rijst' gerechtje waar alles in mag." 
         }
     ]
 };
