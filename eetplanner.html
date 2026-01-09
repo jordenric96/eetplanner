@@ -3,84 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eetplanning Hub Pro V52</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <title>Eetplanning Hub Pro V53</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #D66D58; --secondary: #4CAF50; --bg: #FFF5F2; --card: #ffffff; --text: #2D3436; --accent: #4A90E2; --header-font: 'Poppins', sans-serif; }
-        body.gothic-mode { --primary: #8e44ad; --secondary: #2c3e50; --bg: #0a0a0c; --card: #1a1a1d; --text: #e0e0e0; --accent: #6c5ce7; --header-font: 'UnifrakturMaguntia', serif; }
+        :root { --primary: #D66D58; --secondary: #4CAF50; --bg: #FFF5F2; --card: #ffffff; --text: #2D3436; --gray: #b2b2b2; }
+        body.gothic-mode { --primary: #8e44ad; --secondary: #2c3e50; --bg: #0a0a0c; --card: #1a1a1d; --text: #e0e0e0; }
         
-        * { box-sizing: border-box; transition: all 0.3s; }
-        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 10px; overflow-x: hidden; }
+        * { box-sizing: border-box; transition: all 0.3s ease; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 15px; }
         .container { max-width: 1200px; margin: 0 auto; }
         
+        /* HEADER & CONTROLS */
         .controls-bar { 
             display: flex; flex-direction: column; gap: 20px; align-items: center; 
-            background: var(--card); padding: 20px; border-radius: 30px; margin-bottom: 25px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+            background: var(--card); padding: 20px; border-radius: 25px; margin-bottom: 25px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
+        @media (min-width: 600px) { .controls-bar { flex-direction: row; justify-content: space-between; } }
 
-        @media (min-width: 600px) {
-            .controls-bar { flex-direction: row; justify-content: space-between; padding: 25px 40px; }
-        }
-
-        .family-switch-container { display: flex; align-items: center; gap: 15px; font-weight: 800; font-size: 1.1rem; }
-        #monthSelect { 
-            padding: 12px 20px; border-radius: 20px; border: 2px solid var(--primary); 
-            font-weight: 700; background: var(--card); color: var(--text); width: 100%; max-width: 300px;
-        }
-
-        .switch { position: relative; width: 60px; height: 30px; display: inline-block; }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #ddd; border-radius: 40px; }
-        .slider:before { position: absolute; content: "🏠"; display: flex; align-items: center; justify-content: center; height: 24px; width: 24px; left: 3px; bottom: 3px; background: white; border-radius: 50%; font-size: 12px; transition: 0.4s; }
-        input:checked + .slider { background: #8e44ad; }
-        input:checked + .slider:before { transform: translateX(30px); content: "🦇"; }
-
-        .nav-tabs { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; }
-        .tab-btn { padding: 12px 20px; border-radius: 15px; border: none; cursor: pointer; font-weight: 700; background: var(--card); color: var(--text); }
-        .tab-btn.active { background: var(--primary); color: white; }
-
-        .shopping-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px; }
-        .shop-card { background: var(--card); padding: 20px; border-radius: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        .shop-card h3 { color: var(--primary); margin-top: 0; }
-        .item-list { list-style: none; padding: 0; margin: 0; }
-        .item-list li { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 0.95rem; }
-
-        .total-box { background: var(--primary); color: white; padding: 15px; border-radius: 25px; text-align: center; margin-bottom: 25px; font-weight: 800; font-size: 1.3rem; }
-
-        .calendar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-        .day-card { 
-            background: var(--card); padding: 20px; border-radius: 30px; cursor: pointer; 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05); position: relative; overflow: hidden;
-        }
-        .day-card.completed { border: 2px solid var(--secondary); opacity: 0.7; }
-        .day-card h3 { color: var(--primary); margin: 10px 0; font-size: 1.1rem; }
+        select, button { font-family: inherit; font-weight: 600; }
+        #monthSelect { padding: 10px 20px; border-radius: 15px; border: 2px solid var(--primary); background: transparent; color: var(--text); }
         
-        .stat-bar { display: flex; justify-content: space-around; background: rgba(0,0,0,0.04); padding: 8px; border-radius: 12px; margin-bottom: 12px; font-size: 0.75rem; font-weight: bold; }
-        .mini-ing-box { font-size: 0.8rem; background: rgba(0,0,0,0.03); padding: 10px; border-radius: 15px; min-height: 45px; }
+        /* TRACKER BAR */
+        .tracker-container { background: var(--card); padding: 15px; border-radius: 20px; margin-bottom: 25px; display: flex; align-items: center; gap: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .progress-bg { flex-grow: 1; height: 10px; background: #eee; border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #FF9966, #D66D58); width: 0%; transition: width 1s ease; }
+        .tracker-text { font-size: 0.9rem; font-weight: 700; color: var(--primary); white-space: nowrap; }
 
-        .checkbox-container { position: absolute; top: 15px; right: 15px; z-index: 10; }
-        .checkbox-container input { width: 22px; height: 22px; cursor: pointer; accent-color: var(--secondary); }
+        /* TABS */
+        .nav-tabs { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; }
+        .tab-btn { padding: 10px 25px; border-radius: 20px; border: none; cursor: pointer; background: rgba(0,0,0,0.05); color: var(--text); }
+        .tab-btn.active { background: var(--primary); color: white; box-shadow: 0 5px 15px rgba(214, 109, 88, 0.3); }
 
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); }
-        .modal-content { background: var(--card); margin: 5% auto; padding: 30px; width: 95%; max-width: 600px; border-radius: 35px; position: relative; max-height: 85vh; overflow-y: auto; }
-        .close { position: absolute; right: 20px; top: 15px; font-size: 30px; cursor: pointer; color: var(--primary); }
+        /* SHOPPING LIST */
+        .total-box { background: var(--primary); color: white; padding: 15px; border-radius: 20px; text-align: center; margin-bottom: 25px; font-weight: 800; font-size: 1.2rem; letter-spacing: 0.5px; }
+        .shopping-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .shop-card { background: var(--card); padding: 20px; border-radius: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
+        .shop-card h3 { color: var(--primary); margin-top: 0; font-size: 1.1rem; border-bottom: 2px solid rgba(0,0,0,0.05); padding-bottom: 10px; }
+        
+        .item-list li { 
+            display: flex; justify-content: space-between; align-items: center; padding: 8px 0; 
+            border-bottom: 1px solid rgba(0,0,0,0.03); font-size: 0.9rem; cursor: pointer; 
+        }
+        .stock-check { 
+            width: 18px; height: 18px; border: 2px solid var(--gray); border-radius: 50%; 
+            margin-right: 10px; display: inline-block; position: relative; transition: all 0.2s;
+        }
+        .item-list li.stocked { color: var(--gray); text-decoration: line-through; }
+        .item-list li.stocked .stock-check { background: var(--secondary); border-color: var(--secondary); }
+        .item-list li.stocked .stock-check::after { content: '✓'; color: white; position: absolute; top: -3px; left: 3px; font-size: 12px; }
 
-        .drama-transition { animation: shake 0.6s both; }
-        @keyframes shake { 10%, 90% { transform: translate3d(-2px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
+        /* CALENDAR CARDS */
+        .calendar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .day-card { 
+            background: var(--card); padding: 20px; border-radius: 25px; cursor: pointer; 
+            position: relative; overflow: hidden; border: 2px solid transparent;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; flex-direction: column;
+        }
+        
+        /* VISUELE STATUS: COMPLETED */
+        .day-card.completed { opacity: 0.6; filter: grayscale(0.8); background: rgba(255,255,255,0.4); border-color: #ddd; }
+        .day-card.completed h3 { text-decoration: line-through; }
+        
+        /* CHECK BUTTON STYLING */
+        .check-btn { 
+            position: absolute; top: 15px; right: 15px; width: 32px; height: 32px; 
+            border-radius: 50%; background: #eee; border: none; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; color: transparent;
+            font-size: 1.2rem; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 5;
+        }
+        .day-card.completed .check-btn { background: var(--secondary); color: white; transform: scale(1.1); box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3); }
+
+        .day-card h3 { color: var(--primary); margin: 5px 0 15px 0; font-size: 1.1rem; padding-right: 40px; }
+        .stat-bar { display: flex; gap: 10px; font-size: 0.8rem; color: #777; margin-bottom: 15px; font-weight: 600; }
+        .mini-ing-box { background: rgba(0,0,0,0.03); padding: 12px; border-radius: 15px; font-size: 0.85rem; color: #555; flex-grow: 1; line-height: 1.5; }
+
+        /* MODAL */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); }
+        .modal-content { background: var(--card); margin: 5% auto; padding: 40px; width: 90%; max-width: 600px; border-radius: 30px; position: relative; max-height: 90vh; overflow-y: auto; }
+        .close { position: absolute; right: 25px; top: 20px; font-size: 28px; cursor: pointer; color: var(--primary); }
     </style>
 </head>
 <body id="mainBody">
 
 <div class="container">
     <div class="controls-bar">
-        <div class="family-switch-container">
-            <span>Ricour</span>
-            <label class="switch">
-                <input type="checkbox" id="famToggle" onchange="triggerDrama()">
-                <span class="slider"></span>
-            </label>
-            <span>Hemmeryckx</span>
+        <div style="font-weight:800; font-size:1.2rem; display:flex; gap:10px; align-items:center;">
+            Ricour 
+            <label style="position:relative; width:50px; height:26px; display:inline-block;">
+                <input type="checkbox" id="famToggle" onchange="updateUI()" style="opacity:0; width:0; height:0;">
+                <span style="position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0; background:#ddd; border-radius:30px; transition:.4s;"></span>
+                <span id="slider-knob" style="position:absolute; content:''; height:20px; width:20px; left:3px; bottom:3px; background:white; border-radius:50%; transition:.4s;"></span>
+            </label> 
+            Hemmeryckx
         </div>
         
         <select id="monthSelect" onchange="loadNewData()">
@@ -88,7 +104,13 @@
             <option value="februari">Februari</option>
         </select>
         
-        <button onclick="clearProgress()" style="background:none; border:1px solid var(--primary); color:var(--primary); padding:8px 15px; border-radius:15px; cursor:pointer; font-weight:bold;">Wis voortgang</button>
+        <button onclick="clearProgress()" style="border:none; background:rgba(214, 109, 88, 0.1); color:var(--primary); padding:10px 20px; border-radius:15px; cursor:pointer;">Reset</button>
+    </div>
+
+    <div class="tracker-container">
+        <div class="tracker-text">🏆 Gezonde Score</div>
+        <div class="progress-bg"><div id="healthBar" class="progress-fill"></div></div>
+        <div id="healthText" style="font-weight:bold; color:var(--text);">0%</div>
     </div>
 
     <div class="nav-tabs">
@@ -96,10 +118,10 @@
         <button id="w34Btn" class="tab-btn" onclick="setPeriode('w3&4')">Week 3 & 4</button>
     </div>
 
-    <div id="priceBanner" class="total-box">Resterend: €0.00</div>
+    <div id="priceBanner" class="total-box">Laden...</div>
 
     <div class="shopping-grid">
-        <div class="shop-card"><h3>🥩 Vlees/Vis</h3><ul id="vList" class="item-list"></ul></div>
+        <div class="shop-card"><h3>🥩 Vlees & Vis</h3><ul id="vList" class="item-list"></ul></div>
         <div class="shop-card"><h3>🥦 Groenten</h3><ul id="gList" class="item-list"></ul></div>
         <div class="shop-card"><h3>🥫 Voorraad</h3><ul id="kList" class="item-list"></ul></div>
     </div>
@@ -110,17 +132,20 @@
 <div id="receptModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
-        <h2 id="mTitle" style="color:var(--primary);"></h2>
-        <div id="mStats" style="display:flex; gap:15px; margin-bottom:20px; font-weight:bold; font-size:0.9rem;"></div>
-        <h4>Ingrediënten:</h4><ul id="mIng"></ul>
-        <h4>Bereiding:</h4><div id="mSteps"></div>
-        <div id="mKid" style="background:rgba(251,192,45,0.1); padding:15px; border-radius:20px; margin-top:20px; font-size:0.9rem;"></div>
+        <h2 id="mTitle" style="color:var(--primary); margin-top:0;"></h2>
+        <div id="mStats" style="display:flex; gap:20px; margin-bottom:20px; font-weight:600; color:#666;"></div>
+        <h4 style="margin-bottom:10px;">🛒 Ingrediënten</h4><ul id="mIng" style="margin-top:0; padding-left:20px; line-height:1.6;"></ul>
+        <h4 style="margin-bottom:10px;">👩‍🍳 Bereiding</h4><div id="mSteps" style="line-height:1.6;"></div>
+        <div id="mKid" style="background:#FFF9C4; padding:15px; border-radius:15px; margin-top:25px; color:#5D4037;"></div>
     </div>
 </div>
 
 <script>
     let currentPeriode = 'w1&2';
-    let checkedRecipes = JSON.parse(localStorage.getItem('checkedRecipes')) || [];
+    // Slaat op welke recepten voltooid zijn (id)
+    let completedRecipes = JSON.parse(localStorage.getItem('completedRecipes')) || [];
+    // Slaat op welke boodschappen "in huis" zijn (naam)
+    let stockedItems = JSON.parse(localStorage.getItem('stockedItems')) || [];
 
     function loadNewData() {
         const maand = document.getElementById('monthSelect').value;
@@ -131,10 +156,7 @@
         script.id = 'data-script';
         script.src = `${maand}/recepten_${currentPeriode}.js?t=${new Date().getTime()}`;
         script.onload = () => updateUI();
-        script.onerror = () => {
-            document.getElementById('priceBanner').innerText = "Data niet gevonden.";
-            document.getElementById('calendar').innerHTML = "";
-        };
+        script.onerror = () => { document.getElementById('calendar').innerHTML = "<p>Geen data.</p>"; };
         document.head.appendChild(script);
     }
 
@@ -145,84 +167,131 @@
         loadNewData();
     }
 
-    function triggerDrama() {
-        document.getElementById('mainBody').classList.add('drama-transition');
-        setTimeout(() => updateUI(), 400);
-        setTimeout(() => document.getElementById('mainBody').classList.remove('drama-transition'), 900);
+    // Toggle status van een recept (Klaar / Niet klaar)
+    function toggleRecipe(id, event) {
+        event.stopPropagation();
+        if (completedRecipes.includes(id)) {
+            completedRecipes = completedRecipes.filter(rid => rid !== id);
+        } else {
+            completedRecipes.push(id);
+        }
+        localStorage.setItem('completedRecipes', JSON.stringify(completedRecipes));
+        updateUI();
     }
 
-    function toggleCheck(id, event) {
-        event.stopPropagation();
-        if (checkedRecipes.includes(id)) {
-            checkedRecipes = checkedRecipes.filter(r => r !== id);
+    // Toggle status van een ingrediënt (In huis / Kopen) - FEATURE 5
+    function toggleStock(itemName) {
+        if (stockedItems.includes(itemName)) {
+            stockedItems = stockedItems.filter(i => i !== itemName);
         } else {
-            checkedRecipes.push(id);
+            stockedItems.push(itemName);
         }
-        localStorage.setItem('checkedRecipes', JSON.stringify(checkedRecipes));
+        localStorage.setItem('stockedItems', JSON.stringify(stockedItems));
         updateUI();
     }
 
     function clearProgress() {
-        if(confirm("Alle vinkjes wissen?")) {
-            checkedRecipes = [];
-            localStorage.removeItem('checkedRecipes');
+        if(confirm("Wil je alle vinkjes en voorraadstatus wissen?")) {
+            completedRecipes = [];
+            stockedItems = [];
+            localStorage.removeItem('completedRecipes');
+            localStorage.removeItem('stockedItems');
             updateUI();
         }
     }
 
     function updateUI() {
         const isH = document.getElementById('famToggle').checked;
-        const familyKey = isH ? 'hemmeryckx' : 'ricour';
-        const factor = isH ? 0.67 : 1.0;
+        // Animatie voor de toggle knop
+        document.getElementById('slider-knob').style.transform = isH ? 'translateX(24px)' : 'translateX(0)';
         document.body.className = isH ? 'gothic-mode' : '';
         
+        const familyKey = isH ? 'hemmeryckx' : 'ricour';
+        const factor = isH ? 0.67 : 1.0;
+
         if (typeof shoppingData === 'undefined' || typeof recipeData === 'undefined') return;
 
-        // Boodschappenlijst filteren op basis van actieve recepten
-        const activeRecipes = recipeData.recipes.filter(r => !checkedRecipes.includes(r.id));
-        const activeIngredients = activeRecipes.flatMap(r => r.ing.map(i => i.toLowerCase()));
+        // 1. Bereken welke ingrediënten nog nodig zijn (LOGICA UPDATE)
+        // We kijken naar alle gerechten die NIET voltooid zijn.
+        const activeRecipes = recipeData.recipes.filter(r => !completedRecipes.includes(r.id));
+        
+        // Maak een lijst van alle ingrediënten die in de actieve recepten voorkomen (lowercase voor vergelijking)
+        // We splitsen op hoeveelheden (bv "450g Pompoen" -> we zoeken op "pompoen")
+        const neededIngredientsRaw = activeRecipes.flatMap(r => r.ing.map(i => {
+            // Verwijder getallen en g/ml om de kern naam te vinden (simpele benadering)
+            return i.replace(/[\d.,]+(g|ml|kg|l)?\s*/gi, '').trim().toLowerCase();
+        }));
 
-        let total = 0;
-        const renderList = (id, list) => {
+        let totalCost = 0;
+
+        const renderShopList = (id, list) => {
             const el = document.getElementById(id); el.innerHTML = '';
+            
             list.forEach(itemStr => {
                 const parts = itemStr.split(' - €');
-                const itemName = parts[0];
+                const name = parts[0];
                 const price = parts[1] ? parseFloat(parts[1]) : 0;
                 
-                // Check of dit item nodig is in resterende recepten
-                const isNeeded = activeIngredients.some(ai => itemName.toLowerCase().includes(ai) || ai.includes(itemName.toLowerCase()));
+                // Simpele logica: Kijk of de naam van het boodschappenitem (deels) voorkomt in de benodigde ingrediënten
+                // OF als er helemaal geen recepten meer open staan (dan is alles klaar)
+                // We tonen ALLES, tenzij alle recepten klaar zijn, dan is de lijst leeg.
+                // MAAR: De oude logica was te streng. Nieuwe aanpak:
+                // We tonen de items ALTIJD, tenzij ze 'gestocked' zijn.
+                // Als het recept afgevinkt is, blijft het item op de lijst staan (want misschien heb je voorraad nodig voor later),
+                // Tenzij we dynamisch willen filteren. De gebruiker vroeg: "Hij doet te veel weg".
+                // DUS: We tonen de volledige weeklijst, maar strepen door wat "stocked" is.
                 
-                if (isNeeded || checkedRecipes.length === 0) {
-                    total += price;
-                    el.innerHTML += `<li><span>${itemName}</span><b>${price > 0 ? '€'+price.toFixed(2) : ''}</b></li>`;
-                }
+                const isStocked = stockedItems.includes(name);
+                
+                // Tel alleen op als het NIET in voorraad is
+                if (!isStocked) totalCost += price;
+
+                const li = document.createElement('li');
+                li.className = isStocked ? 'stocked' : '';
+                li.onclick = () => toggleStock(name);
+                li.innerHTML = `
+                    <div style="display:flex; align-items:center;">
+                        <span class="stock-check"></span>
+                        ${name}
+                    </div>
+                    <b>${price > 0 ? '€'+price.toFixed(2) : ''}</b>
+                `;
+                el.appendChild(li);
             });
         };
 
-        renderList('vList', shoppingData[familyKey].v);
-        renderList('gList', shoppingData[familyKey].g);
-        renderList('kList', shoppingData[familyKey].k);
-        document.getElementById('priceBanner').innerText = `Resterend: €${total.toFixed(2)}`;
+        renderShopList('vList', shoppingData[familyKey].v);
+        renderShopList('gList', shoppingData[familyKey].g);
+        renderShopList('kList', shoppingData[familyKey].k);
+        
+        document.getElementById('priceBanner').innerText = `Te Betalen: €${totalCost.toFixed(2)}`;
 
-        // Kalender Grid opbouwen
+        // 2. Health Tracker Update
+        const totalR = recipeData.recipes.length;
+        const doneR = completedRecipes.length;
+        const perc = totalR === 0 ? 0 : Math.round((doneR / totalR) * 100);
+        document.getElementById('healthBar').style.width = `${perc}%`;
+        document.getElementById('healthText').innerText = `${perc}% Voltooid`;
+
+        // 3. Kalender Grid Renderen
         const grid = document.getElementById('calendar'); grid.innerHTML = '';
         recipeData.recipes.forEach(x => {
-            const isChecked = checkedRecipes.includes(x.id);
+            const isDone = completedRecipes.includes(x.id);
             const card = document.createElement('div');
-            card.className = `day-card ${isChecked ? 'completed' : ''}`;
+            card.className = `day-card ${isDone ? 'completed' : ''}`;
             
-            const ingPreview = x.ing.slice(0, 3).join(', ') + (x.ing.length > 3 ? '...' : '');
+            // Ingrediënten preview (eerste 3)
+            const ingPreview = x.ing.slice(0, 3).map(i => i.split(' ').slice(1).join(' ')).join(', ') + (x.ing.length > 3 ? '...' : '');
 
             card.innerHTML = `
-                <div class="checkbox-container">
-                    <input type="checkbox" ${isChecked ? 'checked' : ''} onclick="toggleCheck('${x.id}', event)">
-                </div>
-                <h3 style="${isChecked ? 'text-decoration:line-through;opacity:0.5;' : ''}">${x.m}</h3>
+                <button class="check-btn" onclick="toggleRecipe('${x.id}', event)">✓</button>
+                <h3>${x.m}</h3>
                 <div class="stat-bar">
                     <span>🔥 ${x.kcal}</span><span>💪 ${x.p}g</span><span>🕒 ${x.t}m</span>
                 </div>
-                <div class="mini-ing-box">🛒 ${ingPreview}</div>
+                <div class="mini-ing-box">
+                    🛒 ${ingPreview}
+                </div>
             `;
             card.onclick = () => showModal(x, factor);
             grid.appendChild(card);
@@ -231,16 +300,9 @@
 
     function showModal(x, f) {
         document.getElementById('mTitle').innerText = x.m;
-        document.getElementById('mStats').innerHTML = `<span>🔥 ${x.kcal} kcal</span> <span>💪 ${x.p}g</span> <span>🕒 ${x.t}m</span>`;
-        document.getElementById('mIng').innerHTML = x.ing.map(i => `<li>${i.replace(/(\d+)/g, n => Math.round(n * f))}</li>`).join('');
-        document.getElementById('mSteps').innerHTML = x.steps.map(s => `<p>${s}</p>`).join('');
-        document.getElementById('mKid').innerHTML = x.kid ? `<b>Kind-Tip:</b> ${x.kid}` : '';
-        document.getElementById('receptModal').style.display = 'block';
-    }
-
-    function closeModal() { document.getElementById('receptModal').style.display = 'none'; }
-    window.onclick = (e) => { if(e.target.className === 'modal') closeModal(); }
-    window.onload = loadNewData;
-</script>
-</body>
-</html>
+        document.getElementById('mStats').innerHTML = `<span>🔥 ${x.kcal} kcal</span> <span>💪 ${x.p}g eiwit</span> <span>🕒 ${x.t} min</span>`;
+        // Ingrediënten scalen op basis van gezin
+        document.getElementById('mIng').innerHTML = x.ing.map(i => {
+            return `<li>${i.replace(/(\d+)/g, n => Math.round(n * f))}</li>`;
+        }).join('');
+        document.getElementById('mSteps').innerHTML
