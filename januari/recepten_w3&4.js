@@ -1,23 +1,24 @@
-/* DATA VOOR JANUARI WEEK 3 & 4 - SMAAK EDITIE */
+/* DATA VOOR JANUARI WEEK 3 & 4 - AANGEPASTE VERSIE */
 
 var shoppingData = {
     ricour: {
-        v: ["Varkenshaasje (ca. 500g) - €8.50", "Rundergehakt (500g) - €5.99", "Kipfilet blokjes (600g) - €8.95", "Kabeljauwfilets (3 stuks) - €9.75", "Tonijn (2 blikjes) - €3.10", "Eieren (6st) - €1.95"],
-        g: ["Broccoli (vers) - €1.29", "Wortelen (1kg) - €1.15", "Paprika mix (3st) - €1.99", "Zoete aardappel - €2.20", "Courgette (2st) - €1.70", "Ui (1kg) - €1.25", "DV Pompoen (450g) - €1.39", "DV Erwten (400g) - €0.95", "DV Prei (600g) - €1.45"],
+        // Varkenshaas en Tonijn verwijderd, Kalkoen toegevoegd
+        v: ["Kalkoenfilet (ca. 500g) - €7.50", "Rundergehakt (500g) - €5.99", "Kipfilet blokjes (totaal 1kg) - €14.50", "Kabeljauwfilets (3 stuks) - €9.75", "Eieren (6st) - €1.95"],
+        g: ["Broccoli (2x vers) - €2.58", "Wortelen (1kg) - €1.15", "Paprika mix (3st) - €1.99", "Zoete aardappel - €2.20", "Courgette (2st) - €1.70", "Ui (1kg) - €1.25", "DV Pompoen (450g) - €1.39", "DV Erwten (400g) - €0.95", "DV Prei (600g) - €1.45"],
         k: ["Pasta (500g) - €0.95", "Quinoa (400g) - €2.45", "Rijst (500g) - €0.85", "Passata (500ml) - €0.99", "Kokosmelk (400ml) - €1.45", "Linzen (400g) - €0.90"]
     },
     hemmeryckx: {
-        v: ["Varkenshaas (350g) - €5.70", "Rundergehakt (350g) - €4.20", "Kipblokjes (400g) - €5.95", "Kabeljauw (2st) - €6.50", "Tonijn (1 blik) - €1.50"],
-        g: ["Broccoli - €0.95", "Wortelen - €0.75", "Paprika (2st) - €1.35", "Zoete aardappel - €1.50", "Courgette - €1.10"],
+        v: ["Kalkoenfilet (350g) - €5.20", "Rundergehakt (350g) - €4.20", "Kipblokjes (600g) - €8.50", "Kabeljauw (2st) - €6.50"],
+        g: ["Broccoli (2x) - €1.90", "Wortelen - €0.75", "Paprika (2st) - €1.35", "Zoete aardappel - €1.50", "Courgette - €1.10"],
         k: ["Pasta - €0.70", "Quinoa - €1.50", "Rijst - €0.60"]
     }
 };
 
 var recipeData = {
     recipes: [
-        /* SOEPEN */
+        /* SOEPEN - LUNCH (Niet datumgebonden) */
         { 
-            id: "j_w3_s1", m: "19/01 - SOEP: Wortel-Pompoen", kcal: 115, p: 2, t: 25,
+            id: "j_w3_s1", m: "LUNCH - SOEP: Wortel-Pompoen", kcal: 115, p: 2, t: 25,
             ing: ["450g DV Pompoen", "300g Wortel", "1.2L Bouillon", "1 Ui", "Kaneel"],
             steps: [
                 "1. Fruit een gesnipperd uitje aan in de pot.",
@@ -28,7 +29,7 @@ var recipeData = {
             kid: "Zoet en zacht."
         },
         { 
-            id: "j_w3_s2", m: "20/01 - SOEP: Groene Monster", kcal: 140, p: 6, t: 20,
+            id: "j_w3_s2", m: "LUNCH - SOEP: Groene Monster", kcal: 140, p: 6, t: 20,
             ing: ["400g DV Erwten", "250g DV Prei", "2 Aardappelen", "Bouillon", "Tijm"],
             steps: [
                 "1. Kook de aardappelblokjes voor in de bouillon met wat **tijm**.",
@@ -40,15 +41,15 @@ var recipeData = {
 
         /* WEEK 3 */
         { 
-            id: "j_w3_1", m: "Ma 19/01: Varkenshaas & Broccoli", kcal: 430, p: 33, t: 25,
-            ing: ["500g Varkenshaas", "1 Verse Broccoli", "600g Aardappelen", "Boter"], 
+            id: "j_w3_1", m: "Ma 19/01: Kalkoen & Broccoli", kcal: 410, p: 35, t: 20,
+            ing: ["500g Kalkoenfilet", "1 Verse Broccoli", "600g Aardappelen", "Olijfolie/Boter"], 
             steps: [
                 "1. Kook de aardappelen gaar met wat zout.",
-                "2. Dep het varkenshaasje droog, kruid met peper en zout. Bak goudbruin in **roomboter** (ongeveer 4 min per kant). Laat even rusten in zilverpapier.",
+                "2. Snij de kalkoen in lapjes. Kruid met peper, zout en eventueel wat paprikapoeder. Bak goudbruin en gaar (kalkoen moet goed doorbakken zijn, maar niet droog).",
                 "3. Stoom de broccoli beetgaar.",
-                "4. Maak het braadvocht los met een scheutje water voor een lekkere jus."
+                "4. Serveer de kalkoen met de aardappels en broccoli."
             ], 
-            kid: "Snij het vlees in 'muntjes'." 
+            kid: "Lekkere 'witte' kip." 
         },
         { 
             id: "j_w3_2", m: "Di 20/01: Pasta Gehakt & Wortel", kcal: 560, p: 29, t: 25,
@@ -105,14 +106,15 @@ var recipeData = {
             kid: "Een zachte, zoete oranje saus." 
         },
         { 
-            id: "j_w4_2", m: "Di 27/01: Pasta Broccoli-Tonijn", kcal: 485, p: 28, t: 15,
-            ing: ["Pasta", "1 Broccoli", "Tonijn in blik", "Roomkaas", "Zwarte peper"], 
+            id: "j_w4_2", m: "Di 27/01: Pasta Broccoli-Kip", kcal: 495, p: 30, t: 15,
+            ing: ["Pasta", "1 Broccoli", "300g Kipblokjes", "Roomkaas", "Zwarte peper"], 
             steps: [
-                "1. Kook pasta en broccoli samen.",
-                "2. Giet af (hou een beetje vocht apart) en roer de roomkaas en tonijn erdoor.",
-                "3. Kruid rijkelijk met **zwarte peper** en eventueel wat citroensap voor frisheid."
+                "1. Kook pasta en broccoli samen in één pan.",
+                "2. Bak de kipblokjes in een koekenpan gaar.",
+                "3. Giet de pasta af (hou vocht apart), roer de roomkaas en de gebakken kip erdoor.",
+                "4. Kruid rijkelijk met **zwarte peper**."
             ], 
-            kid: "Heel mild en romig." 
+            kid: "Heel mild en romig, zonder vis." 
         },
         { 
             id: "j_w4_3", m: "Wo 28/01: Zoete Aardappel Curry", kcal: 445, p: 17, t: 30,
