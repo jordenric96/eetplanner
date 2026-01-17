@@ -1,46 +1,22 @@
-/* DATA VOOR JANUARI WEEK 3 & 4 - DEFINITIEVE VERSIE (GEZONDE KAPSALON) */
+/* DATA VOOR JANUARI WEEK 3 & 4 - DEFINITIEF (GEEN SOEP, WEL KAPSALON) */
 
 var shoppingData = {
     ricour: {
         // V: Vlees/Vis | G: Groenten/Fruit | K: Kruidenier/Zuivel
-        // UPDATE: Vis terug naar 400g. Extra kip toegevoegd voor de kapsalon. Sla/Komkommer erbij.
-        v: ["Kippenchipolata (500g) - €6.99", "Kipfilet/reepjes (extra 350g voor vr) - €4.50", "Tonijn in eigen nat (3 blikjes) - €4.50", "DV Koolvisfilet (400g) - €3.50", "Eieren (6 stuks) - €1.95"],
-        g: ["Paprika mix (2 zakken à 3st) - €3.98", "Prei (2 bussels) - €2.99", "Wortelen (2kg zak) - €1.99", "Bloemkool (vers) - €2.49", "Broccoli (vers) - €1.89", "Courgette (4 stuks) - €3.40", "Prinsessenbonen (DV of vers 500g) - €1.99", "DV Erwten fijn (1 zak 600g) - €1.29", "Ui (net) - €1.25", "Mais (3 pack) - €2.25", "Zoete Aardappel (1.5kg) - €3.75", "Aardappelen (2.5kg) - €3.99", "IJsbergsla (zakje/krop) - €0.99", "Komkommer - €0.85", "Tomaten (tros) - €1.99"],
+        // AANGEPAST: Geen soepingrediënten meer (minder prei/courgette/paprika)
+        v: ["Kippenchipolata (500g) - €6.99", "Kipfilet (extra 350g voor vr) - €4.50", "Tonijn in eigen nat (3 blikjes) - €4.50", "DV Koolvisfilet (400g) - €3.50", "Eieren (6 stuks) - €1.95"],
+        g: ["Paprika mix (3st) - €1.99", "Prei (1 bussel) - €1.49", "Wortelen (2kg zak) - €1.99", "Bloemkool (vers) - €2.49", "Broccoli (2 stuks) - €3.50", "Courgette (2 stuks) - €1.69", "Prinsessenbonen (DV of vers 500g) - €1.99", "DV Erwten fijn (1 zak 600g) - €1.29", "Ui (net) - €1.25", "Mais (3 pack) - €2.25", "Zoete Aardappel (1.5kg) - €3.75", "Aardappelen (2.5kg) - €3.99", "IJsbergsla (zakje/krop) - €0.99", "Komkommer - €0.85", "Tomaten (tros) - €1.99"],
         k: ["Volkoren Pasta (500g) - €1.15", "Tomatenpuree (2 potjes) - €1.30", "Zuivelspread Light (type Philadelphia) - €1.89", "Geraspte kaas 30+ (300g) - €3.29", "Ketjap Manis - €1.89", "Pittenmix (Pompoen/Zonnebloem) - €2.50", "Shoarma/Kipkruiden - €1.50"]
     },
     hemmeryckx: {
         v: ["Kippenchipolata (350g) - €4.99", "Kipfilet (extra 300g) - €4.00", "Tonijn (2 blikjes) - €3.00", "DV Koolvis (400g) - €3.50", "Eieren (6 stuks) - €1.95"],
-        g: ["Paprika (2st) - €1.35", "Prei (3 stuks) - €1.50", "Wortelen (1kg) - €1.15", "Bloemkool - €1.50", "Broccoli - €1.20", "Courgette (2st) - €1.70", "Prinsessenbonen (250g) - €1.00", "Zoete Aardappel (2st) - €1.50", "DV Erwten (klein doosje)", "Sla/Komkommer/Tomaat - €3.00"],
+        g: ["Paprika (1st) - €0.70", "Prei (2 stuks) - €1.00", "Wortelen (1kg) - €1.15", "Bloemkool - €1.50", "Broccoli (2st) - €2.40", "Courgette (1st) - €0.85", "Prinsessenbonen (250g) - €1.00", "Zoete Aardappel (2st) - €1.50", "DV Erwten (klein doosje)", "Sla/Komkommer/Tomaat - €3.00"],
         k: ["Pasta - €0.70", "Zuivelspread - €1.20", "Kaas - €1.50", "Pittenmix - €1.50", "Kruiden - €1.00"]
     }
 };
 
 var recipeData = {
     recipes: [
-        /* SOEPEN */
-        { 
-            id: "j_w3_s1", m: "LUNCH: Courgette-Preisoep", kcal: 90, p: 4, t: 25,
-            ing: ["2 Courgettes", "2 stuks Prei", "1.5 liter Groentebouillon", "2 el Pittenmix", "2 el Griekse Yoghurt (optie)"],
-            steps: [
-                "1. Snij de courgettes en het wit van de prei in grove stukken.",
-                "2. Stoof de groenten kort aan in een soeppot met wat olijfolie.",
-                "3. Voeg de bouillon toe en laat 15 minuten koken tot de groenten zacht zijn.",
-                "4. Mix de soep glad. Serveer met een schepje yoghurt en geroosterde pitten voor een 'bite'."
-            ],
-            kid: "Groene hulk soep."
-        },
-        { 
-            id: "j_w3_s2", m: "LUNCH: Wortel-Paprikasoep", kcal: 95, p: 2, t: 25,
-            ing: ["500g Wortelen", "2 Rode Paprika's", "1 Ui", "1.5 liter Kippenbouillon", "1 el Zonnebloempitten"],
-            steps: [
-                "1. Schil de wortelen en snij in plakjes. Snij de paprika en ui grof.",
-                "2. Doe alle groenten samen met de bouillon in de pot.",
-                "3. Kook gaar en mix tot een gladde, oranje soep.",
-                "4. Werk af met wat pittenmix in het midden van het bord."
-            ],
-            kid: "Oranje soep die zoet smaakt."
-        },
-
         /* WEEK 3 */
         { 
             id: "j_w3_1", m: "Ma 19/01: Kip 'Cacciatore' (Veel Groenten)", kcal: 460, p: 35, t: 30,
