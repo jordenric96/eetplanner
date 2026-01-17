@@ -1,16 +1,17 @@
-/* DATA VOOR JANUARI WEEK 3 & 4 - DEFINITIEVE VERSIE (GEEN CHAMPIGNONS) */
+/* DATA VOOR JANUARI WEEK 3 & 4 - DEFINITIEVE VERSIE (GEZONDE KAPSALON) */
 
 var shoppingData = {
     ricour: {
         // V: Vlees/Vis | G: Groenten/Fruit | K: Kruidenier/Zuivel
-        v: ["Kippenchipolata (500g) - €6.99", "Tonijn in eigen nat (3 blikjes) - €4.50", "DV Koolvisfilet (800g) - €5.99", "Eieren (12 stuks) - €3.89"],
-        g: ["Paprika mix (2 zakken à 3st) - €3.98", "Prei (2 bussels) - €2.99", "Wortelen (2kg zak) - €1.99", "Bloemkool (vers) - €2.49", "Broccoli (vers) - €1.89", "Courgette (4 stuks) - €3.40", "Prinsessenbonen (DV of vers 500g) - €1.99", "DV Erwten fijn (1 zak 600g) - €1.29", "Ui (net) - €1.25", "Mais (3 pack) - €2.25", "Zoete Aardappel (1kg) - €2.50", "Aardappelen (2.5kg) - €3.99"],
-        k: ["Volkoren Pasta (500g) - €1.15", "Tomatenpuree (2 potjes) - €1.30", "Zuivelspread Light (type Philadelphia) - €1.89", "Geraspte kaas 30+ (300g) - €3.29", "Ketjap Manis - €1.89", "Pittenmix (Pompoen/Zonnebloem) - €2.50"]
+        // UPDATE: Vis terug naar 400g. Extra kip toegevoegd voor de kapsalon. Sla/Komkommer erbij.
+        v: ["Kippenchipolata (500g) - €6.99", "Kipfilet/reepjes (extra 350g voor vr) - €4.50", "Tonijn in eigen nat (3 blikjes) - €4.50", "DV Koolvisfilet (400g) - €3.50", "Eieren (6 stuks) - €1.95"],
+        g: ["Paprika mix (2 zakken à 3st) - €3.98", "Prei (2 bussels) - €2.99", "Wortelen (2kg zak) - €1.99", "Bloemkool (vers) - €2.49", "Broccoli (vers) - €1.89", "Courgette (4 stuks) - €3.40", "Prinsessenbonen (DV of vers 500g) - €1.99", "DV Erwten fijn (1 zak 600g) - €1.29", "Ui (net) - €1.25", "Mais (3 pack) - €2.25", "Zoete Aardappel (1.5kg) - €3.75", "Aardappelen (2.5kg) - €3.99", "IJsbergsla (zakje/krop) - €0.99", "Komkommer - €0.85", "Tomaten (tros) - €1.99"],
+        k: ["Volkoren Pasta (500g) - €1.15", "Tomatenpuree (2 potjes) - €1.30", "Zuivelspread Light (type Philadelphia) - €1.89", "Geraspte kaas 30+ (300g) - €3.29", "Ketjap Manis - €1.89", "Pittenmix (Pompoen/Zonnebloem) - €2.50", "Shoarma/Kipkruiden - €1.50"]
     },
     hemmeryckx: {
-        v: ["Kippenchipolata (350g) - €4.99", "Tonijn (2 blikjes) - €3.00", "DV Koolvis (400g) - €3.50", "Eieren (6 stuks) - €1.95"],
-        g: ["Paprika (2st) - €1.35", "Prei (3 stuks) - €1.50", "Wortelen (1kg) - €1.15", "Bloemkool - €1.50", "Broccoli - €1.20", "Courgette (2st) - €1.70", "Prinsessenbonen (250g) - €1.00", "Zoete Aardappel (2st) - €1.50", "DV Erwten (klein doosje/rest)"],
-        k: ["Pasta - €0.70", "Zuivelspread - €1.20", "Kaas - €1.50", "Pittenmix - €1.50"]
+        v: ["Kippenchipolata (350g) - €4.99", "Kipfilet (extra 300g) - €4.00", "Tonijn (2 blikjes) - €3.00", "DV Koolvis (400g) - €3.50", "Eieren (6 stuks) - €1.95"],
+        g: ["Paprika (2st) - €1.35", "Prei (3 stuks) - €1.50", "Wortelen (1kg) - €1.15", "Bloemkool - €1.50", "Broccoli - €1.20", "Courgette (2st) - €1.70", "Prinsessenbonen (250g) - €1.00", "Zoete Aardappel (2st) - €1.50", "DV Erwten (klein doosje)", "Sla/Komkommer/Tomaat - €3.00"],
+        k: ["Pasta - €0.70", "Zuivelspread - €1.20", "Kaas - €1.50", "Pittenmix - €1.50", "Kruiden - €1.00"]
     }
 };
 
@@ -43,7 +44,7 @@ var recipeData = {
         /* WEEK 3 */
         { 
             id: "j_w3_1", m: "Ma 19/01: Kip 'Cacciatore' (Veel Groenten)", kcal: 460, p: 35, t: 30,
-            ing: ["350g Kipblokjes", "400g Tomatenblokjes (blik)", "300g Rijst", "1 Courgette", "1 Rode Paprika", "1 el Oregano"], 
+            ing: ["350g Kipblokjes (Voorraad)", "400g Tomatenblokjes (blik)", "300g Rijst", "1 Courgette", "1 Rode Paprika", "1 el Oregano"], 
             steps: [
                 "1. Kook de rijst volgens de verpakking.",
                 "2. Bak de kipblokjes goudbruin in een braadpan. Haal ze even uit de pan.",
@@ -54,7 +55,7 @@ var recipeData = {
         },
         { 
             id: "j_w3_2", m: "Di 20/01: Koolvis met Bloemkoolstoemp", kcal: 390, p: 32, t: 30,
-            ing: ["800g Koolvisfilet (DV)", "1 halve Bloemkool", "500g Wortelen", "300g Aardappelen", "Snufje Nootmuskaat"], 
+            ing: ["400g Koolvisfilet (DV)", "1 halve Bloemkool", "500g Wortelen", "300g Aardappelen", "Snufje Nootmuskaat"], 
             steps: [
                 "1. Schil de aardappelen en wortelen. Snij de bloemkool in roosjes.",
                 "2. Kook alle groenten samen gaar in gezouten water. Giet af en stamp tot puree.",
@@ -76,7 +77,7 @@ var recipeData = {
         },
         { 
             id: "j_w3_4", m: "Do 22/01: Romige Kip Spinazie", kcal: 470, p: 36, t: 20,
-            ing: ["350g Kipblokjes", "450g Spinazie (DV)", "300g Rijst", "3 el Zuivelspread Light", "2 el Pittenmix"], 
+            ing: ["350g Kipblokjes (Voorraad)", "450g Spinazie (DV)", "300g Rijst", "3 el Zuivelspread Light", "2 el Pittenmix"], 
             steps: [
                 "1. Kook de rijst gaar.",
                 "2. Bak de kipblokjes in een pan met peper en zout.",
@@ -111,7 +112,7 @@ var recipeData = {
         },
         { 
             id: "j_w4_2", m: "Di 27/01: Nasi Goreng (Extra Groen)", kcal: 490, p: 30, t: 20,
-            ing: ["300g Kipblokjes", "300g Rijst", "2 stuks Prei", "200g Erwten (DV)", "3 Eieren", "Ketjap Manis"], 
+            ing: ["300g Kipblokjes (Voorraad)", "300g Rijst", "2 stuks Prei", "200g Erwten (DV)", "3 Eieren", "Ketjap Manis"], 
             steps: [
                 "1. Kook de rijst en laat bij voorkeur even afkoelen.",
                 "2. Bak de kipblokjes gaar in een wok. Voeg de gesneden preiringen en de erwten toe.",
@@ -143,15 +144,15 @@ var recipeData = {
             kid: "Vispasta met witte saus." 
         },
         { 
-            id: "j_w4_5", m: "Vr 30/01: Frittata met Prei & Erwten", kcal: 430, p: 25, t: 25,
-            ing: ["6 Eieren", "600g Aardappelen", "2 stuks Prei", "200g Erwten (DV)", "50g Geraspte kaas", "2 el Pittenmix"], 
+            id: "j_w4_5", m: "Vr 30/01: Gezonde Kapsalon (Kip & Zoete Aardappel)", kcal: 550, p: 35, t: 30,
+            ing: ["350g Kipfilet (Extra gekocht)", "800g Zoete Aardappel", "IJsbergsla", "Komkommer", "Tomaten", "100g Geraspte Kaas", "Zuivelspread (voor saus)"], 
             steps: [
-                "1. Schil de aardappelen, snij in dunne plakjes en kook ze 5-8 min voor (beetgaar).",
-                "2. Snij de prei in ringen. Bak de prei en de diepvrieserwten kort aan in een pan.",
-                "3. Kluts de eieren met peper, zout en een klein beetje kaas.",
-                "4. Meng de aardappelen en groenten in een ingevette schaal (of ovenbestendige pan), giet het eimengsel erover en bak tot het ei gestold is. Bestrooi met pitten."
+                "1. Snij de zoete aardappel in frietjes. Meng met een beetje olie en bak ca. 20-25 min in de oven (200°C) of Airfryer.",
+                "2. Snij de kip in reepjes, kruid met shoarmakruiden en bak goudbruin in de pan.",
+                "3. Doe de frietjes in een ovenschaal, verdeel de kip en de geraspte kaas erover. Zet kort onder de grill tot de kaas gesmolten is.",
+                "4. Top af met veel rauwe sla, tomaat en komkommer. Maak een sausje van zuivelspread, beetje water en knoflookpoeder."
             ], 
-            kid: "Hartige taart met groene bolletjes." 
+            kid: "Frietjesfeest met kip." 
         }
     ]
 };
