@@ -130,7 +130,7 @@
             width: 300%; /* Extra breed voor scroll effect */
             transform: translateY(-50%);
             background: var(--secondary); /* Kleur van het thema (Groen bij Ricour) */
-            color: #fff; /* Wit voor contrast op groen/roze */
+            color: #fff; /* Wit voor contrast */
             font-weight: 900;
             font-size: 1.5rem;
             padding: 15px 0;
@@ -223,6 +223,10 @@
     let completedRecipes = JSON.parse(localStorage.getItem('completedRecipes')) || [];
     let stockedItems = JSON.parse(localStorage.getItem('stockedItems')) || [];
 
+    // AUDIO SETUP 🎵
+    let barbieAudio = new Audio('barbie.mp3'); // Zorg dat dit bestand in je map staat!
+    barbieAudio.loop = true;
+
     // Functie om familie te wisselen via de knoppen
     function setFamily(key) {
         currentFamilyKey = key;
@@ -232,6 +236,16 @@
             btn.classList.remove('active');
             if(btn.getAttribute('data-family') === key) btn.classList.add('active');
         });
+
+        // AUDIO LOGICA
+        if (key === 'hemmeryckx') {
+            // Speel Barbie muziek
+            barbieAudio.play().catch(e => console.log("Audio autoplay geblokkeerd door browser, klik nogmaals.", e));
+        } else {
+            // Stop muziek bij andere families
+            barbieAudio.pause();
+            barbieAudio.currentTime = 0;
+        }
 
         updateUI();
     }
