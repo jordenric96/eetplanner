@@ -1,17 +1,23 @@
-/* DATA VOOR JANUARI WEEK 3 & 4 - DEFINITIEF (GEEN SOEP, WEL KAPSALON) */
+/* DATA VOOR JANUARI WEEK 3 & 4 - 3 GEZINNEN VERSIE */
 
 var shoppingData = {
     ricour: {
-        // V: Vlees/Vis | G: Groenten/Fruit | K: Kruidenier/Zuivel
-        // AANGEPAST: Geen soepingrediënten meer (minder prei/courgette/paprika)
+        // 2 Volwassenen + 1 Kind
         v: ["Kippenchipolata (500g) - €6.99", "Kipfilet (extra 350g voor vr) - €4.50", "Tonijn in eigen nat (3 blikjes) - €4.50", "DV Koolvisfilet (400g) - €3.50", "Eieren (6 stuks) - €1.95"],
         g: ["Paprika mix (3st) - €1.99", "Prei (1 bussel) - €1.49", "Wortelen (2kg zak) - €1.99", "Bloemkool (vers) - €2.49", "Broccoli (2 stuks) - €3.50", "Courgette (2 stuks) - €1.69", "Prinsessenbonen (DV of vers 500g) - €1.99", "DV Erwten fijn (1 zak 600g) - €1.29", "Ui (net) - €1.25", "Mais (3 pack) - €2.25", "Zoete Aardappel (1.5kg) - €3.75", "Aardappelen (2.5kg) - €3.99", "IJsbergsla (zakje/krop) - €0.99", "Komkommer - €0.85", "Tomaten (tros) - €1.99"],
         k: ["Volkoren Pasta (500g) - €1.15", "Tomatenpuree (2 potjes) - €1.30", "Zuivelspread Light (type Philadelphia) - €1.89", "Geraspte kaas 30+ (300g) - €3.29", "Ketjap Manis - €1.89", "Pittenmix (Pompoen/Zonnebloem) - €2.50", "Shoarma/Kipkruiden - €1.50"]
     },
     hemmeryckx: {
+        // 2 Volwassenen (Labels in app worden 'Hemmeryckx - Debodt')
         v: ["Kippenchipolata (350g) - €4.99", "Kipfilet (extra 300g) - €4.00", "Tonijn (2 blikjes) - €3.00", "DV Koolvis (400g) - €3.50", "Eieren (6 stuks) - €1.95"],
         g: ["Paprika (1st) - €0.70", "Prei (2 stuks) - €1.00", "Wortelen (1kg) - €1.15", "Bloemkool - €1.50", "Broccoli (2st) - €2.40", "Courgette (1st) - €0.85", "Prinsessenbonen (250g) - €1.00", "Zoete Aardappel (2st) - €1.50", "DV Erwten (klein doosje)", "Sla/Komkommer/Tomaat - €3.00"],
         k: ["Pasta - €0.70", "Zuivelspread - €1.20", "Kaas - €1.50", "Pittenmix - €1.50", "Kruiden - €1.00"]
+    },
+    ricour_tielemans: {
+        // ✨ 2 Volwassenen + 2 Kinderen (Grote porties) ✨
+        v: ["Kippenchipolata (750g) - €8.50", "Kipfilet (extra 500g) - €6.00", "Tonijn in eigen nat (4 blikjes) - €5.90", "DV Koolvisfilet (600g) - €5.50", "Eieren (10 stuks) - €2.50"],
+        g: ["Paprika mix (3st) - €1.99", "Prei (2 bussels) - €2.50", "Wortelen (2kg zak) - €1.99", "Bloemkool (Groot) - €2.99", "Broccoli (2 grote stuks) - €3.50", "Courgette (3 stuks) - €2.25", "Prinsessenbonen (750g) - €2.50", "DV Erwten fijn (1kg zak) - €1.89", "Ui (net) - €1.25", "Mais (3 pack) - €2.25", "Zoete Aardappel (2kg) - €4.50", "Aardappelen (3kg) - €4.50", "IJsbergsla (2 zakjes) - €1.80", "Komkommer (2st) - €1.50", "Tomaten (tros) - €1.99"],
+        k: ["Volkoren Pasta (750g) - €1.60", "Tomatenpuree (3 potjes) - €1.95", "Zuivelspread Light (Grote pot) - €2.50", "Geraspte kaas 30+ (400g) - €3.99", "Ketjap Manis - €1.89", "Pittenmix (Pompoen/Zonnebloem) - €2.50", "Shoarma/Kipkruiden - €1.50"]
     }
 };
 
