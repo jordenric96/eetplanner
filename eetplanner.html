@@ -3,11 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eetplanning Hub Pro V55</title>
+    <title>Eetplanning Hub Pro V60</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #D66D58; --secondary: #4CAF50; --bg: #FFF5F2; --card: #ffffff; --text: #2D3436; --gray: #b2b2b2; }
-        body.gothic-mode { --primary: #8e44ad; --secondary: #2c3e50; --bg: #0a0a0c; --card: #1a1a1d; --text: #e0e0e0; }
+        /* STANDAARD THEMA (Ricour) */
+        :root { --primary: #D66D58; --secondary: #4CAF50; --bg: #FFF5F2; --card: #ffffff; --text: #2D3436; --gray: #b2b2b2; --accent: #D66D58; }
+        
+        /* 🎀 BARBIE THEMA (Hemmeryckx - Debodt) 🎀 */
+        body.barbie-mode { 
+            --primary: #E91E63; /* Hot Pink */
+            --secondary: #00BCD4; /* Barbie Blue/Turquoise accent */
+            --bg: #FCE4EC; /* Soft Pink Background */
+            --card: #FFF0F5; /* Lavender Blush */
+            --text: #880E4F; /* Dark Pink Text */
+            --gray: #F8BBD0;
+        }
+        
+        /* ✨ GLITTER THEMA (Ricour - Tielemans) ✨ */
+        body.glitter-mode { 
+            --primary: #B8860B; /* Dark Goldenrod */
+            --secondary: #000000; /* Contrast Black */
+            --bg: #FDF5E6; /* Old Lace */
+            --card: #FFFFFF; 
+            --text: #333333;
+            background-image: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+        }
+
+        /* Glitter specifieke effecten */
+        body.glitter-mode .total-box {
+            background: linear-gradient(45deg, #DAA520, #FFD700, #DAA520);
+            background-size: 200% 200%;
+            animation: sparkle 3s infinite;
+            color: #000;
+            text-shadow: 0px 1px 0px rgba(255,255,255,0.5);
+            border: 2px solid #FFD700;
+        }
+        
+        body.glitter-mode h3 {
+            background: linear-gradient(to right, #B8860B, #FFD700, #B8860B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        @keyframes sparkle {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
         
         * { box-sizing: border-box; transition: all 0.3s ease; }
         body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 15px; }
@@ -17,15 +60,27 @@
             display: flex; flex-direction: column; gap: 20px; align-items: center; 
             background: var(--card); padding: 20px; border-radius: 25px; margin-bottom: 25px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
         }
         @media (min-width: 600px) { .controls-bar { flex-direction: row; justify-content: space-between; } }
 
-        select, button { font-family: inherit; font-weight: 600; }
+        select, button { font-family: inherit; font-weight: 600; cursor: pointer; }
+        
+        /* Nieuwe Familie Selector Stijl */
+        #familySelect {
+            padding: 12px 20px; border-radius: 15px; border: 2px solid var(--primary); 
+            background: var(--card); color: var(--text); font-size: 1rem; outline: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
         #monthSelect { padding: 10px 20px; border-radius: 15px; border: 2px solid var(--primary); background: transparent; color: var(--text); }
         
         .nav-tabs { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; }
         .tab-btn { padding: 10px 25px; border-radius: 20px; border: none; cursor: pointer; background: rgba(0,0,0,0.05); color: var(--text); }
-        .tab-btn.active { background: var(--primary); color: white; box-shadow: 0 5px 15px rgba(214, 109, 88, 0.3); }
+        .tab-btn.active { background: var(--primary); color: white; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        
+        /* Barbie mode tab override */
+        body.barbie-mode .tab-btn.active { background: #E91E63; box-shadow: 0 5px 15px rgba(233, 30, 99, 0.4); }
 
         .total-box { background: var(--primary); color: white; padding: 15px; border-radius: 20px; text-align: center; margin-bottom: 25px; font-weight: 800; font-size: 1.2rem; letter-spacing: 0.5px; }
         
@@ -53,7 +108,7 @@
         }
         
         .day-card.completed { opacity: 0.6; filter: grayscale(0.8); background: rgba(255,255,255,0.4); border-color: #ddd; }
-        .day-card.completed h3 { text-decoration: line-through; }
+        .day-card.completed h3 { text-decoration: line-through; -webkit-text-fill-color: #888; }
         
         .check-btn { 
             position: absolute; top: 15px; right: 15px; width: 32px; height: 32px; 
@@ -77,22 +132,18 @@
 
 <div class="container">
     <div class="controls-bar">
-        <div style="font-weight:800; font-size:1.2rem; display:flex; gap:10px; align-items:center;">
-            Ricour 
-            <label style="position:relative; width:50px; height:26px; display:inline-block;">
-                <input type="checkbox" id="famToggle" onchange="updateUI()" style="opacity:0; width:0; height:0;">
-                <span style="position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0; background:#ddd; border-radius:30px; transition:.4s;"></span>
-                <span id="slider-knob" style="position:absolute; content:''; height:20px; width:20px; left:3px; bottom:3px; background:white; border-radius:50%; transition:.4s;"></span>
-            </label> 
-            Hemmeryckx
-        </div>
+        <select id="familySelect" onchange="updateUI()">
+            <option value="ricour">Ricour (2V + 1K)</option>
+            <option value="hemmeryckx">🎀 Hemmeryckx - Debodt (2V)</option>
+            <option value="ricour_tielemans">✨ Ricour - Tielemans (2V + 2K)</option>
+        </select>
         
         <select id="monthSelect" onchange="loadNewData()">
             <option value="januari">Januari</option>
             <option value="februari">Februari</option>
         </select>
         
-        <button onclick="clearProgress()" style="border:none; background:rgba(214, 109, 88, 0.1); color:var(--primary); padding:10px 20px; border-radius:15px; cursor:pointer;">Reset</button>
+        <button onclick="clearProgress()" style="border:none; background:rgba(0,0,0,0.05); color:var(--text); padding:10px 20px; border-radius:15px; cursor:pointer;">Reset</button>
     </div>
 
     <div class="nav-tabs">
@@ -139,12 +190,12 @@
         const script = document.createElement('script');
         script.id = 'data-script';
         
+        // Zorg dat de map structuur correct is! (bijv. 'januari/recepten_w3&4.js')
         script.src = `${maand}/recepten_${currentPeriode}.js?t=${new Date().getTime()}`;
         
         script.onload = () => {
-            console.log("Script geladen.");
             if (typeof shoppingData === 'undefined' || typeof recipeData === 'undefined') {
-                banner.innerText = "FOUT: Data variabele ontbreekt in JS bestand!";
+                banner.innerText = "Error: Data variabele ontbreekt!";
                 banner.style.background = "red";
             } else {
                 updateUI();
@@ -152,9 +203,8 @@
         };
         
         script.onerror = () => {
-            banner.innerText = `FOUT: Kan bestand '${maand}/recepten_${currentPeriode}.js' niet vinden.`;
+            banner.innerText = `Bestand niet gevonden: ${maand}/recepten_${currentPeriode}.js`;
             banner.style.background = "red";
-            document.getElementById('calendar').innerHTML = "<p style='text-align:center; padding:20px;'>Controleer of de map 'januari' bestaat en de bestandsnamen kloppen (kleine letters!).</p>";
         };
         
         document.head.appendChild(script);
@@ -200,19 +250,34 @@
 
     function updateUI() {
         try {
-            const isH = document.getElementById('famToggle').checked;
-            document.getElementById('slider-knob').style.transform = isH ? 'translateX(24px)' : 'translateX(0)';
-            document.body.className = isH ? 'gothic-mode' : '';
+            const familyKey = document.getElementById('familySelect').value;
             
-            const familyKey = isH ? 'hemmeryckx' : 'ricour';
-            const factor = isH ? 0.67 : 1.0;
+            // THEMA LOGICA
+            document.body.className = ''; // Reset
+            let factor = 1.0;
+
+            if (familyKey === 'hemmeryckx') {
+                document.body.classList.add('barbie-mode');
+                factor = 0.67; // 2 Personen
+            } else if (familyKey === 'ricour_tielemans') {
+                document.body.classList.add('glitter-mode');
+                factor = 1.33; // 4 Personen
+            } else {
+                // Standaard Ricour
+                factor = 1.0; // 3 Personen
+            }
 
             if (typeof shoppingData === 'undefined' || typeof recipeData === 'undefined') return;
 
-            // Boodschappenlijst
+            // KIES DE JUISTE DATA SET OF FALLBACK NAAR RICOUR
+            const currentShopData = shoppingData[familyKey] || shoppingData['ricour'];
+
+            // Boodschappenlijst renderen
             let totalCost = 0;
             const renderShopList = (id, list) => {
                 const el = document.getElementById(id); el.innerHTML = '';
+                if(!list) return;
+
                 list.forEach(itemStr => {
                     const parts = itemStr.split(' - €');
                     const name = parts[0];
@@ -229,15 +294,14 @@
                 });
             };
 
-            renderShopList('vList', shoppingData[familyKey].v);
-            renderShopList('gList', shoppingData[familyKey].g);
-            renderShopList('kList', shoppingData[familyKey].k);
+            renderShopList('vList', currentShopData.v);
+            renderShopList('gList', currentShopData.g);
+            renderShopList('kList', currentShopData.k);
             
             const banner = document.getElementById('priceBanner');
             banner.innerText = `Te Betalen: €${totalCost.toFixed(2)}`;
-            banner.style.background = isH ? "#8e44ad" : "#D66D58";
-
-            // Kalender
+            
+            // Kalender renderen
             const grid = document.getElementById('calendar'); grid.innerHTML = '';
             recipeData.recipes.forEach(x => {
                 const safeId = x.id || Math.random().toString(36).substr(2, 9);
@@ -246,7 +310,7 @@
                 const card = document.createElement('div');
                 card.className = `day-card ${isDone ? 'completed' : ''}`;
                 
-                // Verbeterde preview: Verwijder cijfers aan begin voor nettere lijst
+                // Korte preview van ingrediënten
                 const ingPreview = x.ing ? x.ing.map(i => i.replace(/^[\d.,]+(g|ml|l|kg|stuks|st)?\s*/i, '')).slice(0, 3).join(', ') : '';
 
                 card.innerHTML = `
@@ -261,16 +325,28 @@
 
         } catch (error) {
             console.error(error);
-            document.getElementById('priceBanner').innerText = "Script Error";
+            document.getElementById('priceBanner').innerText = "Data Error (Check Console)";
         }
     }
 
     function showModal(x, f) {
         document.getElementById('mTitle').innerText = x.m;
-        document.getElementById('mStats').innerHTML = `<span>🔥 ${x.kcal}</span> <span>💪 ${x.p}g</span> <span>🕒 ${x.t}m</span>`;
+        
+        // Stats
+        document.getElementById('mStats').innerHTML = `<span>🔥 ${x.kcal} kcal/p</span> <span>💪 ${x.p}g eiwit</span> <span>🕒 ${x.t} min</span>`;
+        
         if(x.ing) {
-            document.getElementById('mIng').innerHTML = x.ing.map(i => `<li>${i.replace(/(\d+)/g, n => Math.round(n * f))}</li>`).join('');
+            // Intelligente nummer vermenigvuldiging voor recepten
+            document.getElementById('mIng').innerHTML = x.ing.map(i => {
+                let newItem = i.replace(/(\d+([.,]\d+)?)/g, (match) => {
+                    let num = parseFloat(match.replace(',', '.'));
+                    let newNum = Math.round(num * f);
+                    return newNum;
+                });
+                return `<li>${newItem}</li>`;
+            }).join('');
         }
+        
         if(x.steps) {
             document.getElementById('mSteps').innerHTML = x.steps.map(s => `<p>${s}</p>`).join('');
         }
