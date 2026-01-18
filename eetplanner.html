@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eetplanning Hub Pro V60</title>
+    <title>Eetplanning Hub Pro V70</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         /* STANDAARD THEMA (Ricour) */
@@ -11,78 +11,65 @@
         
         /* 🎀 BARBIE THEMA (Hemmeryckx - Debodt) 🎀 */
         body.barbie-mode { 
-            --primary: #E91E63; /* Hot Pink */
-            --secondary: #00BCD4; /* Barbie Blue/Turquoise accent */
-            --bg: #FCE4EC; /* Soft Pink Background */
-            --card: #FFF0F5; /* Lavender Blush */
-            --text: #880E4F; /* Dark Pink Text */
-            --gray: #F8BBD0;
+            --primary: #E91E63; --secondary: #00BCD4; --bg: #FCE4EC; --card: #FFF0F5; --text: #880E4F; --gray: #F8BBD0;
         }
         
         /* ✨ GLITTER THEMA (Ricour - Tielemans) ✨ */
         body.glitter-mode { 
-            --primary: #B8860B; /* Dark Goldenrod */
-            --secondary: #000000; /* Contrast Black */
-            --bg: #FDF5E6; /* Old Lace */
-            --card: #FFFFFF; 
-            --text: #333333;
+            --primary: #B8860B; --secondary: #000000; --bg: #FDF5E6; --card: #FFFFFF; --text: #333333;
             background-image: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
         }
-
-        /* Glitter specifieke effecten */
-        body.glitter-mode .total-box {
-            background: linear-gradient(45deg, #DAA520, #FFD700, #DAA520);
-            background-size: 200% 200%;
-            animation: sparkle 3s infinite;
-            color: #000;
-            text-shadow: 0px 1px 0px rgba(255,255,255,0.5);
-            border: 2px solid #FFD700;
+        /* Glitter animatie voor de knop en totaalbox */
+        @keyframes sparkle { 0% {background-position: 0% 50%;} 50% {background-position: 100% 50%;} 100% {background-position: 0% 50%;} }
+        body.glitter-mode .total-box, body.glitter-mode .family-btn.active[data-family="ricour_tielemans"] {
+            background: linear-gradient(45deg, #DAA520, #FFD700, #DAA520); background-size: 200% 200%;
+            animation: sparkle 3s infinite; color: #000; border: 2px solid #FFD700;
         }
-        
         body.glitter-mode h3 {
-            background: linear-gradient(to right, #B8860B, #FFD700, #B8860B);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-        }
-
-        @keyframes sparkle {
-            0% {background-position: 0% 50%;}
-            50% {background-position: 100% 50%;}
-            100% {background-position: 0% 50%;}
+            background: linear-gradient(to right, #B8860B, #FFD700, #B8860B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;
         }
         
         * { box-sizing: border-box; transition: all 0.3s ease; }
         body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 15px; }
         .container { max-width: 1200px; margin: 0 auto; }
         
+        /* --- KNOPPEN BALK --- */
         .controls-bar { 
             display: flex; flex-direction: column; gap: 20px; align-items: center; 
-            background: var(--card); padding: 20px; border-radius: 25px; margin-bottom: 25px; 
+            background: var(--card); padding: 25px; border-radius: 25px; margin-bottom: 25px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.05);
         }
-        @media (min-width: 600px) { .controls-bar { flex-direction: row; justify-content: space-between; } }
-
-        select, button { font-family: inherit; font-weight: 600; cursor: pointer; }
         
-        /* Nieuwe Familie Selector Stijl */
-        #familySelect {
-            padding: 12px 20px; border-radius: 15px; border: 2px solid var(--primary); 
-            background: var(--card); color: var(--text); font-size: 1rem; outline: none;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        /* NIEUWE GROTE KNOPPEN STIJL */
+        .family-selector {
+            display: flex; gap: 15px; width: 100%; justify-content: center; flex-wrap: wrap;
         }
+        .family-btn {
+            padding: 15px 25px; border: 2px solid transparent; border-radius: 15px;
+            font-size: 1rem; font-weight: 700; cursor: pointer; flex: 1; min-width: 200px;
+            background: #f0f0f0; color: #555; text-align: center;
+        }
+        
+        /* Specifieke stijlen per knop als ze actief zijn */
+        .family-btn.active { transform: scale(1.05); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        
+        /* Ricour (Standaard) */
+        .family-btn[data-family="ricour"].active { background: #D66D58; color: white; border-color: #D66D58; }
+        /* Barbie */
+        .family-btn[data-family="hemmeryckx"] { border-color: #E91E63; color: #E91E63; background: #fff; }
+        .family-btn[data-family="hemmeryckx"].active { background: #E91E63; color: white; }
+        /* Glitter */
+        .family-btn[data-family="ricour_tielemans"] { border-color: #B8860B; color: #B8860B; background: #fff; }
+        .family-btn[data-family="ricour_tielemans"].active { background: #B8860B; color: white; } /* Fallback als animatie niet werkt */
 
-        #monthSelect { padding: 10px 20px; border-radius: 15px; border: 2px solid var(--primary); background: transparent; color: var(--text); }
+        #monthSelect { padding: 10px 20px; border-radius: 15px; border: 2px solid var(--primary); background: transparent; color: var(--text); font-weight: bold; }
         
         .nav-tabs { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; }
         .tab-btn { padding: 10px 25px; border-radius: 20px; border: none; cursor: pointer; background: rgba(0,0,0,0.05); color: var(--text); }
         .tab-btn.active { background: var(--primary); color: white; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        
-        /* Barbie mode tab override */
-        body.barbie-mode .tab-btn.active { background: #E91E63; box-shadow: 0 5px 15px rgba(233, 30, 99, 0.4); }
+        body.barbie-mode .tab-btn.active { background: #E91E63; }
 
-        .total-box { background: var(--primary); color: white; padding: 15px; border-radius: 20px; text-align: center; margin-bottom: 25px; font-weight: 800; font-size: 1.2rem; letter-spacing: 0.5px; }
+        .total-box { background: var(--primary); color: white; padding: 15px; border-radius: 20px; text-align: center; margin-bottom: 25px; font-weight: 800; font-size: 1.2rem; }
         
         .shopping-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px; }
         .shop-card { background: var(--card); padding: 20px; border-radius: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
@@ -92,10 +79,7 @@
             display: flex; justify-content: space-between; align-items: center; padding: 8px 0; 
             border-bottom: 1px solid rgba(0,0,0,0.03); font-size: 0.9rem; cursor: pointer; 
         }
-        .stock-check { 
-            width: 18px; height: 18px; border: 2px solid var(--gray); border-radius: 50%; 
-            margin-right: 10px; display: inline-block; position: relative; transition: all 0.2s;
-        }
+        .stock-check { width: 18px; height: 18px; border: 2px solid var(--gray); border-radius: 50%; margin-right: 10px; display: inline-block; position: relative; }
         .item-list li.stocked { color: var(--gray); text-decoration: line-through; }
         .item-list li.stocked .stock-check { background: var(--secondary); border-color: var(--secondary); }
         .item-list li.stocked .stock-check::after { content: '✓'; color: white; position: absolute; top: -3px; left: 3px; font-size: 12px; }
@@ -106,18 +90,15 @@
             position: relative; overflow: hidden; border: 2px solid transparent;
             box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; flex-direction: column;
         }
-        
         .day-card.completed { opacity: 0.6; filter: grayscale(0.8); background: rgba(255,255,255,0.4); border-color: #ddd; }
-        .day-card.completed h3 { text-decoration: line-through; -webkit-text-fill-color: #888; }
+        .day-card.completed h3 { text-decoration: line-through; }
         
         .check-btn { 
             position: absolute; top: 15px; right: 15px; width: 32px; height: 32px; 
-            border-radius: 50%; background: #eee; border: none; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; color: transparent;
-            font-size: 1.2rem; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 50%; background: #eee; border: none; cursor: pointer; color: transparent;
             z-index: 5;
         }
-        .day-card.completed .check-btn { background: var(--secondary); color: white; transform: scale(1.1); box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3); }
+        .day-card.completed .check-btn { background: var(--secondary); color: white; }
 
         .day-card h3 { color: var(--primary); margin: 5px 0 15px 0; font-size: 1.1rem; padding-right: 40px; }
         .stat-bar { display: flex; gap: 10px; font-size: 0.8rem; color: #777; margin-bottom: 15px; font-weight: 600; }
@@ -128,22 +109,29 @@
         .close { position: absolute; right: 25px; top: 20px; font-size: 28px; cursor: pointer; color: var(--primary); }
     </style>
 </head>
-<body id="mainBody">
+<body>
 
 <div class="container">
     <div class="controls-bar">
-        <select id="familySelect" onchange="updateUI()">
-            <option value="ricour">Ricour (2V + 1K)</option>
-            <option value="hemmeryckx">🎀 Hemmeryckx - Debodt (2V)</option>
-            <option value="ricour_tielemans">✨ Ricour - Tielemans (2V + 2K)</option>
-        </select>
-        
-        <select id="monthSelect" onchange="loadNewData()">
-            <option value="januari">Januari</option>
-            <option value="februari">Februari</option>
-        </select>
-        
-        <button onclick="clearProgress()" style="border:none; background:rgba(0,0,0,0.05); color:var(--text); padding:10px 20px; border-radius:15px; cursor:pointer;">Reset</button>
+        <div class="family-selector">
+            <button class="family-btn active" data-family="ricour" onclick="setFamily('ricour')">
+                Ricour (3p)
+            </button>
+            <button class="family-btn" data-family="hemmeryckx" onclick="setFamily('hemmeryckx')">
+                🎀 Hemmeryckx (2p)
+            </button>
+            <button class="family-btn" data-family="ricour_tielemans" onclick="setFamily('ricour_tielemans')">
+                ✨ Tielemans (4p)
+            </button>
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+            <select id="monthSelect" onchange="loadNewData()">
+                <option value="januari">Januari</option>
+                <option value="februari">Februari</option>
+            </select>
+            <button onclick="clearProgress()" style="border:none; background:rgba(0,0,0,0.05); color:var(--text); padding:10px 20px; border-radius:15px; cursor:pointer;">Reset</button>
+        </div>
     </div>
 
     <div class="nav-tabs">
@@ -175,13 +163,26 @@
 
 <script>
     let currentPeriode = 'w1&2';
+    let currentFamilyKey = 'ricour'; // Standaard familie
     let completedRecipes = JSON.parse(localStorage.getItem('completedRecipes')) || [];
     let stockedItems = JSON.parse(localStorage.getItem('stockedItems')) || [];
+
+    // Functie om familie te wisselen via de knoppen
+    function setFamily(key) {
+        currentFamilyKey = key;
+        
+        // Update visuele status van knoppen
+        document.querySelectorAll('.family-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if(btn.getAttribute('data-family') === key) btn.classList.add('active');
+        });
+
+        updateUI();
+    }
 
     function loadNewData() {
         const maand = document.getElementById('monthSelect').value;
         const banner = document.getElementById('priceBanner');
-        
         banner.innerText = "Bezig met laden...";
         
         const oldScript = document.getElementById('data-script');
@@ -189,13 +190,11 @@
 
         const script = document.createElement('script');
         script.id = 'data-script';
-        
-        // Zorg dat de map structuur correct is! (bijv. 'januari/recepten_w3&4.js')
         script.src = `${maand}/recepten_${currentPeriode}.js?t=${new Date().getTime()}`;
         
         script.onload = () => {
-            if (typeof shoppingData === 'undefined' || typeof recipeData === 'undefined') {
-                banner.innerText = "Error: Data variabele ontbreekt!";
+            if (typeof shoppingData === 'undefined') {
+                banner.innerText = "Error: Data niet gevonden";
                 banner.style.background = "red";
             } else {
                 updateUI();
@@ -204,7 +203,6 @@
         
         script.onerror = () => {
             banner.innerText = `Bestand niet gevonden: ${maand}/recepten_${currentPeriode}.js`;
-            banner.style.background = "red";
         };
         
         document.head.appendChild(script);
@@ -240,39 +238,33 @@
 
     function clearProgress() {
         if(confirm("Alles resetten?")) {
-            completedRecipes = [];
-            stockedItems = [];
-            localStorage.removeItem('completedRecipes');
-            localStorage.removeItem('stockedItems');
+            completedRecipes = []; stockedItems = [];
+            localStorage.removeItem('completedRecipes'); localStorage.removeItem('stockedItems');
             updateUI();
         }
     }
 
     function updateUI() {
         try {
-            const familyKey = document.getElementById('familySelect').value;
-            
             // THEMA LOGICA
-            document.body.className = ''; // Reset
+            document.body.className = ''; 
             let factor = 1.0;
 
-            if (familyKey === 'hemmeryckx') {
+            if (currentFamilyKey === 'hemmeryckx') {
                 document.body.classList.add('barbie-mode');
-                factor = 0.67; // 2 Personen
-            } else if (familyKey === 'ricour_tielemans') {
+                factor = 0.67; 
+            } else if (currentFamilyKey === 'ricour_tielemans') {
                 document.body.classList.add('glitter-mode');
-                factor = 1.33; // 4 Personen
+                factor = 1.33; 
             } else {
-                // Standaard Ricour
-                factor = 1.0; // 3 Personen
+                factor = 1.0; 
             }
 
             if (typeof shoppingData === 'undefined' || typeof recipeData === 'undefined') return;
 
-            // KIES DE JUISTE DATA SET OF FALLBACK NAAR RICOUR
-            const currentShopData = shoppingData[familyKey] || shoppingData['ricour'];
+            const currentShopData = shoppingData[currentFamilyKey] || shoppingData['ricour'];
 
-            // Boodschappenlijst renderen
+            // Boodschappenlijst
             let totalCost = 0;
             const renderShopList = (id, list) => {
                 const el = document.getElementById(id); el.innerHTML = '';
@@ -300,8 +292,8 @@
             
             const banner = document.getElementById('priceBanner');
             banner.innerText = `Te Betalen: €${totalCost.toFixed(2)}`;
-            
-            // Kalender renderen
+
+            // Kalender
             const grid = document.getElementById('calendar'); grid.innerHTML = '';
             recipeData.recipes.forEach(x => {
                 const safeId = x.id || Math.random().toString(36).substr(2, 9);
@@ -309,8 +301,6 @@
                 
                 const card = document.createElement('div');
                 card.className = `day-card ${isDone ? 'completed' : ''}`;
-                
-                // Korte preview van ingrediënten
                 const ingPreview = x.ing ? x.ing.map(i => i.replace(/^[\d.,]+(g|ml|l|kg|stuks|st)?\s*/i, '')).slice(0, 3).join(', ') : '';
 
                 card.innerHTML = `
@@ -325,31 +315,29 @@
 
         } catch (error) {
             console.error(error);
-            document.getElementById('priceBanner').innerText = "Data Error (Check Console)";
         }
     }
 
     function showModal(x, f) {
         document.getElementById('mTitle').innerText = x.m;
-        
-        // Stats
         document.getElementById('mStats').innerHTML = `<span>🔥 ${x.kcal} kcal/p</span> <span>💪 ${x.p}g eiwit</span> <span>🕒 ${x.t} min</span>`;
         
         if(x.ing) {
-            // Intelligente nummer vermenigvuldiging voor recepten
+            // Afronden op mooie getallen (500g ipv 499g)
             document.getElementById('mIng').innerHTML = x.ing.map(i => {
                 let newItem = i.replace(/(\d+([.,]\d+)?)/g, (match) => {
                     let num = parseFloat(match.replace(',', '.'));
-                    let newNum = Math.round(num * f);
-                    return newNum;
+                    // Vermenigvuldig en rond af op 5 of 10
+                    let raw = num * f;
+                    let rounded = (raw > 10) ? Math.round(raw / 5) * 5 : Math.round(raw * 10) / 10;
+                    return rounded;
                 });
                 return `<li>${newItem}</li>`;
             }).join('');
         }
         
-        if(x.steps) {
-            document.getElementById('mSteps').innerHTML = x.steps.map(s => `<p>${s}</p>`).join('');
-        }
+        if(x.steps) document.getElementById('mSteps').innerHTML = x.steps.map(s => `<p>${s}</p>`).join('');
+        
         const kidEl = document.getElementById('mKid');
         kidEl.style.display = x.kid ? 'block' : 'none';
         kidEl.innerHTML = x.kid ? `<b>👶 Kind-Tip:</b> ${x.kid}` : '';
