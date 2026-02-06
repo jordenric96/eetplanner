@@ -222,32 +222,50 @@
     let currentFamilyKey = 'ricour'; 
     let completedRecipes = JSON.parse(localStorage.getItem('completedRecipes')) || [];
     let stockedItems = JSON.parse(localStorage.getItem('stockedItems')) || [];
-
-    // AUDIO SETUP 🎵
-    let barbieAudio = new Audio('barbie.mp3'); // Zorg dat dit bestand in je map staat!
+    let barbieAudio = new Audio('barbie.mp3'); 
     barbieAudio.loop = true;
 
-    // Functie om familie te wisselen via de knoppen
     function setFamily(key) {
         currentFamilyKey = key;
-        
-        // Update visuele status van knoppen
         document.querySelectorAll('.family-btn').forEach(btn => {
             btn.classList.remove('active');
             if(btn.getAttribute('data-family') === key) btn.classList.add('active');
         });
 
-        // AUDIO LOGICA
         if (key === 'hemmeryckx') {
-            // Speel Barbie muziek
-            barbieAudio.play().catch(e => console.log("Audio autoplay geblokkeerd door browser, klik nogmaals.", e));
+            barbieAudio.play().catch(e => console.log("Audio autoplay blokkade", e));
         } else {
-            // Stop muziek bij andere families
             barbieAudio.pause();
             barbieAudio.currentTime = 0;
         }
-
         updateUI();
+    }
+
+    // --- SLIMME DATUM FUNCTIE ---
+    function initSmartDate() {
+        const today = new Date();
+        const month = today.getMonth(); // 0=Jan, 1=Feb
+        const day = today.getDate();
+
+        // 1. Zet de juiste maand in de dropdown
+        const monthSelect = document.getElementById('monthSelect');
+        if (month === 0) monthSelect.value = "januari";
+        else if (month === 1) monthSelect.value = "februari";
+        
+        // 2. Bepaal de juiste week (1-15 = w1&2, 16+ = w3&4)
+        if (day > 15) {
+            currentPeriode = 'w3&4';
+        } else {
+            currentPeriode = 'w1&2';
+        }
+
+        // 3. Update de knoppen visueel
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        if(currentPeriode === 'w1&2') document.getElementById('w12Btn').classList.add('active');
+        else document.getElementById('w34Btn').classList.add('active');
+
+        // 4. Laad de data
+        loadNewData();
     }
 
     function loadNewData() {
@@ -316,7 +334,6 @@
 
     function updateUI() {
         try {
-            // THEMA LOGICA
             document.body.className = ''; 
             let factor = 1.0;
 
@@ -327,7 +344,6 @@
                 document.body.classList.add('glitter-mode');
                 factor = 1.33; 
             } else {
-                // Standaard: Terracotta Groen
                 factor = 1.0; 
             }
 
@@ -335,7 +351,6 @@
 
             const currentShopData = shoppingData[currentFamilyKey] || shoppingData['ricour'];
 
-            // Boodschappenlijst
             let totalCost = 0;
             const renderShopList = (id, list) => {
                 const el = document.getElementById(id); el.innerHTML = '';
@@ -364,7 +379,6 @@
             const banner = document.getElementById('priceBanner');
             banner.innerText = `Te Betalen: €${totalCost.toFixed(2)}`;
 
-            // Kalender
             const grid = document.getElementById('calendar'); grid.innerHTML = '';
             recipeData.recipes.forEach(x => {
                 const safeId = x.id || Math.random().toString(36).substr(2, 9);
@@ -415,7 +429,9 @@
 
     function closeModal() { document.getElementById('receptModal').style.display = 'none'; }
     window.onclick = (e) => { if(e.target.className === 'modal') closeModal(); }
-    window.onload = loadNewData;
+    
+    // START SCRIPT MET SMART DATE
+    window.onload = initSmartDate;
 </script>
 </body>
 </html>
