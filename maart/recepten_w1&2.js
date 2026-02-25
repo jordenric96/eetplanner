@@ -1,7 +1,151 @@
+/* DATA VOOR MAART WEEK 1 & 2 - HIGH PROTEIN (ZONDER COURGETTE, EI, CHAMPIGNON, ASPERGES) */
+
+var shoppingData = {
+    // -------------------------------------------------------------
+    // RICOUR (3p: 2 Volw + 1 Kind)
+    // -------------------------------------------------------------
+    ricour: {
+        v: [
+            "Kipfilet (900g) - €11.50", /* Voor Ma W1 & Wo W1 */
+            "Witvis / Kabeljauw (450g) - €5.50",
+            "Kalkoenlapjes (3 a 4 stuks / 450g) - €6.50",
+            "Mager Rundergehakt (1kg) - €12.50", /* Voor Vr W1 & Vr W2 */
+            "Zalmfilet (400g) - €9.00",
+            "Mager Rundvlees / Biefstukreepjes (400g) - €7.50",
+            "Kipgehakt (500g) - €5.50"
+        ],
+        g: [
+            "Broccoli (2 stronken) - €2.99",
+            "DV Edamame/Sojabonen (200g) - €1.50",
+            "Zoete Aardappelen (800g) - €2.00",
+            "Prei (3 stuks) - €1.49",
+            "Verse Spinazie (800g) - €4.50", /* Voor Wo W1 & Di W2 */
+            "DV Erwten (200g) - €0.80",
+            "Wortelen (1kg) - €1.49",
+            "Gewone Aardappelen (600g) - €1.00",
+            "Uien & Knoflooknet - €1.50",
+            "Paprika Mix (5 stuks) - €3.50",
+            "Sperziebonen (500g) - €2.50",
+            "Paksoi (1 stuk) - €1.60",
+            "Rucola (1 zakje) - €1.20",
+            "Citroen (1 stuk) - €0.60"
+        ],
+        k: [
+            "Volkoren Rijst & Zilvervliesrijst - €3.50",
+            "Basmatirijst - €1.80",
+            "Volkoren Pasta & Volkoren Couscous - €3.00",
+            "Teriyaki saus (minder zout) & Sojasaus - €4.50",
+            "Zuivelspread Light (1 bakje) - €1.89",
+            "Groene Pesto (vers of potje) - €2.15",
+            "Kidneybonen (1 blik) & Zwarte bonen (2 blikken) - €3.50",
+            "Mais (3 blikken) - €2.99",
+            "Tomatenblokjes (2 blikken) - €1.80",
+            "Rode Linzen (300g) - €1.50",
+            "Kokosmelk Light (1 blik) - €1.49",
+            "Volkoren Wraps (1 pak) - €1.80",
+            "Magere Kwark (500g) - €1.50",
+            "Kruiden (Vis, Nootmuskaat, Mexicaans, Curry, Chili) - €2.00"
+        ]
+    },
+
+    // -------------------------------------------------------------
+    // HEMMERYCKX (2p: 2 Volwassenen - BARBIE THEMA)
+    // -------------------------------------------------------------
+    hemmeryckx: {
+        v: [
+            "Kipfilet (600g) - €7.50",
+            "Witvis / Kabeljauw (300g) - €4.00",
+            "Kalkoenlapjes (300g) - €4.50",
+            "Mager Rundergehakt (700g) - €8.50",
+            "Zalmfilet (300g) - €7.00",
+            "Biefstukreepjes (300g) - €5.50",
+            "Kipgehakt (350g) - €4.00"
+        ],
+        g: [
+            "Broccoli (1 grote stronk) - €1.60",
+            "DV Edamame (150g) - €1.20",
+            "Zoete Aardappelen (600g) - €1.50",
+            "Prei (2 stuks) - €1.00",
+            "Verse Spinazie (600g) - €3.50",
+            "DV Erwten (150g) - €0.60",
+            "Wortelen (700g) - €1.00",
+            "Gewone Aardappelen (400g) - €0.80",
+            "Uien & Knoflook - €1.00",
+            "Paprika Mix (3 stuks) - €2.00",
+            "Sperziebonen (350g) - €1.80",
+            "Paksoi (1 kleine) - €1.20",
+            "Rucola - €1.00",
+            "Citroen - €0.60"
+        ],
+        k: [
+            "Volkoren Rijst & Basmati - €2.50",
+            "Volkoren Pasta & Couscous - €2.00",
+            "Teriyaki & Sojasaus - €3.00",
+            "Zuivelspread Light - €1.89",
+            "Groene Pesto - €2.00",
+            "Bonen: Kidney (1), Zwarte (1 groot) - €2.50",
+            "Mais (2 blikken) - €2.00",
+            "Tomatenblokjes (2 blikken) - €1.80",
+            "Rode Linzen (200g) - €1.20",
+            "Kokosmelk Light - €1.49",
+            "Volkoren Wraps (1 pak) - €1.80",
+            "Magere Kwark - €1.50",
+            "Kruidenmixen - €1.50"
+        ]
+    },
+
+    // -------------------------------------------------------------
+    // RICOUR - TIELEMANS (4p: 2 Volw + 2 Kids - GLITTER THEMA)
+    // -------------------------------------------------------------
+    ricour_tielemans: {
+        v: [
+            "Kipfilet (1.2kg) - €14.50",
+            "Witvis / Kabeljauw (600g) - €7.50",
+            "Kalkoenlapjes (600g) - €8.50",
+            "Mager Rundergehakt (1.3kg) - €15.50",
+            "Zalmfilet (600g) - €13.00",
+            "Biefstukreepjes (600g) - €11.00",
+            "Kipgehakt (700g) - €7.50"
+        ],
+        g: [
+            "Broccoli (3 stronken) - €4.50",
+            "DV Edamame (300g) - €2.00",
+            "Zoete Aardappelen (1kg) - €2.50",
+            "Prei (4 stuks) - €2.00",
+            "Verse Spinazie (1kg) - €5.50",
+            "DV Erwten (300g) - €1.20",
+            "Wortelen (1.5kg) - €2.00",
+            "Gewone Aardappelen (1kg) - €1.50",
+            "Uien & Knoflooknet - €1.50",
+            "Paprika Mix (6 stuks) - €4.00",
+            "Sperziebonen (800g) - €4.00",
+            "Paksoi (2 stuks) - €3.00",
+            "Rucola (2 zakjes) - €2.00",
+            "Citroen (2 stuks) - €1.00"
+        ],
+        k: [
+            "Volkoren Rijst & Zilvervlies (grootverpakking) - €4.50",
+            "Basmatirijst (groot) - €2.50",
+            "Volkoren Pasta & Couscous - €3.50",
+            "Teriyaki & Sojasaus - €4.50",
+            "Zuivelspread Light (2 bakjes) - €3.50",
+            "Groene Pesto (groot) - €3.00",
+            "Bonen: Kidney (2), Zwarte (3) - €5.00",
+            "Mais (4 blikken) - €3.80",
+            "Tomatenblokjes (3 blikken) - €2.70",
+            "Rode Linzen (500g) - €2.00",
+            "Kokosmelk Light (2 blikken) - €2.80",
+            "Volkoren Wraps (2 pakken) - €3.50",
+            "Magere Kwark (1kg) - €2.80",
+            "Kruidenmixen - €2.50"
+        ]
+    }
+};
+
 var recipeData = {
     recipes: [
         /* ---------------------------------------------------------
-           MAART WEEK 1 (02/03 - 06/03) - HIGH PROTEIN EDITIE
+           MAART WEEK 1 (02/03 - 06/03)
            --------------------------------------------------------- */
         { 
             id: "m_w1_1", 
@@ -75,27 +219,27 @@ var recipeData = {
         },
 
         /* ---------------------------------------------------------
-           MAART WEEK 2 (09/03 - 13/03) - HIGH PROTEIN EDITIE
+           MAART WEEK 2 (09/03 - 13/03)
            --------------------------------------------------------- */
         { 
             id: "m_w2_1", 
-            m: "Ma 09/03: Zalm met Groene Asperges en Couscous", 
+            m: "Ma 09/03: Zalm met Sperziebonen en Couscous", 
             kcal: 540, p: 35, t: 22,
-            ing: ["400g Zalmfilet", "500g Groene Asperges", "Volkoren Couscous", "Citroen", "Olijfolie"], 
+            ing: ["400g Zalmfilet", "500g Sperziebonen", "Volkoren Couscous", "Citroen", "Olijfolie"], 
             steps: [
                 "1. Bereid de volkoren couscous door er kokend water met eventueel een bouillonblokje overheen te gieten en af te dekken.",
-                "2. Verwijder de harde onderkant van de groene asperges en snij ze in stukken van 4 cm.",
-                "3. Verhit een grillpan of koekenpan en bak de asperges beetgaar (ongeveer 5-7 minuten).",
-                "4. Kruid de zalmfilets met peper, zout en een beetje citroensap en bak ze in een andere pan rosé of gaar naar wens.",
-                "5. Maak de couscous los met een vork en serveer samen met de gegrilde asperges en de zalm."
+                "2. Dop de sperziebonen en kook ze in ongeveer 8 tot 10 minuten beetgaar. Giet af.",
+                "3. Kruid de zalmfilets met peper, zout en een beetje citroensap.",
+                "4. Verhit een koekenpan met olijfolie en bak de zalm rosé of gaar naar wens.",
+                "5. Maak de couscous los met een vork en serveer samen met de sperziebonen en de gebakken zalm."
             ], 
-            kid: "Roze vis is vaak favoriet. Snij de asperges in kleine, behapbare stukjes." 
+            kid: "Roze vis is vaak favoriet, en de klassieke sperzieboontjes gaan er altijd goed in." 
         },
         { 
             id: "m_w2_2", 
             m: "Di 10/03: Romige Linzencurry", 
             kcal: 490, p: 25, t: 15,
-            ing: ["300g Rode Linzen", "400g Spinazie", "1 blik Tomatenblokjes", "1 blik Kokosmelk (Light)", "Basmatirijst", "Currykruiden/Garam Masala"], 
+            ing: ["300g Rode Linzen", "400g Verse Spinazie", "1 blik Tomatenblokjes", "1 blik Kokosmelk (Light)", "Basmatirijst", "Currykruiden"], 
             steps: [
                 "1. Kook de basmatirijst gaar.",
                 "2. Spoel de rode linzen goed af. Verhit wat olie in een grote pan, voeg currykruiden toe en bak deze kort aan.",
@@ -103,7 +247,7 @@ var recipeData = {
                 "4. Roer op het laatste moment de verse spinazie er in handjes doorheen tot deze net geslonken is.",
                 "5. Serveer de eiwitrijke linzencurry over de basmatirijst."
             ], 
-            kid: "Een zachte, zoete currysaus om rijst in te dippen." 
+            kid: "Een zachte, zoete currysaus om de rijst in te dippen." 
         },
         { 
             id: "m_w2_3", 
