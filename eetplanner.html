@@ -3,195 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Eetplanner Pro</title>
+    <title>Kookplanner Ricour</title>
     
     <link rel="manifest" href="manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#D946EF">
+    <meta name="theme-color" content="#E07A5F">
     <link rel="apple-touch-icon" href="icon.png">
     <link rel="icon" type="image/png" href="icon.png">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* =========================================
-           NEXT-LEVEL MODERN THEMES & VARIABLES 
+           SMAKELIJK & MODERN KOOK-THEMA 🧑‍🍳🌿
            ========================================= */
         :root { 
-            /* Paars -> Roze -> Blauw Gradient */
-            --gradient-main: linear-gradient(135deg, #6366F1 0%, #D946EF 50%, #3B82F6 100%);
-            --gradient-hover: linear-gradient(135deg, #4F46E5 0%, #C026D3 50%, #2563EB 100%);
-            --primary: #D946EF; 
-            --secondary: #3B82F6; 
-            --bg-color: #F8FAFC; /* Zeer licht blauw/grijs voor moderne look */
-            --card-bg: rgba(255, 255, 255, 0.85); /* Glassmorphism basis */
-            --text-main: #1E293B; 
-            --text-muted: #64748B; 
-            --border-color: rgba(255,255,255,0.6);
-            --shadow-soft: 0 10px 40px rgba(99, 102, 241, 0.08);
-            --shadow-hover: 0 20px 40px rgba(99, 102, 241, 0.15);
-        }
-        
-        /* 🎀 BARBIE THEMA OVERRIDE 🎀 */
-        body.barbie-mode { 
-            --gradient-main: linear-gradient(135deg, #FF1493 0%, #FF69B4 50%, #00BCD4 100%);
-            --gradient-hover: linear-gradient(135deg, #D81B60 0%, #E91E63 50%, #00ACC1 100%);
-            --primary: #FF1493; 
-            --secondary: #00BCD4; 
-            --bg-color: #FDF2F8; 
-            --shadow-soft: 0 10px 40px rgba(255, 20, 147, 0.08);
-            --shadow-hover: 0 20px 40px rgba(255, 20, 147, 0.15);
+            --primary: #E07A5F;        /* Warme Terracotta (Paprika) */
+            --primary-light: #F4A261;  /* Zacht Oranje (Perzik/Kruiden) */
+            --secondary: #81B29A;      /* Saliegroen (Koriander/Munt) */
+            --bg-color: #FDF8F5;       /* Warme Crème achtergrond */
+            --card-bg: #FFFFFF;        /* Witte kaarten voor contrast */
+            --text-main: #3D405B;      /* Diep marine/leisteen (zachter dan zwart) */
+            --text-muted: #8A8D91;     /* Subtiel grijs voor details */
+            --border-color: #F0E6DF;   /* Zachte randen */
+            --shadow-soft: 0 12px 35px rgba(61, 64, 91, 0.05);
+            --shadow-hover: 0 18px 45px rgba(61, 64, 91, 0.1);
         }
         
         /* =========================================
-           GLOBAL STYLES
+           BASIS STIJLEN
            ========================================= */
-        * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); -webkit-tap-highlight-color: transparent; }
         
         body { 
             font-family: 'Poppins', sans-serif; 
             background-color: var(--bg-color); 
-            background-image: radial-gradient(circle at top right, rgba(217, 70, 239, 0.05), transparent 40%),
-                              radial-gradient(circle at bottom left, rgba(59, 130, 246, 0.05), transparent 40%);
-            background-attachment: fixed;
             color: var(--text-main); 
             margin: 0; 
             padding: 15px; 
-            padding-top: max(15px, env(safe-area-inset-top)); 
+            padding-top: max(25px, env(safe-area-inset-top)); 
             min-height: 100vh;
         }
         
         .container { max-width: 1200px; margin: 0 auto; padding-bottom: 60px; }
+
+        /* App Header */
+        .app-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .app-header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0 0 5px 0;
+            letter-spacing: -0.5px;
+        }
+        .app-header p {
+            color: var(--primary);
+            font-weight: 600;
+            margin: 0;
+            font-size: 1.1rem;
+        }
         
         /* =========================================
-           CONTROLS & NAVIGATION (GLASSMORPHISM)
+           NAVIGATIE & CONTROLES
            ========================================= */
         .controls-bar { 
             display: flex; flex-direction: column; gap: 20px; align-items: center; 
-            background: var(--card-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            padding: 25px; border-radius: 24px; margin-bottom: 25px; 
+            background: var(--card-bg);
+            padding: 20px 25px; border-radius: 24px; margin-bottom: 25px; 
             box-shadow: var(--shadow-soft); border: 1px solid var(--border-color);
         }
         
-        .family-selector { display: flex; gap: 15px; width: 100%; justify-content: center; flex-wrap: wrap; }
+        .nav-tabs { display: flex; gap: 12px; justify-content: center; width: 100%; flex-wrap: wrap; }
         
-        .family-btn {
-            padding: 14px 24px; border: 2px solid transparent; border-radius: 16px;
-            font-size: 1rem; font-weight: 700; cursor: pointer; flex: 1; min-width: 160px; max-width: 250px;
-            background: #F1F5F9; color: var(--text-muted); text-align: center;
-            position: relative; z-index: 1; overflow: hidden;
-        }
-        
-        .family-btn.active { 
-            background: transparent; color: white; transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1); border-color: transparent;
-        }
-        .family-btn.active::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--gradient-main); z-index: -1;
-        }
-        
-        /* Nav Tabs */
-        .nav-tabs { display: flex; gap: 12px; margin-bottom: 25px; justify-content: center; }
         .tab-btn { 
-            padding: 12px 30px; border-radius: 30px; border: none; cursor: pointer; 
-            background: rgba(0,0,0,0.04); color: var(--text-muted); font-weight: 700; font-size: 0.95rem;
+            padding: 12px 28px; border-radius: 100px; border: none; cursor: pointer; 
+            background: #F4EBE6; color: var(--text-muted); font-weight: 600; font-size: 0.95rem;
         }
-        .tab-btn:hover { background: rgba(0,0,0,0.08); }
+        .tab-btn:hover { background: #EADCD4; color: var(--text-main); }
         .tab-btn.active { 
-            background: var(--gradient-main); color: white; 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15); transform: translateY(-2px);
+            background: var(--primary); color: white; 
+            box-shadow: 0 8px 20px rgba(224, 122, 95, 0.3); transform: translateY(-2px);
         }
 
-        /* Selects & Utilities */
-        select { 
-            padding: 12px 24px; border-radius: 16px; border: 2px solid rgba(0,0,0,0.1); 
-            background: white; color: var(--text-main); font-weight: 700; font-size: 1rem; 
-            outline: none; cursor: pointer; box-shadow: var(--shadow-soft);
+        .dropdown-row {
+            display: flex; gap: 15px; align-items: center; flex-wrap: wrap; justify-content: center;
+            width: 100%; border-top: 1px dashed var(--border-color); padding-top: 20px;
         }
-        select:focus { border-color: var(--primary); }
+
+        select { 
+            padding: 12px 24px; border-radius: 16px; border: 2px solid #F0E6DF; 
+            background: #FAFAFA; color: var(--text-main); font-weight: 600; font-size: 1rem; 
+            outline: none; cursor: pointer;
+        }
+        select:focus { border-color: var(--primary-light); background: white; }
         
         .reset-btn {
-            border: none; background: #FEE2E2; color: #EF4444; padding: 12px 24px; 
-            border-radius: 16px; cursor: pointer; font-weight: 700; font-size: 0.95rem;
+            border: none; background: #FFF0F0; color: #E63946; padding: 12px 24px; 
+            border-radius: 16px; cursor: pointer; font-weight: 600; font-size: 0.95rem;
         }
-        .reset-btn:hover { background: #FECACA; transform: scale(1.05); }
+        .reset-btn:hover { background: #FFE0E0; transform: scale(1.03); }
 
         /* =========================================
-           PRICE BANNER
+           PRIJS & TOTAAL BANNER
            ========================================= */
         .total-box { 
-            background: var(--gradient-main); color: white; padding: 18px; 
-            border-radius: 20px; text-align: center; margin-bottom: 30px; 
-            font-weight: 800; font-size: 1.4rem; letter-spacing: 0.5px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); 
+            color: white; padding: 18px; 
+            border-radius: 20px; text-align: center; margin-bottom: 35px; 
+            font-weight: 700; font-size: 1.3rem; letter-spacing: 0.5px;
+            box-shadow: 0 10px 25px rgba(224, 122, 95, 0.2);
+            display: flex; justify-content: center; align-items: center; gap: 10px;
         }
         
         /* =========================================
-           SHOPPING GRID
+           BOODSCHAPPENLIJST
            ========================================= */
-        .shopping-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 40px; }
+        .shopping-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 45px; }
         
         .shop-card { 
-            background: var(--card-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            padding: 24px; border-radius: 24px; box-shadow: var(--shadow-soft); border: 1px solid var(--border-color);
+            background: var(--card-bg); padding: 25px; border-radius: 24px; 
+            box-shadow: var(--shadow-soft); border: 1px solid var(--border-color);
         }
         .shop-card h3 { 
-            margin-top: 0; font-size: 1.2rem; border-bottom: 2px dashed rgba(0,0,0,0.1); 
-            padding-bottom: 12px; margin-bottom: 15px; 
-            background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            margin-top: 0; font-size: 1.25rem; font-weight: 700; color: var(--text-main);
+            border-bottom: 2px solid #F4EBE6; padding-bottom: 15px; margin-bottom: 15px; 
+            display: flex; align-items: center; gap: 10px;
         }
         
         .item-list { list-style: none; padding: 0; margin: 0; }
         .item-list li { 
-            display: flex; justify-content: space-between; align-items: center; padding: 14px 10px; 
-            border-bottom: 1px solid rgba(0,0,0,0.04); font-size: 0.95rem; cursor: pointer; border-radius: 12px;
+            display: flex; justify-content: space-between; align-items: center; padding: 14px 0; 
+            border-bottom: 1px dashed var(--border-color); font-size: 0.95rem; cursor: pointer; font-weight: 500;
         }
-        .item-list li:hover { background: rgba(0,0,0,0.02); padding-left: 15px; }
+        .item-list li:last-child { border-bottom: none; }
         
-        /* Next-Level Checkboxes */
         .stock-check { 
-            width: 24px; height: 24px; border: 2px solid #CBD5E1; border-radius: 8px; 
-            margin-right: 14px; display: inline-flex; justify-content: center; align-items: center;
-            background: transparent; flex-shrink: 0; transition: 0.2s;
+            width: 24px; height: 24px; border: 2px solid #D5CACA; border-radius: 8px; 
+            margin-right: 15px; display: inline-flex; justify-content: center; align-items: center;
+            background: #FAFAFA; flex-shrink: 0; transition: 0.2s;
         }
-        .item-list li.stocked { color: var(--text-muted); opacity: 0.6; text-decoration: line-through; }
+        
+        .item-list li:hover .stock-check { border-color: var(--secondary); }
+        
+        .item-list li.stocked { color: #BDBDBD; text-decoration: line-through; }
         .item-list li.stocked .stock-check { 
-            background: var(--gradient-main); border-color: transparent; transform: scale(1.1);
+            background: var(--secondary); border-color: var(--secondary); transform: scale(1.1);
         }
         .item-list li.stocked .stock-check::after { 
             content: '✓'; color: #fff; font-size: 14px; font-weight: 800;
         }
 
         /* =========================================
-           CALENDAR CARDS (RECIPES)
+           RECEPTEN KAARTEN (KALENDER)
            ========================================= */
         .calendar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
         
         .day-card { 
-            background: var(--card-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            padding: 25px; border-radius: 24px; cursor: pointer; 
+            background: var(--card-bg); padding: 25px; border-radius: 24px; cursor: pointer; 
             position: relative; overflow: hidden; border: 1px solid var(--border-color);
             box-shadow: var(--shadow-soft); display: flex; flex-direction: column;
         }
-        .day-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+        .day-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--primary-light); }
 
-        .day-card h3 { color: var(--text-main); margin: 5px 0 15px 0; font-size: 1.15rem; font-weight: 800; padding-right: 50px; line-height: 1.4; }
+        .day-card h3 { color: var(--text-main); margin: 5px 0 15px 0; font-size: 1.15rem; font-weight: 700; padding-right: 50px; line-height: 1.4; }
         
-        .stat-bar { display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px; font-weight: 600; }
-        .stat-bar span { background: rgba(0,0,0,0.04); padding: 6px 12px; border-radius: 20px; }
+        .stat-bar { display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px; font-weight: 600; }
+        .stat-bar span { background: #F8F9FA; border: 1px solid #E9ECEF; padding: 6px 12px; border-radius: 8px; display: flex; align-items: center; gap: 5px;}
         
-        .mini-ing-box { background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.03); padding: 14px; border-radius: 16px; font-size: 0.85rem; color: var(--text-muted); flex-grow: 1; line-height: 1.6; }
-
-        /* The Check Button in Day Card */
-        .check-btn { 
-            position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; 
-            border-radius: 12px; background: rgba(0,0,0,0.05); border: none; cursor: pointer; color: transparent;
-            z-index: 20; font-size: 1.2rem; display:flex; align-items:center; justify-content:center;
+        .mini-ing-box { 
+            background: #FDF8F5; border: 1px solid #F0E6DF; padding: 15px; border-radius: 12px; 
+            font-size: 0.85rem; color: var(--text-main); flex-grow: 1; line-height: 1.6;
         }
-        .check-btn:hover { background: rgba(0,0,0,0.1); transform: scale(1.05); }
-        .day-card.completed .check-btn { background: var(--gradient-main); color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+
+        /* Check Button op de Recept Kaart */
+        .check-btn { 
+            position: absolute; top: 20px; right: 20px; width: 42px; height: 42px; 
+            border-radius: 12px; background: #F4EBE6; border: none; cursor: pointer; color: transparent;
+            z-index: 20; font-size: 1.3rem; display:flex; align-items:center; justify-content:center;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .check-btn:hover { background: #EADCD4; transform: scale(1.1); }
+        .day-card.completed .check-btn { background: var(--secondary); color: #fff; box-shadow: 0 4px 15px rgba(129, 178, 154, 0.3); }
 
         /* COMPLETED STATE & ANIMATION */
         @keyframes scrollText {
@@ -199,78 +195,92 @@
             100% { transform: translate(-50%, -50%); }
         }
 
-        .day-card.completed { border: 1px solid rgba(0,0,0,0.05); opacity: 0.9; }
-        .day-card.completed > *:not(.check-btn) { opacity: 0.3; filter: grayscale(100%); }
+        .day-card.completed { border: 1px solid rgba(129, 178, 154, 0.3); }
+        .day-card.completed > *:not(.check-btn) { opacity: 0.4; filter: grayscale(80%); }
 
         .day-card.completed::before {
-            content: "AL GEMAAKT ✨ AL GEMAAKT ✨ AL GEMAAKT ✨ AL GEMAAKT";
+            content: "SMAKELIJK! 🌿 SMAKELIJK! 🌿 SMAKELIJK! 🌿 SMAKELIJK!";
             position: absolute; top: 50%; left: 0; width: 300%; transform: translateY(-50%);
-            background: var(--gradient-main); color: #fff; font-weight: 800; font-size: 1.6rem;
-            padding: 18px 0; white-space: nowrap; animation: scrollText 8s linear infinite;
-            z-index: 10; display: flex; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            backdrop-filter: blur(5px);
+            background: rgba(129, 178, 154, 0.95); color: #fff; font-weight: 700; font-size: 1.3rem; letter-spacing: 1px;
+            padding: 18px 0; white-space: nowrap; animation: scrollText 10s linear infinite;
+            z-index: 10; display: flex; align-items: center; box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
         /* =========================================
-           MODAL (POPUP RECIPE)
+           MODAL (POPUP RECEPT)
            ========================================= */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(61, 64, 91, 0.4); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
         
-        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         
         .modal-content { 
-            background: white; margin: 5% auto; padding: 35px; width: 92%; max-width: 650px; 
-            border-radius: 30px; position: relative; max-height: 85vh; overflow-y: auto;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background: white; margin: 5% auto; padding: 40px; width: 92%; max-width: 700px; 
+            border-radius: 32px; position: relative; max-height: 85vh; overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(61, 64, 91, 0.3); animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
-        .close { position: absolute; right: 25px; top: 25px; width: 36px; height: 36px; background: rgba(0,0,0,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; color: var(--text-main); }
-        .close:hover { background: rgba(0,0,0,0.1); transform: rotate(90deg); }
+        .close { 
+            position: absolute; right: 25px; top: 25px; width: 40px; height: 40px; 
+            background: #F4EBE6; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            font-size: 24px; cursor: pointer; color: var(--text-main); font-weight: 300;
+        }
+        .close:hover { background: #EADCD4; color: var(--primary); }
 
-        .modal-content h2 { margin-top: 0; font-size: 1.6rem; line-height: 1.3; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; padding-right: 40px; }
+        .modal-content h2 { margin-top: 0; font-size: 1.8rem; font-weight: 800; color: var(--primary); padding-right: 50px; line-height: 1.3; }
         
-        #mStats { display:flex; flex-wrap: wrap; gap:12px; margin-bottom:25px; }
-        #mStats span { background: var(--bg-color); padding: 8px 16px; border-radius: 12px; font-size: 0.9rem; font-weight: 700; color: var(--text-main); }
+        #mStats { display:flex; flex-wrap: wrap; gap:12px; margin-bottom:30px; border-bottom: 2px dashed #F0E6DF; padding-bottom: 20px; }
+        #mStats span { background: #F8F9FA; border: 1px solid #E9ECEF; padding: 8px 16px; border-radius: 12px; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); }
         
-        .modal-content h4 { font-size: 1.1rem; margin-top: 25px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
-        #mIng { padding-left: 20px; line-height: 1.8; color: var(--text-muted); font-size: 1rem; }
-        #mSteps p { background: var(--bg-color); padding: 15px 20px; border-radius: 16px; margin-bottom: 12px; color: var(--text-main); line-height: 1.6; font-size: 0.95rem; }
+        .modal-content h4 { font-size: 1.2rem; margin-top: 30px; margin-bottom: 15px; color: var(--text-main); font-weight: 700; display: flex; align-items: center; gap: 8px; }
         
-        #mKid { background: linear-gradient(135deg, #FEF08A 0%, #FDE047 100%); padding: 18px; border-radius: 16px; margin-top: 30px; color: #854D0E; font-weight: 600; line-height: 1.5; box-shadow: 0 4px 15px rgba(253, 224, 71, 0.3); }
+        #mIng { padding-left: 20px; line-height: 1.8; color: var(--text-main); font-size: 1.05rem; font-weight: 500; }
+        
+        #mSteps { counter-reset: step-counter; }
+        #mSteps p { 
+            background: #FDF8F5; padding: 18px 20px 18px 50px; border-radius: 16px; margin-bottom: 15px; 
+            color: var(--text-main); line-height: 1.6; font-size: 0.95rem; position: relative; border: 1px solid #F0E6DF;
+        }
+        #mSteps p::before {
+            counter-increment: step-counter; content: counter(step-counter);
+            position: absolute; left: 15px; top: 18px; background: var(--primary-light); color: white;
+            width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.8rem;
+        }
+        
+        #mKid { 
+            background: #F2F7F4; border-left: 4px solid var(--secondary); padding: 20px; 
+            border-radius: 0 16px 16px 0; margin-top: 35px; color: #2D4A3E; font-weight: 500; line-height: 1.6; 
+        }
 
-        /* Custom Scrollbar for Modal */
-        .modal-content::-webkit-scrollbar { width: 8px; }
+        .modal-content::-webkit-scrollbar { width: 6px; }
         .modal-content::-webkit-scrollbar-track { background: transparent; }
-        .modal-content::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
+        .modal-content::-webkit-scrollbar-thumb { background: #DCDCDC; border-radius: 10px; }
     </style>
 </head>
 <body>
 
 <div class="container">
+    
+    <div class="app-header">
+        <h1>👩‍🍳 Kookplanner</h1>
+        <p>Familie Ricour</p>
+    </div>
+
     <div class="controls-bar">
-        <div class="family-selector">
-            <button class="family-btn active" data-family="ricour" onclick="setFamily('ricour')">
-                🌿 Ricour (3p)
-            </button>
-            <button class="family-btn" data-family="hemmeryckx" onclick="setFamily('hemmeryckx')">
-                🎀 Hemmeryckx (2p)
-            </button>
+        <div class="nav-tabs">
+            <button id="w12Btn" class="tab-btn active" onclick="setPeriode('w1&2')">Week 1 & 2</button>
+            <button id="w34Btn" class="tab-btn" onclick="setPeriode('w3&4')">Week 3 & 4</button>
         </div>
 
-        <div style="display:flex; gap:15px; align-items:center; flex-wrap:wrap; justify-content:center;">
+        <div class="dropdown-row">
             <select id="monthSelect" onchange="loadNewData()">
                 <option value="januari">Januari</option>
                 <option value="februari">Februari</option>
                 <option value="maart">Maart</option>
                 <option value="april">April</option>
             </select>
-            <button class="reset-btn" onclick="clearProgress()">↻ Reset Alles</button>
+            <button class="reset-btn" onclick="clearProgress()">↻ Reset Vinkjes</button>
         </div>
-    </div>
-
-    <div class="nav-tabs">
-        <button id="w12Btn" class="tab-btn active" onclick="setPeriode('w1&2')">Week 1 & 2</button>
-        <button id="w34Btn" class="tab-btn" onclick="setPeriode('w3&4')">Week 3 & 4</button>
     </div>
 
     <div id="priceBanner" class="total-box">Laden...</div>
@@ -278,7 +288,7 @@
     <div class="shopping-grid">
         <div class="shop-card"><h3>🥩 Vlees & Vis</h3><ul id="vList" class="item-list"></ul></div>
         <div class="shop-card"><h3>🥦 Groenten</h3><ul id="gList" class="item-list"></ul></div>
-        <div class="shop-card"><h3>🥫 Voorraad</h3><ul id="kList" class="item-list"></ul></div>
+        <div class="shop-card"><h3>🥫 Voorraadkast</h3><ul id="kList" class="item-list"></ul></div>
     </div>
 
     <div id="calendar" class="calendar-grid"></div>
@@ -286,7 +296,7 @@
 
 <div id="receptModal" class="modal">
     <div class="modal-content">
-        <div class="close" onclick="closeModal()">&times;</div>
+        <div class="close" onclick="closeModal()">✕</div>
         <h2 id="mTitle"></h2>
         <div id="mStats"></div>
         <h4>🛒 Boodschappenlijst</h4>
@@ -299,37 +309,21 @@
 
 <script>
     let currentPeriode = 'w1&2';
-    let currentFamilyKey = 'ricour'; 
+    const currentFamilyKey = 'ricour'; // Hardcoded: Geen andere gezinnen meer nodig!
+    
     let completedRecipes = JSON.parse(localStorage.getItem('completedRecipes')) || [];
     let stockedItems = JSON.parse(localStorage.getItem('stockedItems')) || [];
-    let barbieAudio = new Audio('barbie.mp3'); 
-    barbieAudio.loop = true;
-
-    function setFamily(key) {
-        currentFamilyKey = key;
-        document.querySelectorAll('.family-btn').forEach(btn => {
-            btn.classList.remove('active');
-            if(btn.getAttribute('data-family') === key) btn.classList.add('active');
-        });
-
-        if (key === 'hemmeryckx') {
-            barbieAudio.play().catch(e => console.log("Audio autoplay blokkade", e));
-        } else {
-            barbieAudio.pause();
-            barbieAudio.currentTime = 0;
-        }
-        updateUI();
-    }
 
     function initSmartDate() {
         const today = new Date();
-        const month = today.getMonth(); // 0=Jan, 1=Feb, 2=Mrt
+        const month = today.getMonth(); // 0=Jan, 1=Feb, 2=Mrt, 3=Apr
         const day = today.getDate();
 
         const monthSelect = document.getElementById('monthSelect');
         if (month === 0) monthSelect.value = "januari";
         else if (month === 1) monthSelect.value = "februari";
         else if (month === 2) monthSelect.value = "maart";
+        else if (month === 3) monthSelect.value = "april";
         
         if (day > 15) {
             currentPeriode = 'w3&4';
@@ -347,7 +341,7 @@
     function loadNewData() {
         const maand = document.getElementById('monthSelect').value;
         const banner = document.getElementById('priceBanner');
-        banner.innerText = "Bezig met laden...";
+        banner.innerHTML = "Bezig met laden... 🍳";
         
         const oldScript = document.getElementById('data-script');
         if (oldScript) oldScript.remove();
@@ -358,16 +352,16 @@
         
         script.onload = () => {
             if (typeof shoppingData === 'undefined') {
-                banner.innerText = "Error: Data niet gevonden";
-                banner.style.background = "#EF4444";
+                banner.innerText = "Data niet gevonden voor deze maand.";
+                banner.style.background = "#E63946";
             } else {
                 updateUI();
             }
         };
         
         script.onerror = () => {
-            banner.innerText = `Bestand niet gevonden: ${maand}/recepten_${currentPeriode}.js`;
-            banner.style.background = "#EF4444";
+            banner.innerText = `Recepten voor ${maand} nog niet beschikbaar.`;
+            banner.style.background = "#E63946";
         };
         
         document.head.appendChild(script);
@@ -402,7 +396,7 @@
     }
 
     function clearProgress() {
-        if(confirm("Weet je zeker dat je alle vinkjes wilt resetten?")) {
+        if(confirm("Weet je zeker dat je alle vinkjes en gekookte maaltijden wilt resetten?")) {
             completedRecipes = []; stockedItems = [];
             localStorage.removeItem('completedRecipes'); localStorage.removeItem('stockedItems');
             updateUI();
@@ -411,17 +405,9 @@
 
     function updateUI() {
         try {
-            document.body.className = ''; 
-            let factor = 1.0;
-
-            if (currentFamilyKey === 'hemmeryckx') {
-                document.body.classList.add('barbie-mode');
-                factor = 0.67; 
-            }
-
             if (typeof shoppingData === 'undefined' || typeof recipeData === 'undefined') return;
 
-            const currentShopData = shoppingData[currentFamilyKey] || shoppingData['ricour'];
+            const currentShopData = shoppingData[currentFamilyKey];
 
             let totalCost = 0;
             const renderShopList = (id, list) => {
@@ -439,7 +425,7 @@
                     const li = document.createElement('li');
                     li.className = isStocked ? 'stocked' : '';
                     li.onclick = () => toggleStock(name);
-                    li.innerHTML = `<div style="display:flex; align-items:center;"><span class="stock-check"></span>${name}</div><b>${price > 0 ? '€'+price.toFixed(2) : ''}</b>`;
+                    li.innerHTML = `<div style="display:flex; align-items:center;"><span class="stock-check"></span>${name}</div><b>${price > 0 ? '€ '+price.toFixed(2).replace('.', ',') : ''}</b>`;
                     el.appendChild(li);
                 });
             };
@@ -450,7 +436,7 @@
             
             const banner = document.getElementById('priceBanner');
             banner.style.background = ''; // Reset error color if any
-            banner.innerText = `Boodschappen Totaal: €${totalCost.toFixed(2)}`;
+            banner.innerHTML = `🛒 Te Betalen: € ${totalCost.toFixed(2).replace('.', ',')}`;
 
             const grid = document.getElementById('calendar'); grid.innerHTML = '';
             recipeData.recipes.forEach(x => {
@@ -459,6 +445,8 @@
                 
                 const card = document.createElement('div');
                 card.className = `day-card ${isDone ? 'completed' : ''}`;
+                
+                // Haal hoeveelheden weg voor de mini-preview
                 const ingPreview = x.ing ? x.ing.map(i => i.replace(/^[\d.,]+(g|ml|l|kg|stuks|st|pak|blik|el|tl)?\s*/i, '')).slice(0, 3).join(', ') : '';
 
                 card.innerHTML = `
@@ -467,7 +455,7 @@
                     <div class="stat-bar"><span>🔥 ${x.kcal} kcal</span><span>💪 ${x.p}g eiwit</span><span>🕒 ${x.t} min</span></div>
                     <div class="mini-ing-box">🛒 ${ingPreview}...</div>
                 `;
-                card.onclick = () => showModal(x, factor);
+                card.onclick = () => showModal(x);
                 grid.appendChild(card);
             });
 
@@ -476,23 +464,21 @@
         }
     }
 
-    function showModal(x, f) {
+    function showModal(x) {
         document.getElementById('mTitle').innerText = x.m;
-        document.getElementById('mStats').innerHTML = `<span>🔥 ${x.kcal} kcal/p</span> <span>💪 ${x.p}g eiwit</span> <span>🕒 ${x.t} min</span>`;
+        document.getElementById('mStats').innerHTML = `<span>🔥 ${x.kcal} kcal p.p.</span> <span>💪 ${x.p}g eiwit</span> <span>🕒 ${x.t} minuten kooktijd</span>`;
         
         if(x.ing) {
-            document.getElementById('mIng').innerHTML = x.ing.map(i => {
-                let newItem = i.replace(/(\d+([.,]\d+)?)/g, (match) => {
-                    let num = parseFloat(match.replace(',', '.'));
-                    let raw = num * f;
-                    let rounded = (raw > 10) ? Math.round(raw / 5) * 5 : Math.round(raw * 10) / 10;
-                    return rounded;
-                });
-                return `<li>${newItem}</li>`;
-            }).join('');
+            document.getElementById('mIng').innerHTML = x.ing.map(i => `<li>${i}</li>`).join('');
         }
         
-        if(x.steps) document.getElementById('mSteps').innerHTML = x.steps.map(s => `<p>${s}</p>`).join('');
+        // Verwijder de "1. ", "2. " uit de array zodat we de CSS teller kunnen gebruiken
+        if(x.steps) {
+            document.getElementById('mSteps').innerHTML = x.steps.map(s => {
+                let cleanStep = s.replace(/^\d+\.\s*/, ''); 
+                return `<p>${cleanStep}</p>`;
+            }).join('');
+        }
         
         const kidEl = document.getElementById('mKid');
         kidEl.style.display = x.kid ? 'block' : 'none';
